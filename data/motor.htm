@@ -1,0 +1,113 @@
+<form method="POST" action="">
+	<table id="configTable">
+		<tr>
+			<td colspan="5"><h3>Throttle</h3></td>
+		</tr>
+		<tr id="device_x1031">
+			<td>Number of Throttle Pots</td>
+			<td><select name="numberPotMeters" title="Some throttles have two outputs, main, and a second sanity check output">
+					<option value="1">1</option>
+					<option value="2">2</option>
+			</select></td>
+			<td></td>
+			<td>Throttle Type</td>
+			<td><select name="throttleSubType">
+					<option value="0">unknown</option>
+					<option value="1">linear</option>
+					<option value="2">inverse</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Minimum Signal Level</td>
+			<td nowrap="nowrap"><span id="minimumLevelSpan" title="Raw ADC numeric output with foot off throttle"></span></td>
+			<td></td>
+			<td>Maximum Signal Level</td>
+			<td><span id="maximumLevelSpan" title="Raw ADC numeric output with full throttle (floored)"></span></td>
+		</tr>
+		<tr id="device_x1031">
+			<td>Minimum Signal Level 2</td>
+			<td><span id="minimumLevel2Span" title="Raw ADC numeric output of second throttle sensor with foot off throttle"></span></td>
+			<td></td>
+			<td>Maximum Signal Level 2</td>
+			<td><span id="maximumLevel2Span" title="Raw ADC numeric output of second throttle sensor with full throttle (floored)"></span></td>
+		</tr>
+		<tr id="device_x1032,device_x1034">
+			<td colspan="5"><h3>Brake</h3></td>
+		</tr>
+		<tr id="device_x1032,device_x1034">
+			<td>Minimum Signal Level</td>
+			<td><span id="brakeMinimumLevelSpan" title="Raw ADC numeric output of brake transducer with very light brake pedal pressure"></span></td>
+			<td></td>
+			<td>Maximum Signal Level</td>
+			<td><span id="brakeMaximumLevelSpan" title="Raw ADC numeric output of brake transducer with full brake pedal pressure applied"></span></td>
+		</tr>
+		<tr>
+			<td colspan="5"><h3>Motor Control</h3></td>
+		</tr>
+		<tr>
+			<td>Motor Mode</td>
+			<td><select name="motorMode">
+					<option value="0">Torque</option>
+					<option value="1">Speed</option>
+			</select></td>
+			<td></td>
+			<td>Motor Direction</td>
+			<td><select name="invertDirection" title="The motor spin direction">
+					<option value="0">normal</option>
+					<option value="1">inverted</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td>Maximum Torque</td>
+			<td><input name="torqueMax" type="text" maxlength="6" title="Maximum torque or power controller will apply to motor" /> Nm</td>
+			<td></td>
+			<td>Maximum Speed</td>
+			<td><input name="speedMax" type="text" maxlength="6" title="Maximum speed or RPM controller will apply to motor" /> rpm</td>
+		</tr>
+		<tr>
+			<td>Maximum Mechanical Power Motoring</td>
+			<td><input name="maxMechPowerMotor" type="text" maxlength="7" title="The maximum power that can be applied for motoring" /> kW</td>
+			<td></td>
+			<td>Maximum Mechanical Power Regen</td>
+			<td><input name="maxMechPowerRegen" type="text" maxlength="7" title="The maximum power that can be applied for regen" /> kW</td>
+		</tr>
+		<tr id="device_x1001">
+			<td>Minimum DC Voltage Motoring</td>
+			<td><input name="dcVoltLimitMotor" type="text" maxlength="6" title="The minimum battery voltage for motoring, may limit motoring power" /> V</td>
+			<td></td>
+			<td>Maximum DC Voltage Regen</td>
+			<td><input name="dcVoltLimitRegen" type="text" maxlength="6" title="The maximum battery voltage for regen, may limit regen power" /> V</td>
+		</tr>
+		<tr id="device_x1001">
+			<td>Maximum DC Current Motoring</td>
+			<td><input name="dcCurrentLimitMotor" type="text" maxlength="6" title="The maximum battery current for motoring, may limit motoring power" />
+				A</td>
+			<td></td>
+			<td>Maximum DC Current Regen</td>
+			<td><input name="dcCurrentLimitRegen" type="text" maxlength="6" title="The maximum battery current for regen may limit regen power" /> A</td>
+		</tr>
+		<tr>
+			<td>Nominal Volt</td>
+			<td><input name="nominalVolt" type="text" maxlength="6" title="Nominal voltage of battery pack to reset kWh counter" /> V</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr id="device_x1001">
+			<td>Oscillation Limiter</td>
+			<td><select name="enableOscLimiter" title="The oscillation limiter reduces unwanted power fluctuations">
+					<option value="0">off</option>
+					<option value="1">enabled</option>
+			</select></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="5"><br></td>
+		</tr>
+		<tr>
+			<td colspan="5" align="center"><input type="submit" value="Save" /></td>
+		</tr>
+	</table>
+</form>
