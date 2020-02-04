@@ -152,7 +152,7 @@ input#inputCurrentLevel {
 /************* Sub Info *************/
 .subInfo {
 	margin: 0.5em 15% .5em 15%;
-	padding: .5em .5em .5em .5em;
+	padding: .15em .5em .15em .5em;
 	display: table;
 	table-layout: fixed;
 	width: 70%;
@@ -223,16 +223,16 @@ input#inputCurrentLevel {
 	opacity: 0;
 }
 
-.switch-input:checked ~~ .switch-label {
+.switch-input:checked ~ .switch-label {
 	background: #47a8d8;
 	box-shadow: inset 0 0.1em 0.2em rgba(0, 0, 0, 0.15), inset 0 0 0.3em rgba(0, 0, 0, 0.2);
 }
 
-.switch-input:checked ~~ .switch-label:before {
+.switch-input:checked ~ .switch-label:before {
 	opacity: 0;
 }
 
-.switch-input:checked ~~ .switch-label:after {
+.switch-input:checked ~ .switch-label:after {
 	opacity: 1;
 }
 
@@ -263,16 +263,16 @@ input#inputCurrentLevel {
 	background-image: linear-gradient(to bottom, #eeeeee, white);
 }
 
-.switch-input:checked ~~ .switch-handle {
+.switch-input:checked ~ .switch-handle {
 	left: 4em;
 	box-shadow: -0.1em 0.1em 0.5em rgba(0, 0, 0, 0.2);
 }
 
-.switch-green>.switch-input:checked ~~ .switch-label {
+.switch-green>.switch-input:checked ~ .switch-label {
 	background: #4fb845;
 }
 
-.switch-orange>.switch-input:checked ~~ .switch-label {
+.switch-orange>.switch-input:checked ~ .switch-label {
 	background: #d89645;
 }
 
