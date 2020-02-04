@@ -26,7 +26,7 @@ function openWebSocket() {
 		heartbeat = null;
 	}
 	if (socket == null) {
-		var url = "ws://" + location.hostname + ":2000";
+		var url = "ws://" + location.hostname + "/ws";
 		console.log('webSocket: opening web socket connection ' + url);
 		socket = new WebSocket(url);
 
