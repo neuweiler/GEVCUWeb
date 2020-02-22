@@ -43,16 +43,11 @@ function loadPage(pageId) {
 			ajaxCall("config/dashboard.js", function (response) {
 				var data = JSON.parse(response);
 				generateGauges(data);
+				dashboard.setCruiseData(data);
 			});
 			loadPage("annunciator");
 			loadPage("batteries");
 			dashboard.hideStateDivs();
-		}
-		if (pageId == 'annunciator') {
-			foldAnnunciator(false);
-		}
-		if (pageId == 'batteries') {
-//			foldBatteries(false);
 		}
 	});
 }

@@ -1,13 +1,13 @@
 {
-	"dcDcMode": %dcDcMode%,
-	"lowVoltageCommand": %lowVoltageCommand%,
-	"hvUndervoltageLimit": %hvUndervoltageLimit%,
-	"lvBuckCurrentLimit": %lvBuckCurrentLimit%,
-	"hvBuckCurrentLimit": %hvBuckCurrentLimit%,
-	"highVoltageCommand": %highVoltageCommand%,
-	"lvUndervoltageLimit": %lvUndervoltageLimit%,
-	"lvBoostCurrentLimit": %lvBoostCurrentLimit%,
-	"hvBoostCurrentLimit": %hvBoostCurrentLimit%,
+	"dcDcMode": ~dcDcMode~,
+	"lowVoltageCommand": ~lowVoltageCommand~,
+	"hvUndervoltageLimit": ~hvUndervoltageLimit~,
+	"lvBuckCurrentLimit": ~lvBuckCurrentLimit~,
+	"hvBuckCurrentLimit": ~hvBuckCurrentLimit~,
+	"highVoltageCommand": ~highVoltageCommand~,
+	"lvUndervoltageLimit": ~lvUndervoltageLimit~,
+	"lvBoostCurrentLimit": ~lvBoostCurrentLimit~,
+	"hvBoostCurrentLimit": ~hvBoostCurrentLimit~,
 
-	"device_x3000": %x3000%
+	"device_x3000": ~x3000~
 }

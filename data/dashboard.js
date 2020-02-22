@@ -7,10 +7,9 @@ var dashboard = dashboard || {};
 	dashboard.hideStateDivs = hideStateDivs;
 	dashboard.sendMsg = sendMsg;
 	dashboard.addChargeOptions = addChargeOptions;
-	dashboard.setChargeInputLevel = setChargeInputLevel;
+	dashboard.setCruiseData = setCruiseData;
 
 	function activate() {
-		// show the correct div and hide the others
 		// add an event listener so sounds can get loaded on mobile devices
 		// after user interaction
 		window.addEventListener('keydown', removeBehaviorsRestrictions);
@@ -79,8 +78,16 @@ var dashboard = dashboard || {};
 					target.value = data;
 				}
 				setNodeValue(name, data);
+				if (name == 'cruiseControlEnabled') {
+					showHideCruiseControl(data);
+				}
 			}
 		}
+	}
+
+	function showHideCruiseControl(data) {
+		var div = document.getElementById('cruiseControl');
+		div.style.display = (data ? '' : 'none');
 	}
 	
 	function hideStateDivs() {
@@ -88,7 +95,7 @@ var dashboard = dashboard || {};
 		for (i = 0; i < div.length; i++) {
 			var idStr = div[i].id;
 			if (idStr && idStr.indexOf('state_') != -1) {
-				div[i].style.display = 'none';
+				div[i].style.display = (idStr.indexOf('_0_') == -1 ? 'none' : '');
 			}
 		}
 	}
@@ -120,7 +127,7 @@ var dashboard = dashboard || {};
 		}
 	}
 
-	// send message to ichip via websocket
+	// send message to GEVCU via websocket
 	function sendMsg(message) {
 		webSocketWorker.postMessage({cmd: 'message', message: message});
 	}
@@ -128,13 +135,36 @@ var dashboard = dashboard || {};
 	function addChargeOptions(data) {
 		var select = document.getElementById("chargeInputLevel");
 		for (var level in data.chargeInputLevels) {
-			select.add(new Option(level, level));
+			select.add(new Option(data.chargeInputLevels[level], data.chargeInputLevels[level]));
 		}
 		select.value=data.chargeInputLevels[data.chargeInputLevels.length - 1];
 	}
 	
-	function setChargeInputLevel(){
-		var select = document.getElementById("chargeInputLevel");
-		sendMsg('cmdChargeLevel:' + select.options[select.selectedIndex].value);
+	function setCruiseData(data) {
+		var spans = document.getElementsByClassName("cruiseSpeedUnit");
+		for (var i = 0; i < spans.length; i++) {
+		  spans[i].innerHTML = (data.cruiseUseRpm ? "rpm" : "kmh");
+		}
+
+		addCruiseButton('+' + data.cruiseSpeedStep, data.cruiseUseRpm);
+		addCruiseButton('-' + data.cruiseSpeedStep, data.cruiseUseRpm);
+
+		for (var speed in data.cruiseSpeedSet) {
+			addCruiseButton(data.cruiseSpeedSet[speed], data.cruiseUseRpm);
+		}
+	}
+	
+	function addCruiseButton(speed, unit) {
+		var cruiseControlDiv = document.getElementById("cruiseControl");
+		
+		var button = document.createElement("BUTTON");
+		button.innerHTML = speed;// + " " + (unit ? "rpm" : "kmh");
+		var cl = document.createAttribute("class");
+		cl.value = "button";
+		button.setAttributeNode(cl);  
+		var oncl = document.createAttribute("onclick");
+		oncl.value = "dashboard.sendMsg('cruise=" + speed +"')";
+		button.setAttributeNode(oncl);  
+		cruiseControlDiv.appendChild(button);
 	}
 })();

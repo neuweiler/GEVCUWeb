@@ -1,3 +1,7 @@
+const heartbeatInterval = 10000;
+const deadConnectionTimeout = 15000;
+const reconnectDelay = 1000;
+
 var socket = null;
 var heartbeat = null;
 var timestampLastReception = 0;
@@ -34,7 +38,7 @@ function openWebSocket() {
 		socket.onerror = function(error) {
 			console.log('webSocket error: ' + error);
 			closeWebSocket();
-			setTimeout(function() {openWebSocket();}, 5000);
+			setTimeout(function() {openWebSocket();}, reconnectDelay);
 			timestampLastReception = new Date().getTime();
 		};
 
@@ -46,7 +50,7 @@ function openWebSocket() {
 		};
 	}
 	timestampLastReception = new Date().getTime();
-	heartbeat = setInterval(checkConnection, 10000);
+	heartbeat = setInterval(checkConnection, heartbeatInterval);
 }
 
 function closeWebSocket() {
@@ -58,10 +62,10 @@ function closeWebSocket() {
 }
 
 function checkConnection() {
-	if (timestampLastReception + 25000 < new Date().getTime()) {
+	if (timestampLastReception + deadConnectionTimeout < new Date().getTime()) {
 		postMessage({"logMessage": {"level": "WARNING","message": "websocket connection failure, trying to re-connect"}});
 		closeWebSocket();
-		setTimeout(function() {openWebSocket();}, 1000);
+		setTimeout(function() {openWebSocket();}, reconnectDelay);
 		timestampPong = new Date().getTime();
 	}
 }
