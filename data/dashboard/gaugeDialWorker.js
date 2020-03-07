@@ -45,7 +45,7 @@ function sendUpdate(value) {
 		value = Math.abs(cfg.minValue) + value;
 	}
 
-   angle = cfg.offset + (cfg.ccw ? cfg.range - value : value) * cfg.angle / cfg.range;
+	angle = cfg.offset + (cfg.ccw ? cfg.range - value : value) * cfg.angle / cfg.range;
 
 	 if (cfg.ccw) {
 		arcStart = angle;

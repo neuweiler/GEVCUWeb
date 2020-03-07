@@ -704,7 +704,7 @@ var Gauge = function(gaugeConfig) {
 		 * Create a worker (thread) which processes value changes and generates updates to animate the dial
 		 */
 		function createGaugeDialWorker() {
-			var worker = new Worker("worker/gaugeDial.js");
+			var worker = new Worker("gaugeDialWorker.js");
 			worker.onmessage = function(event) {
 				update(event.data);
 			}
@@ -809,57 +809,11 @@ var Gauge = function(gaugeConfig) {
 	}
 }
 
-// initialize (load font by adding style to the head and temporarely adding a
-// div which refers to the font
-Gauge.initialized = false;
-(function(){
-	var
-		d = document,
-		h = d.getElementsByTagName('head')[0],
-		url = 'fonts/digital-7-mono.ttf',
-		text = "@font-face {" +
-				"font-family: 'Led';" +
-				"src: url('" + url + "');" +
-				"}",
-		ss,
-		r = d.createElement('style')
-	;
-
-	r.type = 'text/css';
-
-	try {
-		r.appendChild(d.createTextNode(text));
-	} catch (e) {
-		r.cssText = text;
-	}
-
-	h.appendChild(r);
-
-	ss = r.styleSheet ? r.styleSheet : (r.sheet || d.styleSheets[d.styleSheets.length - 1]);
-
-	var iv = setInterval(function() {
-		if (!d.body) {
-			return;
-		}
-
-		clearInterval(iv);
-
-		var dd = d.createElement('div');
-
-		dd.style.fontFamily = 'Led';
-		dd.style.position   = 'absolute';
-		dd.style.height     = dd.style.width = 0;
-		dd.style.overflow   = 'hidden';
-
-		dd.innerHTML = '.';
-
-		d.body.appendChild(dd);
-
-		// no other way to handle font is rendered by a browser just give the
-		// browser around 250ms to do that
-		setTimeout(function() { Gauge.initialized = true; dd.parentNode.removeChild(dd); }, 250);
-	}, 1);
-})();
+//initialize (load font by adding style to the head)
+$(function() {
+	$('<style type="text/css">@font-face {font-family: \'Led\';src: url(\'/fonts/digital-7-mono.ttf\');}</style>')
+	.appendTo(document.head);
+});
 
 /**
  * make the dials accessible to the world

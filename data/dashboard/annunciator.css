@@ -1,0 +1,109 @@
+div#annunciator {
+	padding: 0px;
+	margin: 20px 0px 0px 0px;
+}
+
+div#annunciators {
+  	padding: 10px 0 0 0;
+	margin: 0px;
+	text-align: center;
+	position: fixed;
+	bottom: -100%;
+	z-index: 5;
+}
+
+.fly-in {
+	animation: slide-in 0.5s;
+	animation-fill-mode: both;
+}
+
+.fly-out {
+	animation: slide-out 2s;
+	animation-fill-mode: both;
+}
+
+@keyframes slide-in {
+  from { bottom: -100%; }
+  to { bottom: 0.1%; }
+}
+
+@keyframes slide-out {
+  from { bottom: 0.1%; }
+  to { bottom: -100%; }
+}
+
+div#annunciators div {
+	display: inline-table;
+	height: 52px;
+	width: 180px;
+	border: 2px solid rgba(0, 0, 0, 0.6);
+	text-align: center;
+	font-size: 22px;
+	font-weight: bold;
+	padding: 0px 0px 0px 0px;
+	margin: 0px -5px -3px -1px;
+	background: rgba(19, 28, 48, 0.9);
+	color: #353535;
+}
+
+div#annunciators div.annunciatorOff {
+	color: #353535;
+}
+
+div#annunciators div.annunciatorWarn {
+	color: #ffbb00;
+}
+
+div#annunciators div.annunciatorError {
+	color: #ff2200;
+}
+
+div#annunciators div.annunciatorOk {
+	color: #22ee22;
+}
+
+img.annunciatorOff {
+	opacity: .05;
+}
+
+img#brakeHold {
+	position: absolute;
+    top: 110px;
+    left: 20px;
+}
+
+img#brakeLight {
+	position: absolute;
+    top: 110px;
+    left: 160px;
+}
+
+img#warning {
+	position: absolute;
+    top: 110px;
+    left: 300px;
+}
+
+img#limitationTorque {
+	position: absolute;
+    top: 110px;
+    right: 340px;
+}
+
+img#coolingFan {
+	position: absolute;
+    top: 110px;
+    right: 250px;
+}
+
+img#reverseLight {
+	position: absolute;
+    top: 110px;
+    right: 130px;
+}
+
+img#absActive {
+	position: absolute;
+    top: 110px;
+    right: 20px;
+}

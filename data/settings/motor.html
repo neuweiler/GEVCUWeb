@@ -3,7 +3,7 @@
 		<tr>
 			<td colspan="5"><h3>Throttle</h3></td>
 		</tr>
-		<tr id="device_x1031">
+		<tr data-device="x1031">
 			<td>Number of Throttle Pots</td>
 			<td><select name="numberPotMeters" title="Some throttles have two outputs, main, and a second sanity check output">
 					<option value="1">1</option>
@@ -24,17 +24,17 @@
 			<td>Maximum Signal Level</td>
 			<td><span id="maximumLevelSpan" title="Raw ADC numeric output with full throttle (floored)"></span></td>
 		</tr>
-		<tr id="device_x1031">
+		<tr data-device="x1031">
 			<td>Minimum Signal Level 2</td>
 			<td><span id="minimumLevel2Span" title="Raw ADC numeric output of second throttle sensor with foot off throttle"></span></td>
 			<td></td>
 			<td>Maximum Signal Level 2</td>
 			<td><span id="maximumLevel2Span" title="Raw ADC numeric output of second throttle sensor with full throttle (floored)"></span></td>
 		</tr>
-		<tr id="device_x1032,device_x1034">
+		<tr data-device="x1032,x1034">
 			<td colspan="5"><h3>Brake</h3></td>
 		</tr>
-		<tr id="device_x1032,device_x1034">
+		<tr data-device="x1032,x1034">
 			<td>Minimum Signal Level</td>
 			<td><span id="brakeMinimumLevelSpan" title="Raw ADC numeric output of brake transducer with very light brake pedal pressure"></span></td>
 			<td></td>
@@ -71,14 +71,14 @@
 			<td>Maximum Mechanical Power Regen</td>
 			<td><input name="maxMechPowerRegen" type="text" maxlength="7" title="The maximum power that can be applied for regen" /> kW</td>
 		</tr>
-		<tr id="device_x1001">
+		<tr data-device="x1001">
 			<td>Minimum DC Voltage Motoring</td>
 			<td><input name="dcVoltLimitMotor" type="text" maxlength="6" title="The minimum battery voltage for motoring, may limit motoring power" /> V</td>
 			<td></td>
 			<td>Maximum DC Voltage Regen</td>
 			<td><input name="dcVoltLimitRegen" type="text" maxlength="6" title="The maximum battery voltage for regen, may limit regen power" /> V</td>
 		</tr>
-		<tr id="device_x1001">
+		<tr data-device="x1001">
 			<td>Maximum DC Current Motoring</td>
 			<td><input name="dcCurrentLimitMotor" type="text" maxlength="6" title="The maximum battery current for motoring, may limit motoring power" />
 				A</td>
@@ -93,7 +93,7 @@
 			<td></td>
 			<td></td>
 		</tr>
-		<tr id="device_x1001">
+		<tr data-device="x1001">
 			<td>Oscillation Limiter</td>
 			<td><select name="enableOscLimiter" title="The oscillation limiter reduces unwanted power fluctuations">
 					<option value="0">off</option>

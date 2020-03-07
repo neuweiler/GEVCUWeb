@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>GEVCU Dashboard</title>
+		<link rel="icon" type="image/svg" href="/pics/car.svg" />
+		<link rel="stylesheet" type="text/css" href="/styles/main.css" />
+		<link rel="stylesheet" type="text/css" href="styles.css" />
+		<link rel="stylesheet" type="text/css" href="/styles/alertify.css" />
+		<script src='/util/jquery.js'></script>
+		<script src='/util/alertify.js'></script>
+		<script src='/util/common.js'></script>
+		<script src="gauge.js"></script>
+		<script src="gauges.js"></script>
+		<script src='dashboard.js'></script>
+		<script src='annunciator.js'></script>
+		<script>
+			$(function() {
+				dashboard.init();
+				$('#annunciator').load('annunciator.html');
+				$('#batteries').load('batteries.html');
+			})	;
+		</script>
+	</head>
+	<body>
+		<img src="/pics/car.svg" width="90%" style="position: absolute; top: 20%; left: 5%	; z-index: -1; opacity: 0.1;"/>
+		<div data-states="_1_2_3_4_5_6_7_8_9_99_" class="infoBar">
+			<span class="infoBarCell" id="battery">
+				<img alt="Bat:" src="/pics/battery.png" height="15em"/>
+				<span id="temperatureBattery1">-</span>,
+				<span id="temperatureBattery2">-</span>,
+				<span id="temperatureBattery3">-</span>,
+				<span id="temperatureBattery4">-</span>,
+				<span id="temperatureBattery5">-</span>,
+				<span id="temperatureBattery6">-</span> &#176;C
+			</span>
+			<span class="infoBarCell" id="coolant">
+				<img alt="Coolant:" src="/pics/coolant.png" height="15em"/>
+				<span id="temperatureCoolant">-</span> &#176;C,
+				<span id="flowCoolant">-</span> l/min
+			</span>
+			<span class="infoBarCell" id="heater">
+				<img alt="Heater:" src="/pics/heater.png" height="15em"/>
+				<span id="temperatureHeater">-</span> &#176;C,
+				<span id="flowHeater">-</span> l/min,
+				<span id="heaterPower">-</span> W
+			</span>
+			<span class="infoBarCell" id="exterior">
+				<img alt="Ext:" src="/pics/ext.png" height="15em"/>
+				<span id="temperatureExterior">-</span> &#176;C
+			</span>
+			<span class="infoBarCell" id="timeRunning">--:--:--</span>
+		</div>
+		
+		<div data-states="_0_" class="mainTitle">
+			<div>GEVCU</div>
+			<div class="subTitle">loading...</div>
+		</div>
+		
+		<div style="display: flex; flex-warp: nowrap;">
+			<div class="systemState">
+				<div data-states="_1_">Initializing System</div>
+				<div data-states="_2_">Precharging System</div>
+				<div data-states="_3_">System Pre-Charged</div>
+				<div data-states="_4_">Battery Heating</div>
+				<div data-states="_5_">Charging</div>
+				<div data-states="_6_">Charged</div>
+				<div data-states="_7_">Ready</div>
+				<div data-states="_8_">Running</div>
+				<div data-states="_9_">Shutdown</div>
+				<div data-states="_99_" class="error">ERROR</div>
+			</div>
+			
+			<div class="buttonBar">
+				<div class="buttonBarCell" data-states="_8_">Regen:
+					<label class="switch switch-green">
+						<input id="enableRegen" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('regen=' + checked);"/>
+						<span class="switch-label" data-on="ON" data-off="OFF"></span>
+						<span class="switch-handle"></span>
+				    </label>
+				</div>
+				<div class="buttonBarCell" data-states="_8_">Creep:
+					<label class="switch">
+						<input id="enableCreep" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('creep=' + checked)"/>
+						<span class="switch-label" data-on="ON" data-off="OFF"></span>
+						<span class="switch-handle"></span>
+					</label>
+				</div>
+				<div class="buttonBarCell" data-states="_7_8_">EHPS:
+					<label class="switch switch">
+						<input id="powerSteering" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('ehps=' + checked)"/>
+						<span class="switch-label" data-on="ON" data-off="OFF"></span>
+						<span class="switch-handle"></span>
+					</label>
+				</div>
+				<div class="buttonBarCell" data-states="_4_5_6_7_8_">Heater:
+					<label class="switch switch-orange">
+						<input id="enableHeater" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('heater=' + checked)"/>
+						<span class="switch-label" data-on="ON" data-off="OFF"></span>
+						<span class="switch-handle"></span>
+			    	</label>
+			    </div>
+			</div>
+		</div>
+				
+		<div data-states="_7_8_">
+			<div class="gauges" onclick="dashboard.sendMsg('cruiseToggle')">
+				<span id="dcGauge"></span>
+				<span id="motorGauge"></span>
+				<span id="temperatureGauge"></span>
+				<span id="powerGauge"></span>
+			</div>
+		</div>		
+		
+		<div data-states="_5_">
+			<div class="info">
+				<span id="chargeHoursRemain">-</span> hours <span id="chargeMinsRemain">--</span> minutes remaining
+			</div>
+			<div>
+				<meter id="chargeLevelMeter" value="0" min="0" low="10" max="100"></meter>
+			</div>
+			<div class="chargeLevel" style="margin-top: -2.1em;">
+				<span id="chargeLevel">--</span>%
+			</div>
+			<div id="inputCurrentSelector">
+				<span id="inputCurrentLabel">Max. input current:</span>
+				<input id="maximumInputCurrentLevel" type="range" min="0" max="100" step="0.1"
+					onchange="dashboard.sendMsg('chargeInput=' + value)"
+					oninput="$('#maximumInputCurrent').html(Number(value).toFixed(1))">
+				<span id="maximumInputCurrent">-</span>
+				<span id=inputCurrentUnit>A</span>
+			</div>
+			<div class="subInfo">
+				<span class="subInfoCell">Charger: <span id="chargerTemperature">--.-</span> &#176;C</span>
+				<span class="subInfoCell">Mains: <span id="chargerInputVoltage">---.-</span> V, <span id="chargerInputCurrent">--.-</span> A</span>
+				<span class="subInfoCell">Battery: <span id="chargerBatteryVoltage">---.-</span> V, <span id="chargerBatteryCurrent">-.-</span> A</span>
+			</div>
+		</div>
+
+		<div id="cruiseControl">
+			<div>
+				<img alt="Cruise:" src="/pics/cruise.gif" height="40px"/>
+				<span id="cruiseSpeed"></span> <span class="cruiseSpeedUnit"></span>
+			</div>
+		</div>
+		
+		<div data-states="_4_5_6_7_8_99_">
+			<div class="subinfo">
+				<span class="subInfoCell">DCDC: <span id="dcDcTemperature">--.-</span> &#176;C</span>
+				<span class="subInfoCell">In: <span id="dcDcHvVoltage">---.-</span> V, <span id="dcDcHvCurrent">--.-</span> A</span>
+				<span class="subInfoCell">Out: <span id="dcDcLvVoltage">---.-</span> V, <span id="dcDcLvCurrent">-.-</span> A</span>
+			</div>
+		</div>
+		
+		<div data-states="_2_3_4_5_6_7_8_9_99_">
+			<div id="batteries"></div>
+			<div id="annunciator"></div>
+		</div>
+		<div class="settings"><a href="/settings/index.html"><img alt="settings" width="30em" height="30em" src="/pics/settings.png"></a></div>
+		<div id="chargeControl" data-states="_5_"><button id="stopCharge" class="button" onclick="dashboard.sendMsg('stopCharge')">Stop charging</button></div>
+
+		<audio id="soundError"><source src="/sound/error.mp3" type="audio/mpeg"></audio>
+		<audio id="soundWarn"><source src="/sound/warn.mp3" type="audio/mpeg"></audio>
+		<audio id="soundInfo"><source src="/sound/info.mp3" type="audio/mpeg"></audio>
+	</body>
+</html>
+
