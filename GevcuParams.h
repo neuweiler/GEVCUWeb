@@ -9,6 +9,9 @@
 #define GEVCUPARAMS_H_
 
 #include <Arduino.h>
+#include <AsyncJson.h>
+#include <ArduinoJson.h>
+#include "Logger.h"
 
 class ConfigType
 {
@@ -100,7 +103,7 @@ public:
 
     virtual ~GevcuParams();
     static GevcuParams *getInstance();
-    String findConfig(String key);
+    void getConfig(JsonObject &root);
 private:
     GevcuParams();
     GevcuParams(GevcuParams const&); // copy disabled

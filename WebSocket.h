@@ -9,6 +9,7 @@
 #define WEBSOCKET_H_
 
 #include <ESPAsyncWebServer.h>
+#include <ArduinoJson.h>
 #include "Configuration.h"
 #include "Logger.h"
 
@@ -27,6 +28,7 @@ private:
     Configuration *config;
     AsyncWebSocket *webSocketHandler;
     bool connected;
+    StaticJsonDocument<3000> doc;
 };
 
 #endif /* WEBSOCKET_H_ */

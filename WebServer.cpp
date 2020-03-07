@@ -78,39 +78,18 @@ void WebServer::setupFilesystem()
 
 void WebServer::setupWebserver()
 {
-    server->on("/config/charger.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/charger.js", MIME_TYPE_JSON, false, processor);
+    server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
+        AsyncJsonResponse * response = new AsyncJsonResponse();
+        response->addHeader("Server", "GEVCU Web Server");
+        GevcuParams::getInstance()->getConfig((ArduinoJson6141_0000010::ObjectRef &)response->getRoot());
+        response->setLength();
+        request->send(response);
     });
-    server->on("/config/controls.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/controls.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/dashboard.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/dashboard.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/dcdc.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/dcdc.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/devices.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/devices.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/inputs.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/inputs.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/motor.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/motor.js", MIME_TYPE_JSON, false, processor);
-    });
-    server->on("/config/outputs.js", HTTP_GET, [](AsyncWebServerRequest *request) {
-        request->send(*fileSystem, "/config/outputs.js", MIME_TYPE_JSON, false, processor);
-    });
+
     server->serveStatic("/", *fileSystem, "/");
     server->begin();
 
     logger.info("HTTP server started: %s", WiFi.softAPIP().toString());
-}
-
-String WebServer::processor(const String& key)
-{
-    return (GevcuParams::getInstance()->findConfig(key));
 }
 
 AsyncWebServer *WebServer::getWebServer()

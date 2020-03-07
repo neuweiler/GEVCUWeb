@@ -30,7 +30,7 @@ private:
     void setupAP();
     void setupFilesystem();
     void setupWebserver();
-    static String processor(const String &key);
+    static String processor2(const String &key);
 
     Configuration *config;
     AsyncWebServer *server;

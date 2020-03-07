@@ -24,249 +24,134 @@ GevcuParams *GevcuParams::getInstance()
     return &instance;
 }
 
-String GevcuParams::findConfig(String key)
-{
-    /*    for (int i = 0; i < HASH_SIZE; i++) {
-     if (key.equals(config[i].key)) {
-     return config[i].value;
-     }
-     }*/
+void GevcuParams::getConfig(JsonObject &root) {
+    root["logLevel"] = 2;
 
-    //TODO replace hard-coded values with values provided by GEVCU
+    JsonObject charger = root.createNestedObject("charger");
+    charger["maximumInputCurrent"] = 32;
+    charger["constantCurrent"] = 32;
+    charger["constantVoltage"] = 416.3;
+    charger["terminateCurrent"] = 4;
+    charger["minBatteryVoltage"] = 270;
+    charger["maxBatteryVoltage"] = 420;
+    charger["minimumTemperature"] = 5;
+    charger["maximumTemperature"] = 60;
+    charger["maximumAmpereHours"] = 100;
+    charger["maximumChargeTime"] = 600;
+    charger["deratingRate"] = 10;
+    charger["deratingReferenceTmp"] = 50;
+    charger["hystereseStopTemp"] = 60;
+    charger["hystereseResumeTemp"] = 40;
 
-     // charger.js
-     if (key == "%maximumInputCurrent%") {
-     return "32";
-     } else if (key == "constantCurrent") {
-     return "10";
-     } else if (key == "constantVoltage") {
-     return "416.3";
-     } else if (key == "terminateCurrent") {
-     return "4";
-     } else if (key == "minBatteryVoltage") {
-     return "270";
-     } else if (key == "maxBatteryVoltage") {
-     return "420";
-     } else if (key == "minimumTemperature") {
-     return "5";
-     } else if (key == "maximumTemperature") {
-     return "60";
-     } else if (key == "maximumAmpereHours") {
-     return "100";
-     } else if (key == "maximumChargeTime") {
-     return "600";
-     } else if (key == "deratingRate") {
-     return "10";
-     } else if (key == "deratingReferenceTmp") {
-     return "50";
-     } else if (key == "hystereseStopTemp") {
-     return "60";
-     } else if (key == "hystereseResumeTemp") {
-     return "40";
+    JsonObject controls = root.createNestedObject("controls");
+    controls["positionRegenMaximum"] = 10;
+    controls["positionRegenMinimum"] = 20;
+    controls["positionForwardStart"] = 30;
+    controls["positionHalfPower"] = 80;
+    controls["minimumRegen"] = 5;
+    controls["maximumRegen"] = 80;
+    controls["creepLevel"] = 10;
+    controls["creepSpeed"] = 700;
+    controls["brakeMinimumRegen"] = 20;
+    controls["brakeMaximumRegen"] = 400;
+    controls["slewRate"] = 100;
+    controls["brakeHold"] = 50;
 
-     // controls.js
-     } else if (key == "positionRegenMaximum") {
-     return "10";
-     } else if (key == "positionRegenMinimum") {
-     return "20";
-     } else if (key == "positionForwardStart") {
-     return "30";
-     } else if (key == "positionHalfPower") {
-     return "80";
-     } else if (key == "minimumRegen") {
-     return "5";
-     } else if (key == "maximumRegen") {
-     return "80";
-     } else if (key == "creepLevel") {
-     return "10";
-     } else if (key == "creepSpeed") {
-     return "700";
-     } else if (key == "brakeMinimumRegen") {
-     return "20";
-     } else if (key == "brakeMaximumRegen") {
-     return "4001";
-     } else if (key == "slewRate") {
-     return "100";
-     } else if (key == "brakeHold") {
-     return "50";
+    JsonObject dashboard = root.createNestedObject("dashboard");
+    dashboard["torqueRange"] = "-220,220";
+    dashboard["rpmRange"] = "0,8000";
+    dashboard["currentRange"] = "-200,200";
+    dashboard["motorTempRange"] = "0,90,120";
+    dashboard["controllerTempRange"] = "0,60,80";
+    dashboard["batteryRangeLow"] = "297,357,368";
+    dashboard["batteryRangeHigh"] = "387,405,418";
+    dashboard["socRange"] = "0,20,100";
+    dashboard["powerRange"] = "-150,150";
+    dashboard["chargeInputRange"] = "0,56";
+    dashboard["cruiseUseRpm"] = true;
+    dashboard["cruiseSpeedStep"] = 100;
+    dashboard["cruiseSpeedSet"] = 0;
 
-     // dashboard.js
-     } else if (key == "torqueRange") {
-     return "-220,220";
-     } else if (key == "rpmRange") {
-     return "0,8000";
-     } else if (key == "currentRange") {
-     return "-200,200";
-     } else if (key == "motorTempRange") {
-     return "0,90,120";
-     } else if (key == "controllerTempRange") {
-     return "0,60,80";
-     } else if (key == "batteryRangeLow") {
-     return "297,357,368";
-     } else if (key == "batteryRangeHigh") {
-     return "387,405,418";
-     } else if (key == "socRange") {
-     return "0,20,100";
-     } else if (key == "powerRange") {
-     return "-150,150";
-     } else if (key == "chargeInputLevels") {
-     return "5,10,13,16";
+    JsonObject dcdc = root.createNestedObject("dcdc");
+    dcdc["dcDcMode"] = 0;
+    dcdc["lowVoltageCommand"] = 13.5;
+    dcdc["hvUndervoltageLimit"] = 270;
+    dcdc["lvBuckCurrentLimit"] = 150;
+    dcdc["hvBuckCurrentLimit"] = 20;
+    dcdc["highVoltageCommand"] = 400;
+    dcdc["lvUndervoltageLimit"] = 11.5;
+    dcdc["lvBoostCurrentLimit"] = 150;
+    dcdc["hvBoostCurrentLimit"] = 20;
 
-     // dcdc.js
-     } else if (key == "dcDcMode") {
-     return "0";
-     } else if (key == "lowVoltageCommand") {
-     return "13.5";
-     } else if (key == "hvUndervoltageLimit") {
-     return "270";
-     } else if (key == "lvBuckCurrentLimit") {
-     return "150";
-     } else if (key == "hvBuckCurrentLimit") {
-     return "20";
-     } else if (key == "highVoltageCommand") {
-     return "400";
-     } else if (key == "lvUndervoltageLimit") {
-     return "11.5";
-     } else if (key == "lvBoostCurrentLimit") {
-     return "150";
-     } else if (key == "hvBoostCurrentLimit") {
-     return "20";
+    JsonObject devices = root.createNestedObject("devices");
+    devices["x1000"] = 1;
+    devices["x1001"] = 1;
+    devices["x1002"] = 1;
+    devices["x1010"] = 1;
+    devices["x1020"] = 1;
+    devices["x1022"] = 1;
+    devices["x1031"] = 1;
+    devices["x1032"] = 1;
+    devices["x1033"] = 1;
+    devices["x1034"] = 0;
+    devices["x1040"] = 1;
+    devices["x2000"] = 0;
+    devices["x2001"] = 1;
+    devices["x3000"] = 1;
+    devices["x5001"] = 0;
+    devices["x5003"] = 1;
+    devices["x6000"] = 0;
+    devices["x6500"] = 1;
 
-     // devices.js
-     } else if (key == "x1000") {
-     return "1";
-     } else if (key == "x1001") {
-     return "1";
-     } else if (key == "x1002") {
-     return "1";
-     } else if (key == "x1010") {
-     return "1";
-     } else if (key == "x1020") {
-     return "1";
-     } else if (key == "x1022") {
-     return "1";
-     } else if (key == "x1031") {
-     return "1";
-     } else if (key == "x1032") {
-     return "1";
-     } else if (key == "x1033") {
-     return "1";
-     } else if (key == "x1034") {
-     return "0";
-     } else if (key == "x1040") {
-     return "1";
-     } else if (key == "x2000") {
-     return "0";
-     } else if (key == "x2001") {
-     return "1";
-     } else if (key == "x3000") {
-     return "1";
-     } else if (key == "x5001") {
-     return "0";
-     } else if (key == "x5003") {
-     return "1";
-     } else if (key == "x6000") {
-     return "0";
-     } else if (key == "x6500") {
-     return "1";
-     } else if (key == "logLevel") {
-     return "2";
+    JsonObject inputs = root.createNestedObject("inputs");
+    inputs["absInput"] = 3;
+    inputs["enableInput"] = 0;
+    inputs["reverseInput"] = 2;
+    inputs["chargePwrAvailInput"] = 1;
+    inputs["interlockInput"] = 255;
 
-     // inputs.js
-     } else if (key == "absInput") {
-     return "3";
-     } else if (key == "enableInput") {
-     return "0";
-     } else if (key == "reverseInput") {
-     return "2";
-     } else if (key == "chargePwrAvailInput") {
-     return "1";
-     } else if (key == "interlockInput") {
-     return "255";
+    JsonObject motor = root.createNestedObject("motor");
+    motor["numberPotMeters"] = 2;
+    motor["throttleSubType"] = 1;
+    motor["minimumLevel"] = 111;
+    motor["minimumLevel2"] = 222;
+    motor["maximumLevel"] = 3333;
+    motor["maximumLevel2"] = 4000;
+    motor["brakeMinimumLevel"] = 11;
+    motor["brakeMaximumLevel"] = 4001;
 
-     // motor.js
-     } else if (key == "numberPotMeters") {
-     return "2";
-     } else if (key == "throttleSubType") {
-     return "1";
-     } else if (key == "minimumLevel") {
-     return "111";
-     } else if (key == "minimumLevel2") {
-     return "222";
-     } else if (key == "maximumLevel") {
-     return "3333";
-     } else if (key == "maximumLevel2") {
-     return "4000";
-     } else if (key == "brakeMinimumLevel") {
-     return "11";
-     } else if (key == "brakeMaximumLevel") {
-     return "4001";
-     } else if (key == "speedMax") {
-     return "7000";
-     } else if (key == "torqueMax") {
-     return "220";
-     } else if (key == "motorMode") {
-     return "1";
-     } else if (key == "nominalVolt") {
-     return "399";
-     } else if (key == "invertDirection") {
-     return "1";
-     } else if (key == "maxMechPowerMotor") {
-     return "110";
-     } else if (key == "maxMechPowerRegen") {
-     return "109";
-     } else if (key == "dcVoltLimitMotor") {
-     return "300";
-     } else if (key == "dcVoltLimitRegen") {
-     return "410";
-     } else if (key == "dcCurrentLimitMotor") {
-     return "300";
-     } else if (key == "dcCurrentLimitRegen") {
-     return "200";
-     } else if (key == "enableOscLimiter") {
-     return "1";
+    motor["speedMax"] = 7000;
+    motor["torqueMax"] = 220;
+    motor["motorMode"] = 1;
+    motor["nominalVolt"] = 399;
+    motor["invertDirection"] = 1;
 
-     // outputs.js
-     } else if (key == "prechargeMillis") {
-     return "1500";
-     } else if (key == "prechargeRelayOutput") {
-     return "1";
-     } else if (key == "mainContactorOutput") {
-     return "0";
-     } else if (key == "secondaryContOutput") {
-     return "2";
-     } else if (key == "fastChargeContOutput") {
-     return "3";
-     } else if (key == "enableMotorOutput") {
-     return "4";
-     } else if (key == "enableChargerOutput") {
-     return "5";
-     } else if (key == "enableDcDcOutput") {
-     return "6";
-     } else if (key == "enableHeaterOutput") {
-     return "7";
-     } else if (key == "heaterValveOutput") {
-     return "255";
-     } else if (key == "heaterPumpOutput") {
-     return "255";
-     } else if (key == "coolingPumpOutput") {
-     return "255";
-     } else if (key == "coolingFanOutput") {
-     return "255";
-     } else if (key == "coolingTempOn") {
-     return "50";
-     } else if (key == "coolingTempOff") {
-     return "40";
-     } else if (key == "brakeLightOutput") {
-     return "255";
-     } else if (key == "reverseLightOutput") {
-     return "255";
-     } else if (key == "warningOutput") {
-     return "255";
-     } else if (key == "powerLimitOutput") {
-     return "255";
-     }
+    motor["maxMechPowerMotor"] = 110;
+    motor["maxMechPowerRegen"] = 109;
+    motor["dcVoltLimitMotor"] = 300;
+    motor["dcVoltLimitRegen"] = 410;
+    motor["dcCurrentLimitMotor"] = 300;
+    motor["dcCurrentLimitRegen"] = 200;
+    motor["enableOscLimiter"] = 1;
 
-     return String("0");
+    JsonObject outputs = root.createNestedObject("outputs");
+    outputs["prechargeMillis"] = 1500;
+    outputs["prechargeRelayOutput"] = 1;
+    outputs["mainContactorOutput"] = 0;
+    outputs["secondaryContOutput"] = 2;
+    outputs["fastChargeContOutput"] = 3;
+    outputs["enableMotorOutput"] = 4;
+    outputs["enableChargerOutput"] = 5;
+    outputs["enableDcDcOutput"] = 6;
+    outputs["enableHeaterOutput"] = 7;
+    outputs["heaterValveOutput"] = 255;
+    outputs["heaterPumpOutput"] = 255;
+    outputs["coolingPumpOutput"] = 255;
+    outputs["coolingFanOutput"] = 255;
+    outputs["coolingTempOn"] = 50;
+    outputs["coolingTempOff"] = 40;
+    outputs["brakeLightOutput"] = 255;
+    outputs["reverseLightOutput"] = 255;
+    outputs["warningOutput"] = 255;
+    outputs["powerLimitOutput"] = 255;
 }
-

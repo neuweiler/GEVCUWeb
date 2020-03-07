@@ -75,124 +75,95 @@ void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
     }
 }
 
-void append(String &data, String label, int16_t value)
-{
-    data += "\"";
-    data += label;
-    data += "\": ";
-    data += value;
-    data += ",\r";
-}
-
-void append(String &data, String label, String value)
-{
-    data += "\"";
-    data += label;
-    data += "\": \"";
-    data += value;
-    data += "\",\r";
-}
-
-void appendf(String &data, String label, float value)
-{
-    data += "\"";
-    data += label;
-    data += "\": ";
-    data += value;
-    data += ",\r";
-}
-
 uint8_t i = 0;
 
 void WebSocket::sendUpdate()
 {
-    String data = String("{");
-    append(data, "timeRunning", millis() / 1000);
-    append(data, "systemState", 8);
-    //    append(data, "systemState", (i < 90 ? (i / 10 + 1) : 99));
-    append(data, "chargeLevel", i);
-    append(data, "chargeHoursRemain", (10 - i / 10));
-    appendf(data, "chargeMinsRemain", (59 - i * 0.6f));
-    append(data, "systemState", (i < 90 ? (i / 10 + 1) : 99));
-    append(data, "bitfield1", rand() % 100);
-    append(data, "bitfield2", rand() % 100);
-    append(data, "bitfield3", rand() % 100);
-    append(data, "enableRegen", ((i / 10) % 2 == 0 ? "true" : "false"));
-    append(data, "enableHeater", ((i / 20) % 2 == 0 ? "true" : "false"));
-    append(data, "enableCreep", ((i / 5) % 2 == 0 ? "true" : "false"));
-    append(data, "powerSteering", (((i + 3) / 10) % 2 == 0 ? "true" : "false"));
-    append(data, "throttle", rand() % 200 - 100);
-    //    append(data, "brake", 0);
-    //    append(data, "gear", 0);
-    //    append(data, "torqueRequested", i);
-    appendf(data, "torqueActual", rand() % 440 - 220);
-    append(data, "speedActual", i * 90);
-    appendf(data, "dcVoltage", (i * 2.2f + 220));
-    appendf(data, "dcCurrent", (i * 5.5f - 275));
-    //    appendf(data, "mechanicalPower", (i * 2.5f - 125));
-    appendf(data, "temperatureMotor", i * 1.5f);
-    append(data, "temperatureController", i);
-    appendf(data, "dcDcHvVoltage", (i * 2.2f + 221));
-    append(data, "dcDcHvCurrent", (i / 25));
-    appendf(data, "dcDcLvVoltage", (i / 25.0f + 10));
-    append(data, "dcDcLvCurrent", (i * 2));
-    appendf(data, "dcDcTemperature", (i / 2.0f + 20));
-    appendf(data, "chargerInputVoltage", (i * 0.8f + 180));
-    append(data, "chargerInputCurrent", (i * 0.4));
-    appendf(data, "chargerBatteryVoltage", (i * 2.3f + 240));
-    appendf(data, "chargerBatteryCurrent", (i * 0.2f));
-    appendf(data, "chargerTemperature", (i / 2.0f + 20));
-    append(data, "temperatureCoolant", i);
-    append(data, "temperatureHeater", i);
-    append(data, "heaterPower", i * 60);
-    appendf(data, "flowCoolant", (i / 25.0f + 10));
-    appendf(data, "flowHeater", (i / 25.0f + 10));
-    append(data, "temperatureBattery1", i);
-    append(data, "temperatureBattery2", i);
-    append(data, "temperatureBattery3", i);
-    append(data, "temperatureBattery4", i);
-    append(data, "temperatureBattery5", i);
-    append(data, "temperatureBattery6", i);
-    append(data, "temperatureExterior", i);
-    append(data, "packVoltage", i);
-    append(data, "packCurrent", i);
-    append(data, "soc", (100 - i));
-    append(data, "dischargeLimit", i);
-    append(data, "chargeLimit", i);
-    append(data, "chargeAllowed", ((i / 10) % 2 == 0 ? "true" : "false"));
-    append(data, "dischargeAllowed", ((i / 10) % 2 == 1 ? "true" : "false"));
-    append(data, "lowestCellTemp", i);
-    append(data, "highestCellTemp", i);
-    appendf(data, "lowestCellVolts", i / 30.0f);
-    appendf(data, "highestCellVolts", (100 - i) / 30.0f);
-    append(data, "averageCellVolts", i);
-    append(data, "deltaCellVolts", i);
-    append(data, "lowestCellResistance", i);
-    append(data, "highestCellResistance", i);
-    append(data, "averageCellResistance", i);
-    append(data, "deltaCellResistance", i);
-    append(data, "lowestCellTempId", i);
-    append(data, "highestCellTempId", i);
-    append(data, "lowestCellVoltsId", i);
-    append(data, "highestCellVoltsId", i);
-    append(data, "lowestCellResistanceId", i);
-    append(data, "highestCellResistanceId", i);
+    doc.clear();
+    doc["timeRunning"] = millis() / 1000;
+    doc["systemState"] = 8;
+    //    doc["systemState"] = (i < 90 ? (i / 10 + 1) : 99);
+    doc["chargeLevel"] = i;
+    doc["chargeHoursRemain"] = (10 - i / 10);
+    doc["chargeMinsRemain"] = (59 - i * 0.6f);
+    doc["systemState"] = (i < 90 ? (i / 10 + 1) : 99);
+    doc["bitfield1"] = rand() % 100;
+    doc["bitfield2"] = rand() % 100;
+    doc["bitfield3"] = rand() % 100;
+    doc["enableRegen"] = ((i / 10) % 2 == 0 ? "true" : "false");
+    doc["enableHeater"] = ((i / 20) % 2 == 0 ? "true" : "false");
+    doc["enableCreep"] = ((i / 5) % 2 == 0 ? "true" : "false");
+    doc["powerSteering"] = (((i + 3) / 10) % 2 == 0 ? "true" : "false");
+    doc["throttle"] = rand() % 200 - 100;
+    //    doc["brake"] = 0;
+    //    doc["gear"] = 0;
+    //    doc["torqueRequested"] = i;
+    doc["torqueActual"] = rand() % 440 - 220;
+    doc["speedActual"] = i * 90;
+    doc["dcVoltage"] = (i * 2.2f + 220);
+    doc["dcCurrent"] = (i * 5.5f - 275);
+    //    doc["mechanicalPower"] = (i * 2.5f - 125);
+    doc["temperatureMotor"] = i * 1.5f;
+    doc["temperatureController"] = i;
+    doc["dcDcHvVoltage"] = (i * 2.2f + 221);
+    doc["dcDcHvCurrent"] = (i / 25);
+    doc["dcDcLvVoltage"] = (i / 25.0f + 10);
+    doc["dcDcLvCurrent"] = (i * 2);
+    doc["dcDcTemperature"] = (i / 2.0f + 20);
+    doc["chargerInputVoltage"] = (i * 0.8f + 180);
+    doc["chargerInputCurrent"] = (i * 0.4);
+    doc["chargerBatteryVoltage"] = (i * 2.3f + 240);
+    doc["chargerBatteryCurrent"] = (i * 0.2f);
+    doc["chargerTemperature"] = (i / 2.0f + 20);
+    doc["temperatureCoolant"] = i;
+    doc["temperatureHeater"] = i;
+    doc["heaterPower"] = i * 60;
+    doc["flowCoolant"] = (i / 25.0f + 10);
+    doc["flowHeater"] = (i / 25.0f + 10);
+    doc["temperatureBattery1"] = i;
+    doc["temperatureBattery2"] = i;
+    doc["temperatureBattery3"] = i;
+    doc["temperatureBattery4"] = i;
+    doc["temperatureBattery5"] = i;
+    doc["temperatureBattery6"] = i;
+    doc["temperatureExterior"] = i;
+    doc["packVoltage"] = i;
+    doc["packCurrent"] = i;
+    doc["soc"] = (100 - i);
+    doc["dischargeLimit"] = i;
+    doc["chargeLimit"] = i;
+    doc["chargeAllowed"] = ((i / 10) % 2 == 0 ? "true" : "false");
+    doc["dischargeAllowed"] = ((i / 10) % 2 == 1 ? "true" : "false");
+    doc["lowestCellTemp"] = i;
+    doc["highestCellTemp"] = i;
+    doc["lowestCellVolts"] = i / 30.0f;
+    doc["highestCellVolts"] = (100 - i) / 30.0f;
+    doc["averageCellVolts"] = i;
+    doc["deltaCellVolts"] = i;
+    doc["lowestCellResistance"] = i;
+    doc["highestCellResistance"] = i;
+    doc["averageCellResistance"] = i;
+    doc["deltaCellResistance"] = i;
+    doc["lowestCellTempId"] = i;
+    doc["highestCellTempId"] = i;
+    doc["lowestCellVoltsId"] = i;
+    doc["highestCellVoltsId"] = i;
+    doc["lowestCellResistanceId"] = i;
+    doc["highestCellResistanceId"] = i;
 
-    data += "\"limits\": { \"dcCurrent\": { \"min\": ";
-    data += (-240 + i);
-    data += ",\"max\": ";
-    data += (240 - i);
-    data += "},\"dcVoltage\": { \"min\": ";
-    data += (270 + i);
-    data += ",\"max\": ";
-    data += (450 - i);
-    data += "},\"temperatureMotor\": { \"max\": ";
-    data += (150 - i);
-    data += "},\"temperatureController\": { \"max\": ";
-    data += (100 - i);
-    data += "}}";
-    data += "}";
+    JsonObject limits = doc.createNestedObject("limits");
+    JsonObject dcCurrent = limits.createNestedObject("dcCurrent");
+    dcCurrent["min"] = (-240 + i);
+    dcCurrent["max"] = (240 - i);
+    JsonObject dcVoltage = limits.createNestedObject("dcVoltage");
+    dcVoltage["min"] = (270 + i);
+    dcVoltage["max"] = (450 - i);
+    JsonObject temperatureMotor = limits.createNestedObject("temperatureMotor");
+    temperatureMotor["min"] = (150 - i);
+    temperatureMotor["max"] = (100 - i);
 
+    String data;
+    serializeJson(doc, data);
     webSocketHandler->textAll(data);
 
     i++;
