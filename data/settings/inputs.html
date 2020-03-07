@@ -1,70 +1,57 @@
 <form method="POST" action="">
-	<table id="configTable">
-		<tr>
-			<th colspan="5">Digital Inputs - DIN0 to DIN3</th>
-		</tr>
-		<tr>
-			<td>Enable Input</td>
-			<td><select name="enableInput"
-				title="Input Port to ENABLE controller">
-					<option value="255">None</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-			</select></td>
-			<td></td>
-			<td>Reverse Input</td>
-			<td><select name="reverseInput"
-				title="Input port to set REVERSE">
-					<option value="255">None</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td>Charge power available</td>
-			<td><select name="chargePwrAvailInput"
-				title="Input Port to signal charge power available">
-					<option value="255">None</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-			</select></td>
-			<td></td>
-			<td>Interlock Input</td>
-			<td><select name="interlockInput"
-				title="Input port to verify closed interlock loop">
-					<option value="255">None</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td>ABS Input</td>
-			<td><select name="absInput"
-				title="Input Port to signal ABS available">
-					<option value="255">None</option>
-					<option value="0">0</option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-			</select></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="5"><br></td>
-		</tr>
-		<tr>
-			<td colspan="5" align="center"><input type="submit" value="Save" />
-			</td>
-		</tr>
-	</table>
+	<div id="configTable">
+		<h2>Digital Inputs - DIN0 to DIN3</h2>
+
+		<div>Enable Input</div>
+		<select name="enableInput" title="Input Port to ENABLE controller">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<div></div>
+		<div>Reverse Input</div>
+		<select name="reverseInput" title="Input port to set REVERSE">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<div></div>
+
+		<div>Charge power available</div>
+		<select name="chargePwrAvailInput"
+			title="Input Port to signal charge power available">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<div></div>
+		<div>Interlock Input</div>
+		<select name="interlockInput"
+			title="Input port to verify closed interlock loop">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<div></div>
+
+		<div>ABS Input</div>
+		<select name="absInput" title="Input Port to signal ABS available">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select>
+		<div></div>
+		<div class="spacer"></div>
+	</div>
+	<input type="submit" value="Save" />
 </form>

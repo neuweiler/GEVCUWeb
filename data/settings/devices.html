@@ -1,120 +1,91 @@
+<h2>Device Selection/Activation</h2>
 <form method="POST" action="">
-	<table id="configTable">
-		<tr>
-			<th colspan="5">Device Selection/Activation</th>
-		</tr>
-		<tr>
-			<td colspan="2"><h3>Motor Controllers/Inverters</h3></td>
-			<td></td>
-			<td colspan="2"><h3>Throttle and Brake</h3></td>
-		</tr>
-		<tr>
-			<td><input name="x1000" type="checkbox"></td>
-			<td>Azure Dynamics DMOC645</td>
-			<td></td>
-			<td><input name="x1031" type="checkbox"></td>
-			<td>Potentiometer/Hall Effect Throttle</td>
-		</tr>
-		<tr>
-			<td><input name="x1002" type="checkbox"></td>
-			<td>UQM Powerphase 100</td>
-			<td></td>
-			<td><input name="x1032" type="checkbox"></td>
-			<td>Potentiometer/Hall Effect Brake</td>
-		</tr>
-		<tr>
-			<td><input name="x1001" type="checkbox"></td>
-			<td>Brusa DMC5</td>
-			<td></td>
-			<td><input name="x1033" type="checkbox"></td>
-			<td>CAN bus Throttle</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><input name="x1034" type="checkbox"></td>
-			<td>CAN bus Brake</td>
-		</tr>
-		<tr>
-			<td colspan="2"><h3>Communication Interfaces</h3></td>
-			<td></td>
-			<td colspan="2"><h3>Battery Chargers and Management</h3></td>
-		</tr>
-		<tr>
-			<td><input name="x1040" type="checkbox"></td>
-			<td>ConnectOne WiReach WiFi</td>
-			<td></td>
-			<td><input name="x1010" type="checkbox"></td>
-			<td>Brusa NLG5 Charger</td>
-		</tr>
-		<tr>
-			<td><input name="x6500" type="checkbox"></td>
-			<td>ELM327 OBDII Wireless</td>
-			<td></td>
-			<td><input name="x1020" type="checkbox"></td>
-			<td>TCCH/Elcon Charger</td>
-		</tr>
-		<tr>
-			<td><input name="x6000" type="checkbox"></td>
-			<td>OBDII PID Listener</td>
-			<td></td>
-			<td><input name="x1022" type="checkbox"></td>
-			<td>Lear Charger</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><input name="x2000" type="checkbox"></td>
-			<td>THINK Systems BMS</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><input name="x2001" type="checkbox"></td>
-			<td>Orion BMS</td>
-		</tr>
-		<tr>
-			<td colspan="2"><h3>System</h3></td>
-			<td></td>
-			<td colspan="2"><h3>DC-DC Converters</h3></td>
-		</tr>
-		<tr>
-			<td>Log Level</td>
-			<td><select name="logLevel"
-				title="The level of log messages written">
-					<option value="0">Debug</option>
-					<option value="1">Info</option>
-					<option value="2">Warning</option>
-					<option value="3">Error</option>
-					<option value="4">Off</option>
-			</select></td>
-			<td></td>
-			<td><input name="x3000" type="checkbox"></td>
-			<td>Brusa BSC6</td>
-		</tr>
-		<tr>
-			<td><input name="x5001" type="checkbox"></td>
-			<td>Heartbeat</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td><input name="x5003" type="checkbox"></td>
-			<td>CAN I/O</td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-		<tr>
-			<td colspan="5"><br></td>
-		</tr>
-		<tr>
-			<td colspan="5" align="center"><input type="submit" value="Save" />
-			</td>
-		</tr>
-	</table>
+	<div id="configTable">
+
+		<h3>Motor Controllers/Inverters</h3>
+
+		<div><input name="x1000" type="checkbox"></div>
+		<div>Azure Dynamics DMOC645</div>
+		<div></div>
+		<div><input name="x1002" type="checkbox"></div>
+		<div>UQM Powerphase 100</div>
+		<div></div>
+
+		<div><input name="x1001" type="checkbox"></div>
+		<div>Brusa DMC5</div>
+		<div></div>
+		<div class="spacer"></div>
+
+		<h3>Throttle and Brake</h3>
+
+		<div><input name="x1031" type="checkbox"></div>
+		<div>Potentiometer/Hall Effect Throttle</div>
+		<div></div>
+		<div><input name="x1032" type="checkbox"></div>
+		<div>Potentiometer/Hall Effect Brake</div>
+		<div></div>
+
+		<div><input name="x1033" type="checkbox"></div>
+		<div>CAN bus Throttle</div>
+		<div></div>
+		<div><input name="x1034" type="checkbox"></div>
+		<div>CAN bus Brake</div>
+		<div></div>
+
+		<h3>Communication Interfaces</h3>
+
+		<div><input name="x1040" type="checkbox"></div>
+		<div>ConnectOne WiReach WiFi</div>
+		<div></div>
+		<div><input name="x6500" type="checkbox"></div>
+		<div>ELM327 OBDII Wireless</div>
+		<div></div>
+		<div><input name="x6000" type="checkbox"></div>
+		<div>OBDII PID Listener</div>
+		<div></div>
+
+		<h3>Battery Chargers and Management</h3>
+
+		<div><input name="x1010" type="checkbox"></div>
+		<div>Brusa NLG5 Charger</div>
+		<div></div>
+		<div><input name="x1020" type="checkbox"></div>
+		<div>TCCH/Elcon Charger</div>
+		<div></div>
+		<div><input name="x1022" type="checkbox"></div>
+		<div>Lear Charger</div>
+		<div></div>
+		<div><input name="x2000" type="checkbox"></div>
+		<div>THINK Systems BMS</div>
+		<div></div>
+		<div><input name="x2001" type="checkbox"></div>
+		<div>Orion BMS</div>
+		<div></div>
+
+		<h3>DC-DC Converters</h3>
+
+		<div><input name="x3000" type="checkbox"></div>
+		<div>Brusa BSC6</div>
+		<div></div>
+		<div><input name="x5003" type="checkbox"></div>
+		<div>CAN I/O</div>
+		<div></div>
+
+		<h3>System</h3>
+
+		<div><input name="x5001" type="checkbox"></div>
+		<div>Heartbeat</div>
+		<div></div>
+		<div class="logLevel">
+			<select name="logLevel" title="The level of log messages written">
+				<option value="0">Debug</option>
+				<option value="1">Info</option>
+				<option value="2">Warning</option>
+				<option value="3">Error</option>
+				<option value="4">Off</option>
+			</select>
+			<div>Log Level</div>
+		</div>
+	</div>
+	<input type="submit" value="Save" />
 </form>

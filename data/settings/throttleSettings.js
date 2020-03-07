@@ -23,7 +23,7 @@ ThrottleSettingsCanvas.prototype.draw = function() {
     this.height=canvas.height;
     this.width=canvas.width;
 
-	this.xOffset = 150;
+	this.xOffset = 90;
 	this.xRightOffset = 25;
 	this.yOffset = this.height - 40;
 	this.yTopOffset = 15;
@@ -121,13 +121,11 @@ ThrottleSettingsCanvas.prototype.drawYAxis = function() {
 	
 	this.context.font="14px Arial";
 	this.context.fillStyle="green";
-	this.context.fillText("Motor",  5, this.height/2 - 10);
+	this.context.fillText("Motor",  5, this.height/2 - 30);
 	this.context.fillStyle=this.lineColor;
-	this.context.fillText(" / ",  40, this.height/2 - 10);
+	this.context.fillText("Power",  5, this.height/2 - 10);
 	this.context.fillStyle="red";
-	this.context.fillText("Regen",  50, this.height/2 - 10);
-	this.context.fillStyle=this.lineColor;
-	this.context.fillText("Power",  5, this.height/2 + 10);
+	this.context.fillText("Regen",  5, this.height/2 + 10);
 }
 
 ThrottleSettingsCanvas.prototype.drawForwardLines = function() {
@@ -265,19 +263,19 @@ ThrottleSettingsCanvas.prototype.drawCoastArea = function() {
 	throttleRegenMin = document.getElementById(this.throttleRegenMinId); // throttle pos
 	minRegenPercent = throttleRegenMin.value/100;
 	
-	height = this.yLength*0.45;
+	height = this.yLength*0.25;
 	width = this.xLength*minThrottlePercent-this.xLength*minRegenPercent;
 	
 	// gradient above the X axis
 	var grd=this.context.createLinearGradient(this.xOffset, this.yZeroOffset, this.xOffset, this.yZeroOffset-height);
-	grd.addColorStop(0,"yellow");
+	grd.addColorStop(0, "#28f");
 	grd.addColorStop(1,"transparent");
 	this.context.fillStyle=grd;
 	this.context.fillRect(this.xOffset + this.xLength*minRegenPercent ,this.yZeroOffset-height, width, height);
 	
 	// and below
 	grd=this.context.createLinearGradient(this.xOffset, this.yZeroOffset, this.xOffset, this.yZeroOffset+height);
-	grd.addColorStop(0,"yellow");
+	grd.addColorStop(0,"#28f");
 	grd.addColorStop(1,"transparent");
 	this.context.fillStyle=grd;
 	this.context.fillRect(this.xOffset + this.xLength*minRegenPercent ,this.yZeroOffset, width, height);

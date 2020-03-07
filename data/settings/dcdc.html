@@ -1,59 +1,46 @@
 <form method="POST" action="">
-	<table id="configTable">
-		<tr>
-			<th colspan="5">DC-DC Converter Configuration</th>
-		</tr>
-        <tr data-device="x3000">
-            <td>Operation Mode</td>
-            <td><select name="dcDcMode" title="help">
-                    <option value="0">Buck</option>
-                    <option value="1">Boost</option>
-                    </select></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr data-device="x3000">
-            <td colspan="5"><h3>Buck Mode</h3></td>
-        </tr>
-        <tr data-device="x3000">
-            <td>Low Voltage Command</td>
-            <td><input name="lowVoltageCommand" type="text" maxlength="5" title="help" /> V</td>
-            <td></td>
-            <td>HV Under-Voltage Limit</td>
-            <td><input name="hvUndervoltageLimit" type="text" maxlength="6" title="help" /> V</td>
-        </tr>
-        <tr data-device="x3000">
-            <td>LV Current Limit</td>
-            <td><input name="lvBuckCurrentLimit" type="text" maxlength="6" title="help" /> A</td>
-            <td></td>
-            <td>HV Current Limit</td>
-            <td><input name="hvBuckCurrentLimit" type="text" maxlength="6" title="help" /> A</td>
-        </tr>
-        <tr data-device="x3000">
-            <td colspan="5"><h3>Boost Mode</h3></td>
-        </tr>
-        <tr data-device="x3000">
-            <td>High Voltage Command</td>
-            <td><input name="highVoltageCommand" type="text" maxlength="6" title="help" /> V</td>
-            <td></td>
-            <td>LV Under-Voltage Limit</td>
-            <td><input name="lvUndervoltageLimit" type="text" maxlength="6" title="help" /> V</td>
-        </tr>
-        <tr data-device="x3000">
-            <td>HV Current Limit</td>
-            <td><input name="hvBoostCurrentLimit" type="text" maxlength="6" title="help" /> A</td>
-            <td></td>
-            <td>LV Current Limit</td>
-            <td><input name="lvBoostCurrentLimit" type="text" maxlength="6" title="help" /> A</td>
-        </tr>
+	<div data-device="x3000" id="configTable">
+		<h2>DC-DC Converter Configuration</h2>
 
-		<tr>
-			<td colspan="5"><br></td>
-		</tr>
-		<tr>
-			<td colspan="5" align="center"><input type="submit" value="Save" />
-			</td>
-		</tr>
-	</table>
+		<div>Operation Mode</div>
+		<select name="dcDcMode" title="help">
+				<option value="0">Buck</option>
+				<option value="1">Boost</option>
+		</select>
+		<div></div>
+		<div class="spacer"></div>
+
+		<h3>Buck Mode</h3>
+
+		<div>Low Voltage Command</div>
+		<div><input name="lowVoltageCommand" type="text" maxlength="5" title="help" /> V</div>
+		<div></div>
+		<div>HV Under-Voltage Limit</div>
+		<div><input name="hvUndervoltageLimit" type="text" maxlength="6" title="help" /> V</div>
+		<div></div>
+
+		<div>LV Current Limit</div>
+		<div><input name="lvBuckCurrentLimit" type="text" maxlength="6" title="help" /> A</div>
+		<div></div>
+		<div>HV Current Limit</div>
+		<div><input name="hvBuckCurrentLimit" type="text" maxlength="6" title="help" /> A</div>
+		<div></div>
+
+		<h3>Boost Mode</h3>
+
+		<div>High Voltage Command</div>
+		<div><input name="highVoltageCommand" type="text" maxlength="6" title="help" /> V</div>
+		<div></div>
+		<div>LV Under-Voltage Limit</div>
+		<div><input name="lvUndervoltageLimit" type="text" maxlength="6" title="help" /> V</div>
+		<div></div>
+
+		<div>HV Current Limit</div>
+		<div><input name="hvBoostCurrentLimit" type="text" maxlength="6" title="help" /> A</div>
+		<div></div>
+		<div>LV Current Limit</div>
+		<div><input name="lvBoostCurrentLimit" type="text" maxlength="6" title="help" /> A</div>
+		<div></div>
+	</div>
+	<input type="submit" value="Save"/>
 </form>

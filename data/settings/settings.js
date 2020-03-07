@@ -74,7 +74,7 @@ var settings = settings|| {};
 		var canvasElement = document.getElementById("throttleCanvas");
 		if (canvasElement) {
 			// needs to be slightly narrower than the page width
-			canvasElement.width = window.innerWidth - 60;
+			canvasElement.width = window.innerWidth - 30;
 		}
 		refreshThrottleVisualization();
 	}
@@ -173,29 +173,30 @@ var settings = settings|| {};
 		addRangeControl("minimumLevel2", 0, 4095);
 		addRangeControl("maximumLevel", 0, 4095);
 		addRangeControl("maximumLevel2", 0, 4095);
-		addRangeControl("positionRegenMaximum", 0, 100);
-		addRangeControl("positionRegenMinimum", 0, 100);
-		addRangeControl("positionForwardStart", 0, 100);
-		addRangeControl("positionHalfPower", 0, 100);
-		addRangeControl("minimumRegen", 0, 100);
-		addRangeControl("maximumRegen", 0, 100);
-		addRangeControl("creepLevel", 0, 30);
-		addRangeControl("creepSpeed", 0, 2000);
-		addRangeControl("slewRate", 0, 1000);
-		addRangeControl("brakeHold", 0, 50);
+		addRangeControl("positionRegenMaximum", 0, 100, "%");
+		addRangeControl("positionRegenMinimum", 0, 100, "%");
+		addRangeControl("positionForwardStart", 0, 100, "%");
+		addRangeControl("positionHalfPower", 0, 100, "%");
+		addRangeControl("minimumRegen", 0, 100, "%");
+		addRangeControl("maximumRegen", 0, 100, "%");
+		addRangeControl("creepLevel", 0, 30, "%");
+		addRangeControl("creepSpeed", 0, 2000, "rpm");
+		addRangeControl("slewRate", 0, 1000, "%/sec");
+		addRangeControl("brakeHold", 0, 50, "%");
 		addRangeControl("brakeMinimumLevel", 0, 4095);
-		addRangeControl("brakeMinimumRegen", 0, 100);
+		addRangeControl("brakeMinimumRegen", 0, 100, "%");
 		addRangeControl("brakeMaximumLevel", 0, 4095);
-		addRangeControl("brakeMaximumRegen", 0, 100);
+		addRangeControl("brakeMaximumRegen", 0, 100, "%");
 		addRangeControl("inputCurrent", 1, 50);
 	}
 	
-	function addRangeControl(id, min, max) {
-		var node = document.getElementById(id + "Span");
-		if (node)
-			node.innerHTML = "<input id='" + id + "Level' type='range' min='" + min + "' max='" + max + "' onchange=\"settings.updateRangeValue('" + id
-					+ "', this);\" oninput=\"settings.updateRangeValue('" + id + "', this);\" /><input type='number' id='" + id + "' name='" + id + "' min='"
-					+ min + "' max='" + max + "' maxlength='4' size='4' onchange=\"settings.updateRangeValue('" + id + "Level', this);\"/>";
+	function addRangeControl(id, min, max, unit) {
+		var node = $('#' + id + 'Span');
+		var title = node.attr('title');
+		node.replaceWith('<input id="' + id + 'Level" type="range" min="' + min + '" max="' + max + '" onchange="settings.updateRangeValue(\'' +
+				id + '\', this);" oninput="settings.updateRangeValue(\'' + id + '\', this);" />' + 
+				'<div class="value"><input type="number" id="' + id + '" name="' + id + '" min="' + min + '" max="' + max + '" maxlength="4" size="4"' + 
+				' onchange="settings.updateRangeValue(\'' + id + 'Level\', this);"/>' + (unit ? ' ' + unit : '') + '</div>');
 	}
 	
 	// hides rows with device dependent visibility
