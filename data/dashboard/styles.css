@@ -49,7 +49,7 @@ div.ajs-message.ajs-success {
 /************* Top Info Bar *************/
 .infoBar {
 	margin: 0 0 8px 0;
-	padding: 0;
+	padding: 0 8px;
 	background: #333;
 	color: #ccc;
 	font-size: 1.3em;
@@ -72,8 +72,9 @@ div.ajs-message.ajs-success {
 }
 
 .infoBarCell#timeRunning {
+	padding-right: 16px;
 	text-align: right;
-	width: %10;
+	width: 10%;
 }
 
 /************* Buttons *************/
@@ -237,6 +238,7 @@ div#batteries {
 div#cruiseControl {
     display: flex;
     justify-content: space-between;
+	margin-top: 10px;
     padding-left: 5%;
     padding-right: 5%;
 }

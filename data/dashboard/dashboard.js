@@ -10,7 +10,7 @@ var dashboard = dashboard || {};
 		updateSystemState(0);
 		$('#cruiseControl').hide();
 	
-		alertify.set('notifier', 'position', 'top-right');
+		alertify.set('notifier', 'position', 'bottom-right');
 
 		activate();
 

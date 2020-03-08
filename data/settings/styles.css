@@ -35,7 +35,7 @@ div.tabHeader a.on {
 
 div.tabs {
 	clear: both;
-	padding: 10px;
+	padding: 0 10px;
 	border: 1px solid #555599;
 	overflow: hidden;
 }
@@ -47,7 +47,7 @@ form {
 #configTable {
 	display: grid;
 	grid-template-columns: min-content 1fr min-content min-content 1fr min-content;
-	grid-gap: 10px 10px;
+	grid-gap: 8px 8px;
 	text-align: left;
 }
 
@@ -115,6 +115,14 @@ input[type=range] {
 	box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.9), 0px 1px 1px 0px
 		rgba(255, 255, 255, 0.13);
 	-webkit-appearance: none !important;
+}
+
+input[type=checkbox] {
+    transform: scale(1.5);
+}
+
+input[type=text] {
+    width: 80px;
 }
 
 #configTable select {
