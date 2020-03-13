@@ -298,8 +298,6 @@ ThrottleSettingsCanvas.prototype.drawCoastArea = function() {
 	
 }
 
-
-
 ThrottleSettingsCanvas.prototype.drawDot = function(color, throttlePercent, powerPercent) {
 
 	x = this.xOffset + this.xLength*throttlePercent;

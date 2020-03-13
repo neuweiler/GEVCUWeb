@@ -79,11 +79,20 @@ void WebServer::setupFilesystem()
 void WebServer::setupWebserver()
 {
     server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
-        AsyncJsonResponse * response = new AsyncJsonResponse();
+        AsyncJsonResponse * response = new AsyncJsonResponse(false, 4096);
         response->addHeader("Server", "GEVCU Web Server");
         GevcuParams::getInstance()->getConfig((ArduinoJson6141_0000010::ObjectRef &)response->getRoot());
         response->setLength();
         request->send(response);
+    });
+
+    server->on("/saveConfig", HTTP_POST, [](AsyncWebServerRequest *request) {
+        size_t paramCount = request->params();
+        for (int i = 0; i < paramCount; i++) {
+            AsyncWebParameter* param = request->getParam(i);
+            logger.info("input param: %s = %s", param->name().c_str(), param->value());
+        }
+        request->redirect("/settings/index.html");
     });
 
     server->serveStatic("/", *fileSystem, "/");

@@ -1,5 +1,5 @@
 <h2>Motor Configuration</h2>
-<form method="POST" action="">
+<form method="POST" action="/saveConfig">
 	<div id="configTable">
 		<h3>Throttle</h3>
 
@@ -8,14 +8,14 @@
 			<option value="1">1</option>
 			<option value="2">2</option>
 		</select>
-		<div></div>
+		<div data-device="x1031"></div>
 		<div data-device="x1031">Throttle Type</div>
 		<select data-device="x1031" name="throttleSubType">
 			<option value="0">unknown</option>
 			<option value="1">linear</option>
 			<option value="2">inverse</option>
 		</select>
-		<div></div>
+		<div data-device="x1031"></div>
 
 		<div>Minimum Signal Level</div>
 		<div id="minimumLevelSpan" title="Raw ADC numeric output with foot off throttle"></div>

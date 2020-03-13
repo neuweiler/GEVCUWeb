@@ -81,12 +81,12 @@ void WebSocket::sendUpdate()
 {
     doc.clear();
     doc["timeRunning"] = millis() / 1000;
-    doc["systemState"] = 8;
-    //    doc["systemState"] = (i < 90 ? (i / 10 + 1) : 99);
+    doc["systemState"] = (i / 25 + 5);
     doc["chargeLevel"] = i;
     doc["chargeHoursRemain"] = (10 - i / 10);
     doc["chargeMinsRemain"] = (59 - i * 0.6f);
-    doc["systemState"] = (i < 90 ? (i / 10 + 1) : 99);
+    doc["maximumInputCurrent"] = i / 4.0f;
+    doc["maximumInputCurrentLevel"] = i / 4.0f;
     doc["bitfield1"] = rand() % 100;
     doc["bitfield2"] = rand() % 100;
     doc["bitfield3"] = rand() % 100;
