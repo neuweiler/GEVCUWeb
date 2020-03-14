@@ -16,7 +16,7 @@
 #include <ESPAsyncWebServer.h>
 #include "Logger.h"
 #include "Configuration.h"
-#include "GevcuParams.h"
+#include "GevcuConfig.h"
 
 class WebServer
 {

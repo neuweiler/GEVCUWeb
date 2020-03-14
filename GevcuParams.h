@@ -1,32 +1,16 @@
 /*
  * GevcuParams.h
  *
- *  Created on: 16 Feb 2020
+ *  Created on: 13 Mar 2020
  *      Author: michaeln
  */
 
 #ifndef GEVCUPARAMS_H_
 #define GEVCUPARAMS_H_
 
-#include <Arduino.h>
 #include <AsyncJson.h>
 #include <ArduinoJson.h>
 #include "Logger.h"
-
-class ConfigType
-{
-public:
-    String key;
-    String value;
-    ConfigType()
-    {
-    }
-    ConfigType(String key, String value)
-    {
-        this->key = key;
-        this->value = value;
-    }
-};
 
 class GevcuParams
 {
@@ -103,14 +87,12 @@ public:
 
     virtual ~GevcuParams();
     static GevcuParams *getInstance();
-    void getConfig(JsonObject &root);
+    void toJson(JsonObject &root);
+private:
 private:
     GevcuParams();
     GevcuParams(GevcuParams const&); // copy disabled
     void operator=(GevcuParams const&); // assigment disabled
-
-//    const byte HASH_SIZE = 120;
-//    ConfigType config[HASH_SIZE];
 };
 
 #endif /* GEVCUPARAMS_H_ */

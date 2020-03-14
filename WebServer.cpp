@@ -81,7 +81,7 @@ void WebServer::setupWebserver()
     server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
         AsyncJsonResponse * response = new AsyncJsonResponse(false, 4096);
         response->addHeader("Server", "GEVCU Web Server");
-        GevcuParams::getInstance()->getConfig((ArduinoJson6141_0000010::ObjectRef &)response->getRoot());
+        GevcuConfig::getInstance()->toJson((ArduinoJson6141_0000010::ObjectRef &)response->getRoot());
         response->setLength();
         request->send(response);
     });
