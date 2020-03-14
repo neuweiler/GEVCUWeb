@@ -1,81 +1,99 @@
 <h2>Device Selection/Activation</h2>
 <form method="POST" action="/saveConfig">
-	<div id="configTable">
+	<div class="config devices">
 
 		<h3>Motor Controllers/Inverters</h3>
 
-		<input name="x1000" type="checkbox">
-		<div>Azure Dynamics DMOC645</div>
-		<div></div>
-		<input name="x1002" type="checkbox">
-		<div>UQM Powerphase 100</div>
-		<div></div>
+		<label>
+			<input name="x1000" type="checkbox">
+			Azure Dynamics DMOC645
+		</label>
+		<label>
+			<input name="x1002" type="checkbox">
+			UQM Powerphase 100
+		</label>
 
-		<input name="x1001" type="checkbox">
-		<div>Brusa DMC5</div>
+		<label>
+			<input name="x1001" type="checkbox">
+			Brusa DMC5
+		</label>
 		<div></div>
-		<div class="spacer"></div>
 
 		<h3>Throttle and Brake</h3>
 
-		<input name="x1031" type="checkbox">
-		<div>Potentiometer/Hall Effect Throttle</div>
-		<div></div>
-		<input name="x1032" type="checkbox">
-		<div>Potentiometer/Hall Effect Brake</div>
-		<div></div>
+		<label>
+			<input name="x1031" type="checkbox">
+			Potentiometer/Hall Effect Throttle
+		</label>
+		<label>
+			<input name="x1032" type="checkbox">
+			Potentiometer/Hall Effect Brake
+		</label>
 
-		<input name="x1033" type="checkbox">
-		<div>CAN bus Throttle</div>
-		<div></div>
-		<input name="x1034" type="checkbox">
-		<div>CAN bus Brake</div>
-		<div></div>
+		<label>
+			<input name="x1033" type="checkbox">
+			CAN bus Throttle
+		</label>
+		<label>
+			<input name="x1034" type="checkbox">
+			CAN bus Brake
+		</label>
 
 		<h3>Communication Interfaces</h3>
 
-		<input name="x1040" type="checkbox">
-		<div>ConnectOne WiReach WiFi</div>
-		<div></div>
-		<input name="x6500" type="checkbox">
-		<div>ELM327 OBDII Wireless</div>
-		<div></div>
-		<input name="x6000" type="checkbox">
-		<div>OBDII PID Listener</div>
-		<div></div>
+		<label>
+			<input name="x1040" type="checkbox">
+			ConnectOne WiReach WiFi
+		</label>
+		<label>
+			<input name="x6500" type="checkbox">
+			ELM327 OBDII Wireless
+		</label>
+		<label>
+			<input name="x6000" type="checkbox">
+			OBDII PID Listener
+		</label>
 
 		<h3>Battery Chargers and Management</h3>
 
-		<input name="x1010" type="checkbox">
-		<div>Brusa NLG5 Charger</div>
-		<div></div>
-		<input name="x1020" type="checkbox">
-		<div>TCCH/Elcon Charger</div>
-		<div></div>
-		<input name="x1022" type="checkbox">
-		<div>Lear Charger</div>
-		<div></div>
-		<input name="x2000" type="checkbox">
-		<div>THINK Systems BMS</div>
-		<div></div>
-		<input name="x2001" type="checkbox">
-		<div>Orion BMS</div>
-		<div></div>
+		<label>
+			<input name="x1010" type="checkbox">
+			Brusa NLG5 Charger
+		</label>
+		<label>
+			<input name="x1020" type="checkbox">
+			TCCH/Elcon Charger
+		</label>
+		<label>
+			<input name="x1022" type="checkbox">
+			Lear Charger
+		</label>
+		<label>
+			<input name="x2000" type="checkbox">
+			THINK Systems BMS
+		</label>
+		<label>
+			<input name="x2001" type="checkbox">
+			Orion BMS
+		</label>
 
 		<h3>DC-DC Converters</h3>
 
-		<input name="x3000" type="checkbox">
-		<div>Brusa BSC6</div>
-		<div></div>
-		<input name="x5003" type="checkbox">
-		<div>CAN I/O</div>
-		<div></div>
+		<label>
+			<input name="x3000" type="checkbox">
+			Brusa BSC6
+		</label>
+		<label>
+			<input name="x5003" type="checkbox">
+			CAN I/O
+		</label>
 
 		<h3>System</h3>
 
-		<input name="x5001" type="checkbox">
-		<div>Heartbeat</div>
-		<div></div>
+		<label>
+			<input name="x5001" type="checkbox">
+			Heartbeat
+		</label>
 		<div class="logLevel">
 			<select name="logLevel" title="The level of log messages written">
 				<option value="0">Debug</option>

@@ -44,41 +44,57 @@ form {
 	text-align: center;
 }
 
-#configTable {
+.config {
 	display: grid;
-	grid-template-columns: min-content 1fr min-content min-content 1fr min-content;
 	grid-gap: 8px 8px;
 	text-align: left;
 }
 
+.config.controls, .config.motor, .config.charger, .config.dcdc, .config.inputs, .config.outputs {
+	grid-template-columns: min-content 1fr min-content min-content 1fr min-content;
+}
+
+.config.devices {
+	grid-template-columns: auto auto;
+}
+
 @media only screen and (max-width:800px) {
-	#configTable {
+	.config.controls, .config.motor, .config.charger, .config.dcdc, .config.inputs, .config.outputs {
 		display: grid;
 		grid-template-columns: min-content 1fr min-content;
 		grid-gap: 10px 10px;
 	}
-	#configTable h1,h2,h3 {
+	.config.devices {
+		grid-template-columns: auto;
+	}
+	.config > h3 {
 		grid-column: 1 / span 3 !important;
 	}
-	#configTable .spacer {
+	.config.devices > h3 {
+		grid-column: 1 / span 1 !important;
+	}
+	.config.controls .spacer {
 		display: none;
 	}
-
 }
 
-#configTable h1,h2,h3 {
+.config > h3 {
 	grid-column: 1 / span 6;
 }
 
-#configTable .spacer {
+.config.devices > h3 {
+	grid-column: 1 / span 2;
+}
+
+.config .spacer {
 	grid-column: span 3;
 }
 
-#configTable div {
+.config div {
 	white-space: nowrap;
 }
 
-#configTable .value {
+.config .value {
 	margin-right: 15px;
 }
 
@@ -125,15 +141,24 @@ input[type=text] {
     width: 80px;
 }
 
-#configTable select {
+.config select {
 	width: 80px;
 }
 
-#configTable .logLevel {
+.config .logLevel {
 	display: inline-flex;
-	grid-column: span 3;
 }
 
 .loglevel > select {
 	margin-right: 10px;
+}
+
+label {
+	display: flex;
+	cursor: pointer;
+}
+
+label > input {
+	cursor: pointer;
+	margin-right: 8px;
 }
