@@ -7,11 +7,14 @@
 
 #include "WebServer.h"
 
+WebServer webServer;
+
 const char *WebServer::MIME_TYPE_JSON = "application/json";
 fs::FS *WebServer::fileSystem = NULL;
 
 WebServer::WebServer()
 {
+    uploadPath = "";
     config = NULL;
     server = new AsyncWebServer(80);
 }
@@ -59,8 +62,8 @@ void WebServer::setupFilesystem()
         uint8_t cardType = SD_MMC.cardType();
         if (cardType != CARD_NONE) {
             logger.info("SD card mount successful");
-            logger.debug("SD_MMC Card Type: %s", (cardType == CARD_MMC ? "MMC":
-                    (cardType == CARD_SD ? "SDSC": (cardType == CARD_SDHC ? "SDHC" : "unknown"))));
+            logger.debug("SD_MMC Card Type: %s",
+                    (cardType == CARD_MMC ? "MMC" : (cardType == CARD_SD ? "SDSC" : (cardType == CARD_SDHC ? "SDHC" : "unknown"))));
             fileSystem = &SD_MMC;
         } else {
             logger.error("No SD_MMC card attached");
@@ -76,32 +79,117 @@ void WebServer::setupFilesystem()
     }
 }
 
+void WebServer::handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final)
+{
+    if (!index) {
+        logger.info("UploadStart: %s/%s", uploadPath.c_str(), filename.c_str());
+        uploadFile = fileSystem->open(uploadPath + "/" + filename, FILE_WRITE);
+    }
+    uploadFile.write(data, len);
+    if (final) {
+        logger.info("UploadEnd: %s/%s (%d)", uploadPath.c_str(), filename.c_str(), index + len);
+        uploadFile.close();
+    }
+}
+
+void handleFileUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final)
+{
+    webServer.handleUpload(request, filename, index, data, len, final);
+}
+
+String WebServer::fileList(String path)
+{
+    uploadPath = path;
+    File root = fileSystem->open(path);
+    String output = "<html><body><table>";
+    if (path.length() > 1) {
+        String parent = uploadPath.substring(0, uploadPath.lastIndexOf('/'));
+        if (parent.length() == 0) {
+            parent = "/";
+        }
+        output += "<tr><td colspan='4'><a href='/list?dir=" + parent + "'>..</a></td></tr>";
+    }
+    if (root.isDirectory()) {
+        File file = root.openNextFile();
+        while (file) {
+            time_t time = file.getLastWrite();
+            String prefix = (file.isDirectory() ? "/list?dir=/" : "");
+            const char *name = file.name() + 1;
+            output += "<tr>";
+            output += "<td><a href='" + prefix + name + "'>" + name + "</a></td>";
+            output += "<td style='text-align: right;'>" + (file.isDirectory() ? "(dir)" : String(file.size())) + "</td>";
+            output += "<td style='text-align: right;'>" + String(ctime(&time)) + "</td>";
+            output += "<td><a href='/delete?file=/" + (String) name + "'>delete</a></td>";
+            output += "</tr>";
+            file = root.openNextFile();
+        }
+    }
+    output += "</table>";
+    output += "<form action='/upload' method='post' enctype='multipart/form-data'>";
+    output += "Upload File: <input type='file' id='uploadFile' name='filename'>";
+    output += "<input type='submit'>";
+    output += "</form>";
+    output += "</body></html>";
+
+    return output;
+}
+
+void WebServer::deleteFile(String file)
+{
+    logger.info("delete: %s", file.c_str());
+    if (!fileSystem->remove(file)) {
+        fileSystem->rmdir(file);
+    }
+}
+
 void WebServer::setupWebserver()
 {
     server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
-        AsyncJsonResponse * response = new AsyncJsonResponse(false, 4096);
-        response->addHeader("Server", "GEVCU Web Server");
-        GevcuConfig::getInstance()->toJson((ArduinoJson6141_0000010::ObjectRef &)response->getRoot());
-        response->setLength();
-        request->send(response);
+        request->send(*fileSystem, "/config", "application/json", false, [](const String &key) {
+            return gevcuAdapter.getConfigParameter(key);
+        });
     });
 
     server->on("/saveConfig", HTTP_POST, [](AsyncWebServerRequest *request) {
         size_t paramCount = request->params();
         for (int i = 0; i < paramCount; i++) {
             AsyncWebParameter* param = request->getParam(i);
-            logger.info("input param: %s = %s", param->name().c_str(), param->value());
+logger.info("input param: %s = %s", param->name().c_str(), param->value());
         }
         request->redirect("/settings/index.html");
     });
 
-    server->serveStatic("/", *fileSystem, "/");
+    server->on("/list", HTTP_GET, [](AsyncWebServerRequest *request) {
+        String path = (request->hasArg("dir") ? request->arg("dir") : "/");
+        String list = webServer.fileList(path);
+        request->send(200, "text/html", list);
+    });
+
+    server->on("/upload", HTTP_POST, [](AsyncWebServerRequest *request) {
+        request->redirect("/list?dir=" + webServer.getUploadPath());
+    }, handleFileUpload);
+    server->onFileUpload(handleFileUpload);
+
+    server->on("/delete", HTTP_GET, [](AsyncWebServerRequest *request) {
+        String file = (request->hasArg("file") ? request->arg("file") : "");
+        if (file.length() > 0) {
+            webServer.deleteFile(file);
+        }
+        request->redirect("/list?dir=" + webServer.getUploadPath());
+    });
+
+    server->serveStatic("/", *fileSystem, "/").setDefaultFile("/dashboard/index.htm");
     server->begin();
 
-    logger.info("HTTP server started: %s", WiFi.softAPIP().toString());
+    MDNS.begin("gevcu");
+    logger.info("HTTP server started, use http://gevcu.local");
 }
 
-AsyncWebServer *WebServer::getWebServer()
+AsyncWebServer* WebServer::getWebServer()
 {
     return server;
+}
+
+String WebServer::getUploadPath() {
+    return this->uploadPath;
 }
