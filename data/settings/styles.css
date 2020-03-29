@@ -10,7 +10,6 @@ div.tabHeader a {
 	text-align: center;
 	height: 28px;
 	padding-top: 3px;
-	vertical-align: middle;
 	border: 1px solid #555599;
 	text-decoration: none;
 	font-weight: 500;
@@ -139,6 +138,7 @@ input[type=checkbox] {
 
 input[type=text] {
     width: 80px;
+    text-align: right;
 }
 
 .config select {
