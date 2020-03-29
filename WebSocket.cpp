@@ -87,9 +87,9 @@ void WebSocket::sendUpdate()
     doc["chargeMinsRemain"] = (59 - i * 0.6f);
     doc["maximumInputCurrent"] = i / 4.0f;
     doc["maximumInputCurrentLevel"] = i / 4.0f;
-    doc["bitfield1"] = rand() % 100;
-    doc["bitfield2"] = rand() % 100;
-    doc["bitfield3"] = rand() % 100;
+    doc["bitfieldIO"] = rand() % 100;
+    doc["bitfieldMotor"] = rand() % 100;
+    doc["bitfieldBms"] = rand() % 100;
     doc["enableRegen"] = ((i / 10) % 2 == 0 ? "true" : "false");
     doc["enableHeater"] = ((i / 20) % 2 == 0 ? "true" : "false");
     doc["enableCreep"] = ((i / 5) % 2 == 0 ? "true" : "false");

@@ -1,9 +1,7 @@
 #include "GEVCU-ESP32Web.h"
 
 Configuration config;
-WebServer webServer;
 WebSocket webSocket;
-GevcuAdapter gevcuAdapter;
 HeartBeat heartBeat;
 
 void setup()
