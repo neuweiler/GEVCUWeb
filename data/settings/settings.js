@@ -16,6 +16,7 @@ var settings = settings || {};
 		$('#inputs').load('inputs.html', postInit);
 		$('#outputs').load('outputs.html', postInit);
 		$('#devices').load('devices.html', postInit);
+		$('#system').load('system.html', postInit);
 		$('#about').load('about.html', postInit);
 		window.addEventListener('resize', resizeThrottleCanvas, false);
 	}
@@ -52,11 +53,7 @@ var settings = settings || {};
 	}
 
 	function resizeThrottleCanvas() {
-		// adjust the width to the page width
-		var canvasElement = document.getElementById("throttleCanvas");
-		if (canvasElement) {
-			canvasElement.width = window.innerWidth - 30;
-		}
+		$("#throttleCanvas").prop("width", window.innerWidth - 30);
 		refreshThrottleVisualization();
 	}
 

@@ -1,0 +1,44 @@
+<h2>System Configuration</h2>
+<form method="POST" action="/saveConfig">
+	<div class="config system">
+
+		<div>System Type</div>
+		<select name="systemType">
+			<option value="3">GEVCU 3.x</option>
+			<option value="4">GEVCU 4.x</option>
+		</select>
+		<div></div>
+		<div>Log Level</div>
+		<div class="logLevel">
+			<select name="logLevel" title="The level of log messages written">
+				<option value="0">Debug</option>
+				<option value="1">Info</option>
+				<option value="2">Warning</option>
+				<option value="3">Error</option>
+				<option value="4">Off</option>
+			</select>
+		</div>
+		<div></div>
+		
+		<h3>HV Control</h3>
+
+		<div>Precharge Delay</div>
+		<div><input name="prechargeMillis" type="text" maxlength="6" title="Precharge delay in ms" /> ms</div>
+		<div></div>
+
+		<h3>Cooling / Heating</h3>
+
+		<div>Temperature Fan On</div>
+		<div><input name="coolingTempOn" type="text" maxlength="3" title="Temperature to turn fan ON" /> &#176;C</div>
+		<div></div>
+		<div>Temperature Fan Off</div>
+		<div><input name="coolingTempOff" type="text" maxlength="3" title="Temperature to turn fan OFF" /> &#176;C</div>
+		<div></div>
+
+		<div>Temperature Heater On</div>
+		<div><input name="heaterTemperatureOn" type="text" maxlength="3" title="Temperature to turn heater on" /> &#176;C</div>
+		<div></div>
+
+	</div>
+	<input type="submit" value="Save" />
+</form>

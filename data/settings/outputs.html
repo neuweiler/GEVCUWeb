@@ -3,8 +3,8 @@
 	<div class="config outputs">
 		<h3>HV Control</h3>
 
-		<div>Precharge Relay</div>
-		<select name="prechargeRelayOutput" title="Output port to set precharge relay">
+		<div>Main Contactor</div>
+		<select name="mainContactor" title="Output port to set main contactor">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -16,25 +16,22 @@
 			<option value="7">7</option>
 		</select>
 		<div></div>
-		<div>Precharge Delay</div>
-		<div><input name="prechargeMillis" type="text" maxlength="6" title="Precharge delay in ms" /> ms</div>
+		<div>Precharge Relay</div>
+		<select name="prechargeRelay" title="Output port to set precharge relay">
+			<option value="255">None</option>
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="4">4</option>
+			<option value="5">5</option>
+			<option value="6">6</option>
+			<option value="7">7</option>
+		</select>
 		<div></div>
 
-		<div>Main Contactor</div>
-		<select name="mainContactorOutput" title="Output port to set main contactor">
-			<option value="255">None</option>
-			<option value="0">0</option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-		</select>
-		<div></div>
 		<div>Secondary Contactor</div>
-		<select name="secondaryContOutput" title="Output port to set secondary contactor">
+		<select name="secondaryCont" title="Output port to set secondary contactor">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -46,11 +43,12 @@
 			<option value="7">7</option>
 		</select>
 		<div></div>
+		<div class="spacer"></div>
 
 		<h3>Device Activation</h3>
 
 		<div>Enable Motor</div>
-		<select name="enableMotorOutput" title="Output port to enable the motor controller power-stage">
+		<select name="enableMotor" title="Output port to enable the motor controller power-stage">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -63,7 +61,7 @@
 		</select>
 		<div></div>
 		<div>Enable Charger</div>
-		<select name="enableChargerOutput" title="Output port to enable the charger">
+		<select name="enableCharger" title="Output port to enable the charger">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -77,7 +75,7 @@
 		<div></div>
 
 		<div>Enable DC-DC</div>
-		<select name="enableDcDcOutput" title="Output port to enable the DC-DC converter">
+		<select name="enableDcDc" title="Output port to enable the DC-DC converter">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -90,7 +88,7 @@
 		</select>
 		<div></div>
 		<div>Enable Heater</div>
-		<select name="enableHeaterOutput" title="Output port to enable the heater">
+		<select name="enableHeater" title="Output port to enable the heater">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -105,15 +103,8 @@
 
 		<h3>Cooling / Heating</h3>
 
-		<div>Temperature Fan ON</div>
-		<div><input name="coolingTempOn" type="text" maxlength="3" title="Temperature to turn fan ON" /> &#176;C</div>
-		<div></div>
-		<div>Temperature Fan OFF</div>
-		<div><input name="coolingTempOff" type="text" maxlength="3" title="Temperature to turn fan OFF" /> &#176;C</div>
-		<div></div>
-
 		<div>Cooling Fan</div>
-		<select name="coolingFanOutput" title="Output port to set cooling fan relay">
+		<select name="coolingFan" title="Output port to set cooling fan relay">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -126,7 +117,7 @@
 		</select>
 		<div></div>
 		<div>Cooling Pump</div>
-		<select name="coolingPumpOutput" title="Output port to set cooling pump relay">
+		<select name="coolingPump" title="Output port to set cooling pump relay">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -140,7 +131,7 @@
 		<div></div>
 
 		<div>Heater Valve</div>
-		<select name="heaterValveOutput" title="Output port to set heater valve relay (cabin/battery heating)">
+		<select name="heaterValve" title="Output port to set heater valve relay (cabin/battery heating)">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -153,7 +144,7 @@
 		</select>
 		<div></div>
 		<div>Heater Pump</div>
-		<select name="heaterPumpOutput" title="Output port to set heater heater pump relay">
+		<select name="heaterPump" title="Output port to set heater heater pump relay">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -169,7 +160,7 @@
 		<h3>Indicators</h3>
 
 		<div>Brake Light</div>
-		<select name="brakeLightOutput" title="Output port to turn on brake light">
+		<select name="brakeLight" title="Output port to turn on brake light">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -182,7 +173,7 @@
 		</select>
 		<div></div>
 		<div>Reverse Light</div>
-		<select name="reverseLightOutput" title="Output port to turn on reverse light">
+		<select name="reverseLight" title="Output port to turn on reverse light">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -196,7 +187,7 @@
 		<div></div>
 
 		<div>Warning Indicator</div>
-		<select name="warningOutput" title="Output port to turn on warning indicator">
+		<select name="warning" title="Output port to turn on warning indicator">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
@@ -209,7 +200,7 @@
 		</select>
 		<div></div>
 		<div>Power Limitation</div>
-		<select name="powerLimitOutput" title="Output port to turn on power limitation indicator">
+		<select name="powerLimit" title="Output port to turn on power limitation indicator">
 			<option value="255">None</option>
 			<option value="0">0</option>
 			<option value="1">1</option>
