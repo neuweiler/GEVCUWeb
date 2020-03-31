@@ -1,5 +1,4 @@
 /*
-/*
  * HeartBeat.cpp
  *
  Copyright (c) 2020 Michael Neuweiler

@@ -1,9 +1,29 @@
 /*
- * Webserver.cpp
+ * WebServer.cpp
  *
- *  Created on: 18 Feb 2020
- *      Author: michaeln
+ Copyright (c) 2020 Michael Neuweiler
+
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ "Software"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+
+ The above copyright notice and this permission notice shall be included
+ in all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
  */
+
 
 #include "WebServer.h"
 
@@ -146,15 +166,15 @@ void WebServer::setupWebserver()
 {
     server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
         request->send(*fileSystem, "/config", "application/json", false, [](const String &key) {
-            return gevcuAdapter.getConfigParameter(key);
-        });
+                    return gevcuAdapter.getConfigParameter(key);
+                });
     });
 
     server->on("/saveConfig", HTTP_POST, [](AsyncWebServerRequest *request) {
         size_t paramCount = request->params();
         for (int i = 0; i < paramCount; i++) {
             AsyncWebParameter* param = request->getParam(i);
-logger.info("input param: %s = %s", param->name().c_str(), param->value());
+            logger.info("input param: %s = %s", param->name().c_str(), param->value());
         }
         request->redirect("/settings/index.html");
     });
@@ -190,6 +210,7 @@ AsyncWebServer* WebServer::getWebServer()
     return server;
 }
 
-String WebServer::getUploadPath() {
+String WebServer::getUploadPath()
+{
     return this->uploadPath;
 }
