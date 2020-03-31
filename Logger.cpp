@@ -30,7 +30,8 @@
 
 Logger logger;
 
-Logger::Logger() {
+Logger::Logger()
+{
     logLevel = LogLevel::Info;
     debugging = (Logger::logLevel == Debug);
     msgBuffer = new char[LOG_BUFFER_SIZE];
