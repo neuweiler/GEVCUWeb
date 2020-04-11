@@ -198,7 +198,7 @@ void WebServer::setupWebserver()
         request->redirect("/list?dir=" + webServer.getUploadPath());
     });
 
-    server->serveStatic("/", *fileSystem, "/").setDefaultFile("/dashboard/index.htm");
+    server->serveStatic("/", *fileSystem, "/").setDefaultFile("index.html");
     server->begin();
 
     MDNS.begin("gevcu");
