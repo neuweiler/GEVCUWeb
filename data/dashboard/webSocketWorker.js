@@ -71,7 +71,7 @@ function checkConnection() {
 		setTimeout(function() {openWebSocket();}, reconnectDelay);
 		timestampPong = new Date().getTime();
 	}
-	if (timestampLastReception + heartbeatInterval < new Date().getTime()) {
+	if (timestampLastReception + heartbeatInterval < new Date().getTime() && socket) {
 		socket.send("ping");
 	}
 }
