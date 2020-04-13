@@ -80,7 +80,7 @@ var dashboard = dashboard || {};
 				updateSystemState(data);
 			} else if (name == 'logMessage') {
 				logMessage(data.level, data.message);
-			} else if (name == 'cruiseControlEnabled') {
+			} else if (name == 'enableCruiseControl') {
 				showHideCruiseControl(data);
 			} else {
 				$('#' + name + 'Meter').attr('value', data); // set the meter value (additionally to a text node)

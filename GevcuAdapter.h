@@ -51,12 +51,12 @@ public:
     void loop();
     void event(String message);
     String getConfigParameter(String key);
+    void setConfigParameter(String key, String value);
 private:
-    bool processLiveData(char code, uint16_t len, char *data);
-    void processInput(char *input);
+    bool processBinaryData(char code, uint16_t len, char *data);
+    void processInput(String input);
     DataPoint* findDataPoint(char code);
-    void sendDummyUpdate();
-    int32_t readInt32(char *data);
+    uint32_t readUInt32(char *data);
     int16_t readInt16(char *data);
     uint16_t readUInt16(char *data);
 
@@ -65,9 +65,9 @@ private:
     StaticJsonDocument<3000> doc;
     char serialBuffer[1024];
     uint16_t bufPos;
-    uint8_t dataCount;
-    DataPoint dataPoints[255] = {
-            { 0, 2, true, 0, "systemState" }, // uint16_t
+    uint8_t binaryDataCount;
+    DataPoint dataPoints[255] = { // must match with GEVCU's WifiEsp32.h DataPointCodes and the device's data types
+            { 0, 1, true, 0, "systemState" }, // uint8_t
             { 1, 2, false, 10, "torqueActual" }, // int16_t
             { 2, 2, false, 0, "speedActual" }, // int16_t
             { 3, 2, false, 10, "throttle" }, // int16_t
@@ -119,30 +119,30 @@ private:
             { 74, 2, false, 0, "cruiseControlSpeed" }, // int16_t
             { 75, 1, true, 0, "cruiseControlEnable" }, // bool
 
-            { 80, 2, true, 0, "packResistance" }, // uint16_t
-            { 81, 2, true, 0, "packHealth" }, // uint8_t
-            { 82, 2, true, 0, "packCycles" }, // uint16_t
-            { 83, 2, true, 100, "soc" }, // uint16_t
-            { 84, 2, true, 0, "dischargeLimit" }, // uint16_t
-            { 85, 2, true, 0, "chargeLimit" }, // uint16_t
-            { 86, 1, true, 0, "chargeAllowed" }, // bool
-            { 87, 1, true, 0, "dischargeAllowed" }, // bool
-            { 88, 2, false, 10, "lowestCellTemp" }, // int16_t
-            { 89, 2, false, 10, "highestCellTemp" }, // int16_t
-            { 90, 2, true, 10000, "lowestCellVolts" }, // uint16_t
-            { 91, 2, true, 10000, "highestCellVolts" }, // uint16_t
-            { 92, 2, true, 10000, "averageCellVolts" }, // uint16_t
-            { 93, 2, true, 10000, "deltaCellVolts" }, // uint16_t
-            { 94, 2, true, 100, "lowestCellResistance" }, // uint16_t
-            { 95, 2, true, 100, "highestCellResistance" }, // uint16_t
-            { 96, 2, true, 100, "averageCellResistance" }, // uint16_t
-            { 97, 2, true, 100, "deltaCellResistance" }, // uint16_t
-            { 98, 1, true, 0, "lowestCellTempId" }, // uint8_t
-            { 99, 1, true, 0, "highestCellTempId" }, // uint8_t
-            { 100, 1, true, 0, "lowestCellVoltsId" }, // uint8_t
-            { 101, 1, true, 0, "highestCellVoltsId" }, // uint8_t
-            { 102, 1, true, 0, "lowestCellResistanceId" }, // uint8_t
-            { 103, 1, true, 0, "highestCellResistanceId" }, // uint8_t
+            { 80, 2, true, 100, "soc" }, // uint16_t
+            { 81, 2, true, 0, "dischargeLimit" }, // uint16_t
+            { 82, 2, true, 0, "chargeLimit" }, // uint16_t
+            { 83, 1, true, 0, "chargeAllowed" }, // bool
+            { 84, 1, true, 0, "dischargeAllowed" }, // bool
+            { 85, 2, false, 10, "lowestCellTemp" }, // int16_t
+            { 86, 2, false, 10, "highestCellTemp" }, // int16_t
+            { 87, 2, true, 10000, "lowestCellVolts" }, // uint16_t
+            { 88, 2, true, 10000, "highestCellVolts" }, // uint16_t
+            { 89, 2, true, 10000, "averageCellVolts" }, // uint16_t
+            { 90, 2, true, 10000, "deltaCellVolts" }, // uint16_t
+            { 91, 2, true, 100, "lowestCellResistance" }, // uint16_t
+            { 92, 2, true, 100, "highestCellResistance" }, // uint16_t
+            { 93, 2, true, 100, "averageCellResistance" }, // uint16_t
+            { 94, 2, true, 100, "deltaCellResistance" }, // uint16_t
+            { 95, 1, true, 0, "lowestCellTempId" }, // uint8_t
+            { 96, 1, true, 0, "highestCellTempId" }, // uint8_t
+            { 97, 1, true, 0, "lowestCellVoltsId" }, // uint8_t
+            { 98, 1, true, 0, "highestCellVoltsId" }, // uint8_t
+            { 99, 1, true, 0, "lowestCellResistanceId" }, // uint8_t
+            { 100, 1, true, 0, "highestCellResistanceId" }, // uint8_t
+            { 101, 2, true, 0, "packResistance" }, // uint16_t
+            { 102, 2, true, 0, "packHealth" }, // uint8_t
+            { 103, 2, true, 0, "packCycles" }, // uint16_t
             { 104, 1, true, 0, "bmsTemperature" } // uint8_t*/
     };
 

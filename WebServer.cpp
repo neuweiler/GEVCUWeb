@@ -175,6 +175,7 @@ void WebServer::setupWebserver()
         for (int i = 0; i < paramCount; i++) {
             AsyncWebParameter* param = request->getParam(i);
             logger.info("input param: %s = %s", param->name().c_str(), param->value());
+            gevcuAdapter.setConfigParameter(param->name(), param->value());
         }
         request->redirect("/settings/index.html");
     });
