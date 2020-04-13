@@ -33,6 +33,7 @@ GevcuAdapter::GevcuAdapter()
     bufPos = 0;
     binaryDataCount = 0;
     config = NULL;
+    timestamp = millis();
 }
 
 GevcuAdapter::~GevcuAdapter()
@@ -93,6 +94,15 @@ logger.info("sending to websocket: %s", data.c_str());
         } else if (ch != -1) {
             serialBuffer[bufPos++] = ch;
         }
+    }
+
+    if (timestamp + 10000 < millis()) {
+        // if config is not loaded, request from GEVCU
+        if (gevcuConfig["logLevel"] == NULL) {
+            logger.warn("GEVCU config not loaded, requesting");
+            Serial2.println("cmd:loadConfig");
+        }
+        timestamp = millis();
     }
 }
 

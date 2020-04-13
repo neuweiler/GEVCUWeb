@@ -66,6 +66,7 @@ private:
     char serialBuffer[1024];
     uint16_t bufPos;
     uint8_t binaryDataCount;
+    uint32_t timestamp;
     DataPoint dataPoints[255] = { // must match with GEVCU's WifiEsp32.h DataPointCodes and the device's data types
             { 0, 1, true, 0, "systemState" }, // uint8_t
             { 1, 2, false, 10, "torqueActual" }, // int16_t
