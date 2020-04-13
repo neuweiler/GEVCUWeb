@@ -1,20 +1,20 @@
 <h2>Device Selection/Activation</h2>
-<form method="POST" action="/saveConfig">
+<form method="POST" action="/saveConfig" id="devices">
 	<div class="config devices">
 
 		<h3>Motor Controllers/Inverters</h3>
 
 		<label>
-			<input name="x1000" type="checkbox">
+			<input name="x1000" type="checkbox" value="1"/>
 			Azure Dynamics DMOC645
 		</label>
 		<label>
-			<input name="x1002" type="checkbox">
+			<input name="x1002" type="checkbox" value="1"/>
 			UQM Powerphase 100
 		</label>
 
 		<label>
-			<input name="x1001" type="checkbox">
+			<input name="x1001" type="checkbox" value="1"/>
 			Brusa DMC5
 		</label>
 		<div></div>
@@ -22,62 +22,65 @@
 		<h3>Throttle and Brake</h3>
 
 		<label>
-			<input name="x1031" type="checkbox">
+			<input name="x1031" type="checkbox" value="1"/>
 			Potentiometer/Hall Effect Throttle
 		</label>
 		<label>
-			<input name="x1032" type="checkbox">
+			<input name="x1032" type="checkbox" value="1"/>
 			Potentiometer/Hall Effect Brake
 		</label>
 
 		<label>
-			<input name="x1033" type="checkbox">
+			<input name="x1033" type="checkbox" value="1"/>
 			CAN bus Throttle
 		</label>
 		<label>
-			<input name="x1034" type="checkbox">
+			<input name="x1034" type="checkbox" value="1"/>
 			CAN bus Brake
 		</label>
 
 		<h3>Communication Interfaces</h3>
 
 		<label>
-			<input name="x1040" type="checkbox">
+			<input name="x1040" type="checkbox" value="1"/>
 			ConnectOne WiReach WiFi
 		</label>
 		<label>
-			<input name="x6500" type="checkbox">
+			<input name="x6500" type="checkbox" value="1"/>
 			ELM327 OBDII Wireless
 		</label>
 
 		<label>
-			<input name="x6000" type="checkbox">
+			<input name="x1041" type="checkbox" value="1"/>
+			ESP32 Wifi
+		</label>
+		<label>
+			<input name="x6000" type="checkbox" value="1"/>
 			OBDII PID Listener
 		</label>
-		<div></div>
 
 		<h3>Battery Chargers and Management</h3>
 
 		<label>
-			<input name="x1010" type="checkbox">
+			<input name="x1010" type="checkbox" value="1"/>
 			Brusa NLG5 Charger
 		</label>
 		<label>
-			<input name="x1020" type="checkbox">
+			<input name="x1020" type="checkbox" value="1"/>
 			TCCH/Elcon Charger
 		</label>
 
 		<label>
-			<input name="x1022" type="checkbox">
+			<input name="x1022" type="checkbox" value="1"/>
 			Lear Charger
 		</label>
 		<label>
-			<input name="x2000" type="checkbox">
+			<input name="x2000" type="checkbox" value="1"/>
 			THINK Systems BMS
 		</label>
 
 		<label>
-			<input name="x2001" type="checkbox">
+			<input name="x2001" type="checkbox" value="1"/>
 			Orion BMS
 		</label>
 		<div></div>
@@ -85,21 +88,31 @@
 		<h3>DC-DC Converters</h3>
 
 		<label>
-			<input name="x3000" type="checkbox">
+			<input name="x3000" type="checkbox" value="1"/>
 			Brusa BSC6
 		</label>
 		<label>
-			<input name="x5003" type="checkbox">
+			<input name="x5003" type="checkbox" value="1"/>
 			CAN I/O
 		</label>
 
 		<h3>System</h3>
 
 		<label>
-			<input name="x5001" type="checkbox">
+			<input name="x5001" type="checkbox" value="1"/>
 			Heartbeat
 		</label>
 		<div></div>
 	</div>
-	<input type="submit" value="Save" />
+	<input type="submit" value="Save"/>
 </form>
+<script>
+$('#devices').submit(function(e){
+    var b = $("input[type=checkbox]:not(:checked)");
+    $(b).each(function () {
+        $(this).val(0);
+        $(this).prop("checked", true);
+    });
+    return true;
+});
+</script>

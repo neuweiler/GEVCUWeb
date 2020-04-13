@@ -46,7 +46,7 @@ function openWebSocket() {
 		// process messages from the server
 		socket.onmessage = function(message) {
 			timestampLastReception = new Date().getTime();
-			if (message !== "pong") {
+			if (message.data !== "pong") {
 				var data = JSON.parse(message.data);
 				postMessage(data);
 			}

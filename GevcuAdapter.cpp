@@ -59,6 +59,7 @@ void GevcuAdapter::setConfigParameter(String key, String value)
 {
     gevcuConfig[key] = value;
     Serial2.printf("cfg:%s=%s\r\n", key.c_str(), value.c_str());
+    delay(50); // don't overwhelm GEVCU
 }
 
 void GevcuAdapter::loop()
