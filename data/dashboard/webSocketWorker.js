@@ -1,5 +1,5 @@
-const heartbeatInterval = 10000;
-const deadConnectionTimeout = 15000;
+const heartbeatInterval = 5000;
+const deadConnectionTimeout = 10000;
 const reconnectDelay = 1000;
 
 var socket = null;
@@ -46,8 +46,10 @@ function openWebSocket() {
 		// process messages from the server
 		socket.onmessage = function(message) {
 			timestampLastReception = new Date().getTime();
-			var data = JSON.parse(message.data);
-			postMessage(data);
+			if (message !== "pong") {
+				var data = JSON.parse(message.data);
+				postMessage(data);
+			}
 		};
 	}
 	timestampLastReception = new Date().getTime();
@@ -68,5 +70,8 @@ function checkConnection() {
 		closeWebSocket();
 		setTimeout(function() {openWebSocket();}, reconnectDelay);
 		timestampPong = new Date().getTime();
+	}
+	if (timestampLastReception + heartbeatInterval < new Date().getTime()) {
+		socket.send("ping");
 	}
 }

@@ -64,9 +64,11 @@ void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
     if (type == WS_EVT_CONNECT) {
         connected = true;
         logger.info("ws[%s][%u] connect", server->url(), client->id());
+        observer->event("connected");
     } else if (type == WS_EVT_DISCONNECT) {
         connected = false;
         logger.info("ws[%s][%u] disconnect", server->url(), client->id());
+        observer->event("disconnected");
     } else if (type == WS_EVT_ERROR) {
         logger.warn("ws[%s][%u] error(%u): %s", server->url(), client->id(), *((uint16_t*) arg), (char*) data);
     } else if (type == WS_EVT_PONG) {
@@ -91,7 +93,10 @@ void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
                     msg += buff;
                 }
             }
-            if (observer) {
+
+            if (msg.equals("ping")) {
+                webSocketHandler->textAll("pong");
+            } else if (observer) {
                 observer->event(msg);
             }
         }
