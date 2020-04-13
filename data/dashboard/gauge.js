@@ -813,6 +813,10 @@ var Gauge = function(gaugeConfig) {
 $(function() {
 	$('<style type="text/css">@font-face {font-family: \'Led\';src: url(\'/fonts/digital-7-mono.ttf\');}</style>')
 	.appendTo(document.head);
+	
+	// no other way to handle font is rendered by a browser just give the browser around 250ms to do that
+	$('<div id="temp" style="font-family: Led;">.</div>').appendTo('#cruiseControl');
+	setTimeout(function() { $('#temp').remove(); }, 250);
 });
 
 /**

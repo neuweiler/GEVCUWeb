@@ -15,25 +15,24 @@ var dashboard = dashboard || {};
 		activate();
 
 		$.getJSON("/config", function(data) {
-			gauges.createDc(data.dashboard);
-			gauges.createMotor(data.dashboard);
-			gauges.createTemperature(data.dashboard);
+			setTimeout(function() { // delay generation of gauges to allow loading of Led font
+				gauges.createDc(data.dashboard);
+				gauges.createMotor(data.dashboard);
+				gauges.createTemperature(data.dashboard);
+			}, 250);
 			setCruiseData(data.dashboard);
 			setChargeLevels(data.dashboard);
 		});
 	}
 
 	function activate() {
-		// add an event listener so sounds can get loaded on mobile devices
-		// after user interaction
+		// add an event listener so sounds can get loaded on mobile devices after user interaction
 		window.addEventListener('keydown', removeBehaviorsRestrictions);
 		window.addEventListener('mousedown', removeBehaviorsRestrictions);
 		window.addEventListener('touchstart', removeBehaviorsRestrictions);
 		startWebSocketWorker();
 	}
 
-	// on most mobile browsers sounds can only be loaded during a user
-	// interaction (stupid !)
 	function removeBehaviorsRestrictions() {
 		soundError.load();
 		soundWarn.load();
