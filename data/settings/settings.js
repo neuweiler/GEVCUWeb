@@ -49,7 +49,14 @@ var settings = settings || {};
 			if (pageId == 'controls') {
 				refreshThrottleVisualization();
 			}
-		});
+			$('input[type=submit]').prop('disabled', false);
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+	        console.log("error " + textStatus);
+	        console.log("incoming Text " + jqXHR.responseText);
+	        console.log("errorThrown: " + errorThrown);
+			$('input[type=submit]').prop('disabled', true);
+	    });
 	}
 
 	function resizeThrottleCanvas() {
