@@ -42,7 +42,7 @@ void setup()
 
 void loop()
 {
-    delay(1000);
+    delay(100);
     gevcuAdapter.loop();
     webSocket.loop();
     heartBeat.loop();
