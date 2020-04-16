@@ -17,6 +17,25 @@
 		</select>
 		<div data-device="x1031"></div>
 
+		<div data-device="x1031">ADC Pin 1</div>
+		<select data-device="x1031" name="throttleAdcPin1" title="Analog input pin 1 for throttle">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="255">none</option>
+		</select>
+		<div data-device="x1031"></div>
+		<div data-device="x1031">ADC Pin 2</div>
+		<select data-device="x1031" name="throttleAdcPin2" title="Analog input pin 2 for throttle">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="255">none</option>
+		</select>
+		<div data-device="x1031"></div>
+
 		<div>Minimum Signal Level</div>
 		<div id="minimumLevelSpan" title="Raw ADC numeric output with foot off throttle"></div>
 		<div data-device="x1031">Minimum Signal Level 2</div>
@@ -28,6 +47,17 @@
 		<div data-device="x1031" id="maximumLevel2Span" title="Raw ADC numeric output of second throttle sensor with full throttle (floored)"></div>
 
 		<h3 data-device="x1032,x1034">Brake</h3>
+
+		<div data-device="x1032">ADC Pin</div>
+		<select data-device="x1032" name="brakeAdcPin" title="Analog input pin for brake">
+			<option value="0">0</option>
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+			<option value="255">none</option>
+		</select>
+		<div data-device="x1032"></div>
+		<div data-device="x1032" class="spacer"></div>
 
 		<div data-device="x1032,x1034">Minimum Signal Level</div>
 		<div data-device="x1032,x1034" id="brakeMinimumLevelSpan" title="Raw ADC numeric output of brake transducer with very light brake pedal pressure"></div>

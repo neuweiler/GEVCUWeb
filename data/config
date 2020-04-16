@@ -1,6 +1,7 @@
 {
 	"system": {
 		"systemType": %systemType%,
+		"carType": %carType%,
 		"logLevel": %logLevel%,
 		"prechargeMillis": %prechargeMillis%,
 		"coolingTempOn": %coolingTempOn%,
@@ -38,7 +39,6 @@
 		"brakeHold": %brakeHold%,
 		"brakeHoldForceCoef": %brakeHoldForceCoef%,
 		"reversePercent": %reversePercent%,
-		"gearChangeSupport": %gearChangeSupport%,
 		"cruiseKp": %cruiseKp%,
 		"cruiseKi": %cruiseKi%,
 		"cruiseKd": %cruiseKd%,
@@ -96,9 +96,7 @@
 		"maximumLevel2": %maximumLevel2%,
 		"brakeMinimumLevel": %brakeMinimumLevel%,
 		"brakeMaximumLevel": %brakeMaximumLevel%,
-		"brakeAdcPin1": %brakeAdcPin1%,
-		"brakeAdcPin2": %brakeAdcPin2%,
-		"carType": %carType%,
+		"brakeAdcPin": %brakeAdcPin%,
 		"speedMax": %speedMax%,
 		"torqueMax": %torqueMax%,
 		"motorMode": %motorMode%,

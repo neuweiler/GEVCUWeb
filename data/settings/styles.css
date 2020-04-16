@@ -146,7 +146,7 @@ input[type=text] {
 }
 
 .config select {
-	width: 80px;
+	width: 110px;
 }
 
 .config .logLevel {

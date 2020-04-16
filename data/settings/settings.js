@@ -166,6 +166,8 @@ var settings = settings || {};
 		addRangeControl("creepSpeed", 0, 2000, "rpm");
 		addRangeControl("slewRate", 0, 1000, "%/sec");
 		addRangeControl("brakeHold", 0, 50, "%");
+		addRangeControl("brakeHoldForceCoef", 1, 255, "x");
+		addRangeControl("reversePercent", 0, 100, "%");
 		addRangeControl("brakeMinimumLevel", 0, 4095);
 		addRangeControl("brakeMinimumRegen", 0, 100, "%");
 		addRangeControl("brakeMaximumLevel", 0, 4095);

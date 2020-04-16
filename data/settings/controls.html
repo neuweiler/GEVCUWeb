@@ -24,7 +24,8 @@
 		<div>Creep Maximum Speed</div>
 		<div id="creepSpeedSpan" title="Maximum RPM for creep"></div>
 
-		<div class="spacer"></div>
+		<div>Reverse Max Torque</div>
+		<div id="reversePercentSpan" title="How much torque to allow in reverse"></div>
 		<div>Slew Rate</div>
 		<div id="slewRateSpan" title="Slew rate for torque/speed changes"></div>
 
@@ -37,8 +38,30 @@
 
 		<div data-device="x1032,x1034">Max Regen Level</div>
 		<div data-device="x1032,x1034" id="brakeMaximumRegenSpan" title="Percent of maximum torque for regen with full brake pedal pressure"></div>
-		<div data-device="x1032,x1034"></div>
-		<div data-device="x1032,x1034"></div>
+		<div data-device="x1032,x1034">Brake Hold Force Coefficient</div>
+		<div data-device="x1032,x1034" id="brakeHoldForceCoefSpan" title="Coefficient for brake hold, the higher the smoother brake hold force will be applied"></div>
+		
+		<h3>Cruise Control</h3>
+		
+		<div>Proportional Part</div>
+		<div><input name="cruiseKp" type="text" maxlength="6" title="Proportional part for cruise PID controller" /> (Kp)</div>
+		<div></div>
+		<div>Step Delta</div>
+		<div><input name="cruiseStepDelta" type="text" maxlength="6" title="Amount to increase/decrease speed set in cruise control for each step" /> rpm / kph</div>
+		<div></div>
+
+		<div>Integral Part</div>
+		<div><input name="cruiseKi" type="text" maxlength="6" title="Integral part for cruise PID controller" /> (Ki)</div>
+		<div></div>
+		<div>Long Press Delta</div>
+		<div><input name="cruiseLongPressDelta" type="text" maxlength="6" title="Amount to increase/decrease speed when key is pressed long" /> rpm / kph</div>
+		<div></div>
+
+		<div>Derivative Part</div>
+		<div><input name="cruiseKd" type="text" maxlength="6" title="Derivative part for cruise PID controller" /> (Kd)</div>
+		<div class="spacer"></div>
+
+
 	</div>
 	<input type="submit" value="Save" />
 </form>
