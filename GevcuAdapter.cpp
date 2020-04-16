@@ -102,6 +102,9 @@ logger.info("sending to websocket: %s", data.c_str());
             logger.warn("GEVCU config not loaded, requesting");
             Serial2.println("cmd:loadConfig");
         }
+        String timeRunning = "{\"timeRunning\": \"" + getTimeRunning() + "\"}";
+        webSocket.send(timeRunning);
+
         timestamp = millis();
     }
 }
@@ -174,4 +177,20 @@ DataPoint *GevcuAdapter::findDataPoint(char code)
         }
     }
     return NULL;
+}
+
+/**
+ * \brief Calculate the runtime in hh:mm:ss
+ *
+ * \return the current time running in hh:mm:ss
+ */
+String GevcuAdapter::getTimeRunning()
+{
+    char buffer[10];
+    uint32_t ms = millis();
+    int seconds = (int) (ms / 1000) % 60;
+    int minutes = (int) ((ms / (1000 * 60)) % 60);
+    int hours = (int) ((ms / (1000 * 3600)) % 24);
+    sprintf(buffer, "%02d:%02d:%02d", hours, minutes, seconds);
+    return String(buffer);
 }

@@ -59,6 +59,7 @@ private:
     uint32_t readUInt32(char *data);
     int16_t readInt16(char *data);
     uint16_t readUInt16(char *data);
+    String getTimeRunning();
 
     Configuration *config;
     ArrayMap<String, String> gevcuConfig;
