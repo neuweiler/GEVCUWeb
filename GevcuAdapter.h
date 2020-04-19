@@ -33,6 +33,10 @@
 #include "WebSocket.h"
 #include <ArduinoJson.h>
 
+#define PIN_GEVCU_LED 32 // connected to GEVCU LED
+#define PIN_GEVCU_DATA_1 33 // connected to GEVCU D42
+#define PIN_GEVCU_DATA_2 35 // connected to GEVCU D18
+
 struct DataPoint
 {
     char code;
@@ -67,8 +71,9 @@ private:
     char serialBuffer[1024];
     uint16_t bufPos;
     uint8_t binaryDataCount;
+    uint8_t connectedClients;
     uint32_t timestamp;
-    DataPoint dataPoints[255] = { // must match with GEVCU's WifiEsp32.h DataPointCodes and the device's data types
+    DataPoint dataPoints[110] = { // must match with GEVCU's WifiEsp32.h DataPointCodes and the device's data types
             { 0, 1, true, 0, "systemState" }, // uint8_t
             { 1, 2, false, 10, "torqueActual" }, // int16_t
             { 2, 2, false, 0, "speedActual" }, // int16_t
@@ -143,7 +148,7 @@ private:
             { 99, 1, true, 0, "lowestCellResistanceId" }, // uint8_t
             { 100, 1, true, 0, "highestCellResistanceId" }, // uint8_t
             { 101, 2, true, 0, "packResistance" }, // uint16_t
-            { 102, 2, true, 0, "packHealth" }, // uint8_t
+            { 102, 1, true, 0, "packHealth" }, // uint8_t
             { 103, 2, true, 0, "packCycles" }, // uint16_t
             { 104, 1, true, 0, "bmsTemperature" } // uint8_t*/
     };

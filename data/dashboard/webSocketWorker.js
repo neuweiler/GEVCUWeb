@@ -10,7 +10,7 @@ onmessage = function(event) {
 	switch (event.data.cmd) {
 	case 'start':
 		console.log('webSocket start');
-		openWebSocket();
+		setTimeout(function() {openWebSocket();}, 1000); // give the browser enough time to load other resources and create gauges
 		break;
 	case 'stop':
 		console.log('webSocket stop');

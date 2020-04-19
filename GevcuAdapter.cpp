@@ -33,6 +33,7 @@ GevcuAdapter::GevcuAdapter()
     bufPos = 0;
     binaryDataCount = 0;
     config = NULL;
+    connectedClients = 0;
     timestamp = millis();
 }
 
@@ -47,6 +48,10 @@ void GevcuAdapter::start(Configuration *configuration)
 
     Serial2.begin(115200);
     Serial2.setRxBufferSize(4096);
+
+    pinMode(PIN_GEVCU_LED, OUTPUT);
+//    pinMode(PIN_GEVCU_DATA_1, OUTPUT);
+//    pinMode(PIN_GEVCU_DATA_2, INPUT);
 
     logger.info("GevcuAdapter configured");
 }
@@ -76,7 +81,9 @@ void GevcuAdapter::loop()
                     if (--binaryDataCount == 0) {
                         String data;
                         serializeJson(doc, data);
-logger.info("sending to websocket: %s", data.c_str());
+                        if (logger.isDebug()) {
+                            logger.info("sending to websocket: %s", data.c_str());
+                        }
                         webSocket.send(data);
                     }
                 }
@@ -165,8 +172,18 @@ void GevcuAdapter::processInput(String input)
 
 void GevcuAdapter::event(String message)
 {
-    logger.info("sending event '%s' to GEVCU", message.c_str());
-    Serial2.println("cmd:" + message);
+    if (message.equals("disconnected")) {
+        if (--connectedClients == 0) {
+            digitalWrite(PIN_GEVCU_LED, LOW);
+            Serial2.println("cmd:" + message);
+        }
+    } else {
+        if (message.equals("connected")) {
+            connectedClients++;
+            digitalWrite(PIN_GEVCU_LED, HIGH);
+        }
+        Serial2.println("cmd:" + message);
+    }
 }
 
 DataPoint *GevcuAdapter::findDataPoint(char code)
