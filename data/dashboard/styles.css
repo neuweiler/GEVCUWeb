@@ -2,6 +2,11 @@ body {
 	margin: 0;
 }
 
+div.header {
+	display: flex;
+	flex-wrap: nowrap;
+}
+
 .mainTitle {
 	top: 50%;
 	left: 50%;
@@ -49,7 +54,7 @@ div.ajs-message.ajs-success {
 /************* Top Info Bar *************/
 .infoBar {
 	margin: 0 0 8px 0;
-	padding: 0 8px;
+	padding: 0;
 	background: #333;
 	color: #ccc;
 	font-size: 1.3em;
@@ -157,7 +162,8 @@ meter#chargeLevelMeter {
 
 .chargeLevel {
 	margin-bottom: 0.5em;
-	text-align: center;
+	margin-top: -2.1em;
+ 	text-align: center;
 	color: #555;
 	font-weight: bold;
 	font-size: 6em;
@@ -212,13 +218,13 @@ input[type=range] {
 
 /************* Sub Info *************/
 .subInfo {
-	margin: .25em 10% .25em 10%;
-	padding: .25em .5em .25em .5em;
+	margin: .1em 10% .25em 10%;
+	padding: .1em .5em .1em .5em;
 	display: table;
 	table-layout: fixed;
 	width: 80%;
 	background: linear-gradient(to bottom right, #445, #113);
-	font-size: 1.8em;
+	font-size: 1.6em;
 	border-radius: 0.7em;
 	box-shadow: .3em 0.3em 0.3em #000;
 }
@@ -395,3 +401,11 @@ div.settings {
 	z-index: 10;
 }
 
+img.background {
+	width: 90%;
+	position: absolute;
+	top: 20%;
+	left: 5%;
+	z-index: -1;
+	opacity: 0.1;
+}

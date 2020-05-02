@@ -22,7 +22,7 @@
 		</script>
 	</head>
 	<body>
-		<img src="/pics/car.svg" width="90%" style="position: absolute; top: 20%; left: 5%	; z-index: -1; opacity: 0.1;"/>
+		<img src="/pics/car.svg" class="background"/>
 		<div data-states="_1_2_3_4_5_6_7_8_9_99_" class="infoBar">
 			<span class="infoBarCell" id="battery">
 				<img alt="Bat:" src="/pics/battery.png" height="15em"/>
@@ -56,7 +56,7 @@
 			<div class="subTitle">loading...</div>
 		</div>
 		
-		<div style="display: flex; flex-warp: nowrap;">
+		<div class="header">
 			<div class="systemState">
 				<div data-states="_1_">Initializing System</div>
 				<div data-states="_2_">Precharging System</div>
@@ -118,7 +118,7 @@
 			<div>
 				<meter id="chargeLevelMeter" value="0" min="0" low="10" max="100"></meter>
 			</div>
-			<div class="chargeLevel" style="margin-top: -2.1em;">
+			<div class="chargeLevel">
 				<span id="chargeLevel">--</span>%
 			</div>
 			<div id="inputCurrentSelector">
