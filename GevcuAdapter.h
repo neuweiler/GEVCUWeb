@@ -59,6 +59,7 @@ public:
 private:
     bool processBinaryData(char code, uint16_t len, char *data);
     void processInput(String input);
+    String extractData(String input, String identifier);
     DataPoint* findDataPoint(char code);
     uint32_t readUInt32(char *data);
     int16_t readInt16(char *data);
@@ -89,6 +90,12 @@ private:
             { 20, 4, true, 0, "bitfieldMotor" }, // uint32_t
             { 21, 4, true, 0, "bitfieldBms" }, // uint32_t
             { 22, 4, true, 0, "bitfieldIO" }, // uint32_t
+            { 23, 2, false, 10, "dcCurrentMin" }, // int16_t
+            { 24, 2, false, 10, "dcCurrentMax" }, // int16_t
+            { 25, 2, true, 10, "dcVoltageMin" }, // int16_t
+            { 26, 2, true, 10, "dcVoltageMax" }, // int16_t
+            { 27, 2, false, 10, "tempMotorMax" }, // int16_t
+            { 28, 2, false, 10, "tempControllerMax" }, // int16_t
 
             { 30, 2, true, 10, "dcDcHvVoltage" }, // uint16_t
             { 31, 2, true, 10, "dcDcLvVoltage" }, // uint16_t
