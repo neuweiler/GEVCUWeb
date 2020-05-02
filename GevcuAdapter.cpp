@@ -151,23 +151,41 @@ uint16_t GevcuAdapter::readUInt16(char *data) {
 
 void GevcuAdapter::processInput(String input)
 {
-    logger.info("input from GEVCU: %s", input.c_str());
+    if (logger.isDebug()) {
+        logger.debug("input from GEVCU: %s", input.c_str());
+    }
 
-    if (input.startsWith("data:")) {
-        binaryDataCount = input.substring(5).toInt();
+    String data = extractData(input, "data:");
+    if (data.length()) {
+        binaryDataCount = data.toInt();
         doc.clear();
-    } else if (input.startsWith("cfg:")) {
-        int pos = input.indexOf('=');
+        return;
+    }
+
+    data = extractData(input, "cfg:");
+    if (data.length()) {
+        int pos = data.indexOf('=');
         if (pos > 0) {
-            String key = input.substring(4, pos);
-            String value = input.substring(pos + 1);
+            String key = data.substring(0, pos);
+            String value = data.substring(pos + 1);
             gevcuConfig[key] = value;
         }
-    } else if (input.startsWith("json:")) {
-        webSocket.send(input.substring(5));
-    } else {
-        logger.warn("unknown data from GEVCU: %s", input.c_str());
+        return;
     }
+
+    data = extractData(input, "json:");
+    if (data.length()) {
+        webSocket.send(data);
+        return;
+    }
+    logger.warn("unknown data from GEVCU: %s", input.c_str());
+}
+
+String GevcuAdapter::extractData(String input, String identifier) {
+    int index = input.indexOf(identifier);
+    if (index == -1)
+        return "";
+    return input.substring(index + identifier.length());
 }
 
 void GevcuAdapter::event(String message)
