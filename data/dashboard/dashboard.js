@@ -65,12 +65,14 @@ var dashboard = dashboard || {};
 			var dial = Gauge.dials[name];
 			if (dial) {
 				dial.setValue(data);
-			} else if (name == 'limits') {
-				for (limitName in data) {
-					var limit = data[limitName];
-					dial = Gauge.dials[limitName];
-					if (dial) {
-						dial.setLimits(limit.min, limit.max);
+			} else if (name.startsWith('limits')) {
+				var limitTokens = name.split('.');
+				dial = Gauge.dials[limitTokens[1]];
+				if (dial) {
+					if (limitTokens[2] === 'min') {
+						dial.setLimitsMin(data);
+					} else if (limitTokens[2] === 'max') {
+						dial.setLimitsMax(data);
 					}
 				}
 			} else if (name.indexOf('bitfield') != -1) {

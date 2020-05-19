@@ -675,11 +675,21 @@ var Gauge = function(gaugeConfig) {
 		/**
 		 * set the limits of this dial and redraw them
 		 */
-		this.setLimits = function(min, max) {
+		this.setLimitsMin = function(min) {
 			if (!config.limits) {
 				config.limits = {};
 			}
 			config.limits.min = constrain(min, config.minValue, config.maxValue);
+			drawLimits();
+		}
+		
+		/**
+		 * set the limits of this dial and redraw them
+		 */
+		this.setLimitsMax = function(max) {
+			if (!config.limits) {
+				config.limits = {};
+			}
 			config.limits.max = constrain(max, config.minValue, config.maxValue);
 			drawLimits();
 		}
