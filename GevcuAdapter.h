@@ -79,6 +79,7 @@ private:
             { 1, 2, false, 10, "torqueActual" }, // int16_t
             { 2, 2, false, 0, "speedActual" }, // int16_t
             { 3, 2, false, 10, "throttle" }, // int16_t
+            { 4, 2, false, 10, "limits.torqueActual.max" }, // int16_t
 
             { 10, 2, true, 10, "dcVoltage" }, // uint16_t
             { 11, 2, false, 10, "dcCurrent" }, // int16_t
