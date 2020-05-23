@@ -121,8 +121,8 @@ var Gauge = function(gaugeConfig) {
 
 	function baseInit() {
 		// important. first add all canvas before accessing one !!
-		addCanvas(config.renderTo + "Limits")
 		addCanvas(config.renderTo + "Plate");
+		addCanvas(config.renderTo + "Limits")
 		for (var i = 0; i < config.dials.length; i++) {
 			addCanvas(config.dials[i].id);
 		}
@@ -131,6 +131,7 @@ var Gauge = function(gaugeConfig) {
 
 		// now it's safe to look them up
 		var ctxPlate = prepareCanvas(config.renderTo + "Plate", false);
+		ctxLimits = prepareCanvas(config.renderTo + "Limits", true);
 		for (var i = 0; i < config.dials.length; i++) {
 			var dialConfig=config.dials[i];
 			var ctx = prepareCanvas(dialConfig.id, true);
@@ -149,7 +150,6 @@ var Gauge = function(gaugeConfig) {
 			}
 			Gauge.dials[dialConfig.id.substring(0, dialConfig.id.length - 4)] = new Dial(ctx, dialConfig);
 		}
-		ctxLimits = prepareCanvas(config.renderTo + "Limits", true);
 		ctxInfo = prepareCanvas(config.renderTo + "Info", true);
 		ctxInfoValues = prepareCanvas(config.renderTo + "InfoValues", true);
 		ctxInfoValues.shadowOffsetX = 0.004 * max;
