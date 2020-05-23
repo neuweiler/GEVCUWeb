@@ -5,6 +5,7 @@ var dashboard = dashboard || {};
 	dashboard.sendMsg = sendMsg;
 
 	var webSocketWorker;
+	var systemStateInterval;
 
 	function init(data) {
 		updateSystemState(0);
@@ -31,6 +32,7 @@ var dashboard = dashboard || {};
 		window.addEventListener('mousedown', removeBehaviorsRestrictions);
 		window.addEventListener('touchstart', removeBehaviorsRestrictions);
 		startWebSocketWorker();
+		scheduleSystemStateCheck();
 	}
 
 	function removeBehaviorsRestrictions() {
@@ -42,6 +44,13 @@ var dashboard = dashboard || {};
 		window.removeEventListener('touchstart', removeBehaviorsRestrictions);
 	}
 
+	// a workaround for failed connects/system-state transmission
+	function scheduleSystemStateCheck() {
+		systemStateInterval = setInterval(function () {
+			sendMsg('connected');
+		}, 5000);
+	}
+	
 	function startWebSocketWorker() {
 		if (!webSocketWorker) {
 			webSocketWorker = new Worker("webSocketWorker.js");
@@ -113,6 +122,10 @@ var dashboard = dashboard || {};
 
 	// hide/show elements depending on system state
 	function updateSystemState(state) {
+		if (systemStateInterval) {
+			clearInterval(systemStateInterval);
+			systemStateInterval = null;
+		}
 		 $("[data-states]").filter(function() {
 		      $(this).toggle($(this).attr('data-states').indexOf('_' + state + '_') > -1)
 		    });
