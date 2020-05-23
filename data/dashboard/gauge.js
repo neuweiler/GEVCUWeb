@@ -121,11 +121,11 @@ var Gauge = function(gaugeConfig) {
 
 	function baseInit() {
 		// important. first add all canvas before accessing one !!
+		addCanvas(config.renderTo + "Limits")
 		addCanvas(config.renderTo + "Plate");
 		for (var i = 0; i < config.dials.length; i++) {
 			addCanvas(config.dials[i].id);
 		}
-		addCanvas(config.renderTo + "Limits")
 		addCanvas(config.renderTo + "Info");
 		addCanvas(config.renderTo + "InfoValues");
 
