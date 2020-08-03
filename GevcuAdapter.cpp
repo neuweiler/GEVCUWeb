@@ -204,6 +204,10 @@ void GevcuAdapter::event(String message)
     }
 }
 
+void GevcuAdapter::sendHeartBeat(uint16_t count) {
+    Serial2.println("hb:" + count);
+}
+
 DataPoint *GevcuAdapter::findDataPoint(char code)
 {
     for (int i = 0; i < sizeof(dataPoints); i++) {

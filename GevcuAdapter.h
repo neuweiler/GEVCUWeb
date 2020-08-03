@@ -34,8 +34,7 @@
 #include <ArduinoJson.h>
 
 #define PIN_GEVCU_LED 32 // connected to GEVCU LED
-#define PIN_GEVCU_DATA_1 33 // connected to GEVCU D42
-#define PIN_GEVCU_DATA_2 35 // connected to GEVCU D18
+#define PIN_GEVCU_RESERVED 35 // connected to GEVCU D18
 
 struct DataPoint
 {
@@ -56,6 +55,7 @@ public:
     void event(String message);
     String getConfigParameter(String key);
     void setConfigParameter(String key, String value);
+    void sendHeartBeat(uint16_t count);
 private:
     bool processBinaryData(char code, uint16_t len, char *data);
     void processInput(String input);
@@ -132,7 +132,7 @@ private:
             { 72, 1, true, 0, "enableHeater" }, // bool
             { 73, 1, true, 0, "enableCreep" }, // bool
             { 74, 2, false, 0, "cruiseControlSpeed" }, // int16_t
-            { 75, 1, true, 0, "cruiseControlEnable" }, // bool
+            { 75, 1, true, 0, "enableCruiseControl" }, // bool
 
             { 80, 2, true, 100, "soc" }, // uint16_t
             { 81, 2, true, 0, "dischargeLimit" }, // uint16_t

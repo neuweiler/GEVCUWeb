@@ -30,6 +30,7 @@
 
 #include <Arduino.h>
 #include "Configuration.h"
+#include "GevcuAdapter.h"
 
 class HeartBeat
 {
@@ -42,6 +43,7 @@ public:
 private:
     Configuration *config;
     uint32_t timestamp;
+    uint16_t count;
     bool led;
     bool connected;
 };

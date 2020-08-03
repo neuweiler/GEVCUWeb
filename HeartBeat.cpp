@@ -35,6 +35,7 @@ HeartBeat::HeartBeat()
     led = false;
     connected = false;
     timestamp = millis();
+    count = 0;
 }
 
 HeartBeat::~HeartBeat()
@@ -54,5 +55,6 @@ void HeartBeat::loop()
         led = !led;
         digitalWrite(config->PIN_WIFI_LED, led | connected);
         timestamp = millis();
+        gevcuAdapter.sendHeartBeat(count++);
     }
 }
