@@ -86,11 +86,11 @@ var dashboard = dashboard || {};
 				}
 			} else if (name.indexOf('bitfield') != -1) {
 				annunciator.update(name, data);
-			} else if (name == 'systemState') {
+			} else if (name === 'systemState') {
 				updateSystemState(data);
-			} else if (name == 'logMessage') {
+			} else if (name === 'logMessage') {
 				logMessage(data.level, data.message);
-			} else if (name == 'enableCruiseControl') {
+			} else if (name === 'enableCruiseControl') {
 				showHideCruiseControl(data);
 			} else {
 				$('#' + name + 'Meter').attr('value', data); // set the meter value (additionally to a text node)
@@ -108,10 +108,10 @@ var dashboard = dashboard || {};
 	}
 
 	function logMessage(level, message) {
-		if (level == 'ERROR') {
+		if (level === 'ERROR') {
 			alertify.error(message, 0);
 			soundError.play();
-		} else if (level == 'WARNING') {
+		} else if (level === 'WARNING') {
 			alertify.warning(message, 60);
 			soundWarn.play();
 		} else {

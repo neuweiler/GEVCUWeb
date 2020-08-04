@@ -116,7 +116,7 @@ var annunciator = annunciator || {};
 			updateField("limitationDcVoltage"           , FieldClass.warn, bitfield & Motor.limitationDcVoltage);
 			updateField("limitationDcCurrent"           , FieldClass.warn, bitfield & Motor.limitationDcCurrent);
 
-			warningMotor = (bitfield & ~~(Motor.oscillationLimiter | Motor.limitationTorque | Motor.limitationSpeed |
+			warningMotor = (bitfield & ~(Motor.oscillationLimiter | Motor.limitationTorque | Motor.limitationSpeed |
 					Motor.limitationMaxTorque | Motor.limitationSlewRate | Motor.limitationMotorModel |
 					Motor.limitationMechanicalPower | Motor.limitationAcCurrent | Motor.limitationDcCurrent)) !== 0;
 			break;
@@ -151,7 +151,7 @@ var annunciator = annunciator || {};
 			updateField("bmsCclChargerLatch"            , FieldClass.warn, bitfield & BMS.bmsCclChargerLatch);
 			updateField("bmsCclAlternate"               , FieldClass.warn, bitfield & BMS.bmsCclAlternate);
 
-			warningBms = (bitfield & ~~(BMS.bmsRelayDischarge | BMS.bmsRelayCharge | BMS.bmsChagerSafety |
+			warningBms = (bitfield & ~(BMS.bmsRelayDischarge | BMS.bmsRelayCharge | BMS.bmsChagerSafety |
 					BMS.bmsDclTemperature | BMS.bmsCclHighSoc | BMS.bmsCclTemperature)) !== 0;
 			break;
 
