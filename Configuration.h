@@ -39,14 +39,8 @@ public:
 
     const char *SSID;
     const char *PASSWORD;
-    const char *commandPrefix;
-    const char *okString;
-    const char *errorString;
 
-    uint8_t PIN_WIFI_ENABLE;
-    uint8_t PIN_WIFI_RESET;
     uint8_t PIN_WIFI_LED;
-
     uint8_t PIN_SERIAL1_RX;
     uint8_t PIN_SERIAL1_TX;
 };
