@@ -52,8 +52,14 @@ void WebServer::start(Configuration *configuration)
     config = configuration;
 
     setupAP();
+    setupOTA();
     setupFilesystem();
     setupWebserver();
+}
+
+void WebServer::loop()
+{
+    ArduinoOTA.handle();
 }
 
 void WebServer::setupAP()
@@ -216,4 +222,23 @@ AsyncWebServer* WebServer::getWebServer()
 String WebServer::getUploadPath()
 {
     return this->uploadPath;
+}
+
+void WebServer::setupOTA()
+{
+    ArduinoOTA.onStart([]() {
+        logger.info("Start updating %s", (ArduinoOTA.getCommand() == U_FLASH ? "flash" : "filesystem"));
+    })
+    .onEnd([]() {
+        logger.info("Update finished");
+    })
+    .onError([](ota_error_t error) {
+        logger.error("Update Error[%u]: ", error);
+        if (error == OTA_AUTH_ERROR) logger.error("Auth Failed");
+        else if (error == OTA_BEGIN_ERROR) logger.error("Begin Failed");
+        else if (error == OTA_CONNECT_ERROR) logger.error("Connect Failed");
+        else if (error == OTA_RECEIVE_ERROR) logger.error("Receive Failed");
+        else if (error == OTA_END_ERROR) logger.error("End Failed");
+    });
+    ArduinoOTA.begin();
 }

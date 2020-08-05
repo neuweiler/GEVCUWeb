@@ -34,6 +34,8 @@
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
+#include <ArduinoOTA.h>
+#include <Update.h>
 #include "Logger.h"
 #include "Configuration.h"
 #include "GevcuAdapter.h"
@@ -44,6 +46,7 @@ public:
     WebServer();
     virtual ~WebServer();
     void start(Configuration *configuration);
+    void loop();
     AsyncWebServer* getWebServer();
     void deleteFile(String file);
     void handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final);
@@ -53,6 +56,7 @@ private:
     void setupAP();
     void setupFilesystem();
     void setupWebserver();
+    void setupOTA();
     String fileList(String path);
 
     Configuration *config;

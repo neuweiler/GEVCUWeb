@@ -46,4 +46,5 @@ void loop()
     gevcuAdapter.loop();
     webSocket.loop();
     heartBeat.loop();
+    webServer.loop();
 }
