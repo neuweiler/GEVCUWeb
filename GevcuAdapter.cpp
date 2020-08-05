@@ -50,8 +50,7 @@ void GevcuAdapter::start(Configuration *configuration)
     Serial2.setRxBufferSize(4096);
 
     pinMode(PIN_GEVCU_LED, OUTPUT);
-//    pinMode(PIN_GEVCU_DATA_1, OUTPUT);
-//    pinMode(PIN_GEVCU_DATA_2, INPUT);
+//    pinMode(PIN_GEVCU_RESERVED, OUTPUT);
 
     logger.info("GevcuAdapter configured");
 }
@@ -66,6 +65,20 @@ void GevcuAdapter::setConfigParameter(String key, String value)
     gevcuConfig[key] = value;
     Serial2.printf("cfg:%s=%s\r\n", key.c_str(), value.c_str());
     delay(50); // don't overwhelm GEVCU
+}
+
+String GevcuAdapter::getLog()
+{
+    Serial2.println("cmd:getLog");
+    String log;
+    uint32_t start = millis();
+    while (Serial2.available() || (log.indexOf("LOG END") == -1 && (start + 3000) > millis())) {
+        int ch = Serial2.read();
+        if (ch != -1) {
+            log.concat((char)ch);
+        }
+    }
+    return log;
 }
 
 void GevcuAdapter::loop()
@@ -92,7 +105,7 @@ void GevcuAdapter::loop()
                 bufPos = 0;
                 binaryDataCount--;
             }
-        } else if (ch == 13 || ch == 10 || ch == 0 || bufPos > 1022) { // process config/log data
+        } else if (ch == 13 || ch == 10 || ch == 0 || bufPos > SERIAL_BUFFER_SIZE - 1) { // process config/log data
             serialBuffer[bufPos] = 0;
             if (bufPos > 4) { // drop strings smaller than 4 characters
                 processInput(serialBuffer);
@@ -193,19 +206,19 @@ void GevcuAdapter::event(String message)
     if (message.equals("disconnected")) {
         if (--connectedClients == 0) {
             digitalWrite(PIN_GEVCU_LED, LOW);
-            Serial2.println("cmd:" + message);
+            Serial2.printf("cmd:%s\r\n", message.c_str());
         }
     } else {
         if (message.equals("connected")) {
             connectedClients++;
             digitalWrite(PIN_GEVCU_LED, HIGH);
         }
-        Serial2.println("cmd:" + message);
+        Serial2.printf("cmd:%s\r\n", message.c_str());
     }
 }
 
 void GevcuAdapter::sendHeartBeat(uint16_t count) {
-    Serial2.println("hb:" + count);
+    Serial2.printf("hb:%d\r\n", count);
 }
 
 DataPoint *GevcuAdapter::findDataPoint(char code)

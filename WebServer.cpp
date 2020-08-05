@@ -51,10 +51,6 @@ void WebServer::start(Configuration *configuration)
 {
     config = configuration;
 
-    pinMode(config->PIN_WIFI_ENABLE, INPUT);
-    pinMode(config->PIN_WIFI_RESET, INPUT);
-    pinMode(config->PIN_WIFI_LED, OUTPUT);
-
     setupAP();
     setupFilesystem();
     setupWebserver();
@@ -180,6 +176,10 @@ void WebServer::setupWebserver()
             gevcuAdapter.setConfigParameter(param->name(), param->value());
         }
         request->redirect("/settings/index.html");
+    });
+
+    server->on("/log", HTTP_GET, [](AsyncWebServerRequest *request) {
+        request->send(200, "text/html", gevcuAdapter.getLog());
     });
 
     server->on("/list", HTTP_GET, [](AsyncWebServerRequest *request) {

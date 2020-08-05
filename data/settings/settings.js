@@ -4,6 +4,7 @@ var settings = settings || {};
 	settings.init = init;
 	settings.showTab = showTab;
 	settings.updateRangeValue = updateRangeValue;
+	settings.loadLog = loadLog;
 
 	var throttleCanvas;
 	var loadedTabs = 0;
@@ -17,6 +18,7 @@ var settings = settings || {};
 		$('#outputs').load('outputs.html', postInit);
 		$('#devices').load('devices.html', postInit);
 		$('#system').load('system.html', postInit);
+		$('#log').load('log.html', postInit);
 		$('#about').load('about.html', postInit);
 		window.addEventListener('resize', resizeThrottleCanvas, false);
 	}
@@ -28,6 +30,10 @@ var settings = settings || {};
 		generateRangeControls();
 		showTab('controls');
 	}
+	
+	function loadLog() {
+		$( "#log-content" ).load( "/log" );
+	}
 
 	function showTab(pageId) {
 		$('.tab').hide();
@@ -36,7 +42,11 @@ var settings = settings || {};
 		if (pageId == 'controls') {
 			resizeThrottleCanvas();
 		}
-		loadData(pageId);
+		if (pageId == 'log') {
+			loadLog();
+		} else {
+			loadData(pageId);
+		}
 	}
 
 	// load data from dynamic json and replace values in input fields, div's, gauges

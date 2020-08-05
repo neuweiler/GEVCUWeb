@@ -35,6 +35,7 @@
 
 #define PIN_GEVCU_LED 32 // connected to GEVCU LED
 #define PIN_GEVCU_RESERVED 35 // connected to GEVCU D18
+#define SERIAL_BUFFER_SIZE 1024
 
 struct DataPoint
 {
@@ -56,6 +57,7 @@ public:
     String getConfigParameter(String key);
     void setConfigParameter(String key, String value);
     void sendHeartBeat(uint16_t count);
+    String getLog();
 private:
     bool processBinaryData(char code, uint16_t len, char *data);
     void processInput(String input);
@@ -69,7 +71,7 @@ private:
     Configuration *config;
     ArrayMap<String, String> gevcuConfig;
     StaticJsonDocument<3000> doc;
-    char serialBuffer[1024];
+    char serialBuffer[SERIAL_BUFFER_SIZE];
     uint16_t bufPos;
     uint8_t binaryDataCount;
     uint8_t connectedClients;
