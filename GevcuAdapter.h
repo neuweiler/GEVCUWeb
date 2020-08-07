@@ -57,6 +57,8 @@ public:
     String getConfigParameter(String key);
     void setConfigParameter(String key, String value);
     void sendHeartBeat(uint16_t count);
+    void stopHeartBeat();
+    void startHeartBeat();
     String getLog();
 private:
     bool processBinaryData(char code, uint16_t len, char *data);
@@ -111,7 +113,7 @@ private:
             { 42, 2, true, 10, "chargerBatteryVoltage" }, // uint16_t
             { 43, 2, true, 100, "chargerBatteryCurrent" }, // uint16_t
             { 44, 2, false, 10, "chargerTemperature" }, // int16_t
-            { 45, 2, false, 10, "maximumSolarCurrent" }, // int16_t
+            { 45, 2, false, 10, "maximumInputCurrent" }, // int16_t
             { 46, 2, true, 10, "chargeHoursRemain" }, // uint16_t
             { 47, 2, true, 10, "chargeMinsRemain" }, // uint16_t
             { 48, 2, true, 100, "chargeLevel" }, // uint16_t

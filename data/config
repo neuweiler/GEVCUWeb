@@ -22,7 +22,10 @@
 		"deratingRate": %deratingRate%,
 		"deratingReferenceTmp": %deratingReferenceTmp%,
 		"hystereseStopTemp": %hystereseStopTemp%,
-		"hystereseResumeTemp": %hystereseResumeTemp%
+		"hystereseResumeTemp": %hystereseResumeTemp%,
+		"measureTime": %measureTime%,
+		"measureCurrent": %measureCurrent%,
+		"voltageDrop": %voltageDrop%
 	},
 	"controls": {
 		"positionRegenMaximum": %positionRegenMaximum%,

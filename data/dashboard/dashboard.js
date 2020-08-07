@@ -139,7 +139,7 @@ var dashboard = dashboard || {};
 	
 	function setChargeLevels(data) {
 		$('#maximumInputCurrentLevel').attr('min', data.chargeInputLevels[0]);
-		$('#maximumInputCurrentLevel').attr('max', data.chargeInputLevels[data.chargeInputLevels.length - 1]);
+		$('#maximumInputCurrentLevel').attr('max', data.chargeInputLevels[1]);
 	}
 	
 	function setCruiseData(data) {

@@ -39,6 +39,19 @@
 		<div><input name="maximumChargeTime" type="text" maxlength="4" title="Maximum time for a charge cycle" /> min</div>
 		<div></div>
 
+		<h3>Input Voltage Drop</h3>
+
+		<div>Measure Time</div>
+		<div><input name="measureTime" type="text" maxlength="6" title="Time to measure input voltage at start" /> ms</div>
+		<div></div>
+		<div>Measure Current</div>
+		<div><input name="measureCurrent" type="text" maxlength="4" title="Current to apply during measurement (e.g. 2.0A required for Brusa NLG5 to report reasonable values)" /> A</div>
+		<div></div>
+
+		<div>Voltage Drop Divisor</div>
+		<div><input name="voltageDrop" type="text" maxlength="3" title="Divisor to initial input voltage to establish how much the voltage is allowed to drop (e.g. 33 for 3% -> 230V / 33 = 7V)" /></div>
+		<div class="spacer"></div>
+
 		<h3>Derating</h3>
 
 		<div>Derating Rate</div>
