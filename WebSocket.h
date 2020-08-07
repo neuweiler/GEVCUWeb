@@ -48,6 +48,7 @@ public:
     void send(String data);
     void onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
     void subscribe(WebSocketObserver *observer);
+    bool isConnected();
 
 private:
     Configuration *config;

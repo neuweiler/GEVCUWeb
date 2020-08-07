@@ -45,7 +45,6 @@ private:
     uint32_t timestamp;
     uint16_t count;
     bool led;
-    bool connected;
 };
 
 extern HeartBeat heartBeat;

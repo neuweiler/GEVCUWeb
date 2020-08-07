@@ -103,6 +103,10 @@ void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *c
     }
 }
 
+bool WebSocket::isConnected() {
+    return connected;
+}
+
 void WebSocket::subscribe(WebSocketObserver *observer)
 {
     this->observer = observer;

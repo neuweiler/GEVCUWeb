@@ -33,7 +33,6 @@ HeartBeat::HeartBeat()
 {
     config = NULL;
     led = false;
-    connected = false;
     timestamp = millis();
     count = 0;
 }
@@ -53,7 +52,7 @@ void HeartBeat::loop()
 {
     if (timestamp + 1000 < millis()) {
         led = !led;
-        digitalWrite(config->PIN_WIFI_LED, led | connected);
+        digitalWrite(config->PIN_WIFI_LED, led | webSocket.isConnected());
         timestamp = millis();
         gevcuAdapter.sendHeartBeat(count++);
     }
