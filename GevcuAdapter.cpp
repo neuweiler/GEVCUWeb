@@ -221,6 +221,14 @@ void GevcuAdapter::sendHeartBeat(uint16_t count) {
     Serial2.printf("hb:%d\r\n", count);
 }
 
+void GevcuAdapter::stopHeartBeat() {
+    Serial2.println("hb:stop");
+}
+
+void GevcuAdapter::startHeartBeat() {
+    Serial2.println("hb:start");
+}
+
 DataPoint *GevcuAdapter::findDataPoint(char code)
 {
     for (int i = 0; i < sizeof(dataPoints); i++) {

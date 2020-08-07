@@ -228,9 +228,11 @@ void WebServer::setupOTA()
 {
     ArduinoOTA.onStart([]() {
         logger.info("Start updating %s", (ArduinoOTA.getCommand() == U_FLASH ? "flash" : "filesystem"));
+        gevcuAdapter.stopHeartBeat();
     })
     .onEnd([]() {
         logger.info("Update finished");
+        gevcuAdapter.startHeartBeat();
     })
     .onError([](ota_error_t error) {
         logger.error("Update Error[%u]: ", error);
@@ -241,4 +243,5 @@ void WebServer::setupOTA()
         else if (error == OTA_END_ERROR) logger.error("End Failed");
     });
     ArduinoOTA.begin();
+    logger.info("OTA initialized");
 }
