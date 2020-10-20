@@ -46,19 +46,19 @@ div#annunciators div {
 	color: #353535;
 }
 
-div#annunciators div.annunciatorOff {
+div#annunciators .off {
 	color: #353535;
 }
 
-div#annunciators div.annunciatorWarn {
+div#annunciators .warn {
 	color: #ffbb00;
 }
 
-div#annunciators div.annunciatorError {
+div#annunciators .error {
 	color: #ff2200;
 }
 
-div#annunciators div.annunciatorOk {
+div#annunciators .ok {
 	color: #22ee22;
 }
 

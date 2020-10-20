@@ -31,7 +31,6 @@ function openWebSocket() {
 	}
 	if (socket == null) {
 		var url = "ws://" + location.hostname + "/ws";
-//		var url = "ws://" + location.hostname + ":2000";
 		console.log('webSocket: opening web socket connection ' + url);
 		socket = new WebSocket(url);
 
