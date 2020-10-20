@@ -11,8 +11,6 @@ var dashboard = dashboard || {};
 		updateSystemState(0);
 		$('#cruiseControl').hide();
 	
-		alertify.set('notifier', 'position', 'bottom-right');
-
 		activate();
 
 		$.getJSON("/config", function(data) {
@@ -109,13 +107,31 @@ var dashboard = dashboard || {};
 
 	function logMessage(level, message) {
 		if (level === 'ERROR') {
-			alertify.error(message, 0);
+			VanillaToasts.create({
+				text: message,
+				type: 'error',
+				icon: '/pics/logError.png',
+				positionClass: 'bottomCenter',
+				timeout: 0
+			});
 			soundError.play();
 		} else if (level === 'WARNING') {
-			alertify.warning(message, 60);
+			VanillaToasts.create({
+				text: message,
+				type: 'warning',
+				icon: '/pics/logWarn.png',
+				positionClass: 'bottomCenter',
+				timeout: 30000
+			});
 			soundWarn.play();
 		} else {
-			alertify.success(message, 30);
+			VanillaToasts.create({
+				text: message,
+				type: 'info',
+				icon: '/pics/logInfo.png',
+				positionClass: 'bottomCenter',
+				timeout: 15000
+			});
 			soundInfo.play();
 		}
 	}
