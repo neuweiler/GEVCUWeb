@@ -140,8 +140,8 @@ var Gauge = function(gaugeConfig) {
 			dialConfig.range = dialConfig.maxValue - dialConfig.minValue;
 			dialConfig.colors = config.colors;
 			if (dialConfig.animation) {
-				dialConfig.animation.delay = dialConfig.animation.delay || 70; 
-				dialConfig.animation.duration = dialConfig.animation.duration || 200;
+				dialConfig.animation.delay = dialConfig.animation.delay;
+				dialConfig.animation.duration = dialConfig.animation.duration || 0;
 				dialConfig.animation.fn = dialConfig.animation.fn || 'linear';
 				dialConfig.animation.threshold = dialConfig.animation.threshold || (dialConfig.range / dialConfig.angle / 5);
 				dialConfig.textPosition = i;

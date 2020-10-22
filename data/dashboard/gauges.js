@@ -71,7 +71,7 @@ var gauges = gauges || {};
 					highlights  : batteryVoltageHighlights,
 					drawArc     : true,
 					animation : {
-						duration : 1000
+						duration : 0
 					}
 	
 				},
@@ -94,7 +94,7 @@ var gauges = gauges || {};
 			   		],
 					drawArc     : true,
 					animation : {
-						duration : 1000
+						duration : 0
 					}
 				},
 				{
@@ -229,7 +229,7 @@ var gauges = gauges || {};
 					],
 					drawArc     : true,
 					animation : {
-						duration : 1000
+						duration : 0
 					}
 				},
 				{
@@ -251,7 +251,7 @@ var gauges = gauges || {};
 					],
 					drawArc     : true,
 					animation : {
-						duration : 1000
+						duration : 0
 					}
 				}
 			],

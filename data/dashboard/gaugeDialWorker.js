@@ -20,7 +20,7 @@ function handleMessage(data) {
 	var from = config.animation ? toValue : value;
 	toValue = value;
 
-	config.animation && (!config.animation.threshold || Math.abs(from - value) > config.animation.threshold)  && config.animation.fn ? animate(from, value) : sendUpdate(value);
+	config.animation && (!config.animation.threshold || Math.abs(from - value) > config.animation.threshold)  && config.animation.duration > 0 ? animate(from, value) : sendUpdate(value);
 }
 
 function radians(degrees) {
