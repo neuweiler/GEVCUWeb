@@ -93,6 +93,9 @@ var dashboard = dashboard || {};
 			} else {
 				$('#' + name + 'Meter').attr('value', data); // set the meter value (additionally to a text node)
 				setNodeValue(name, data);
+				if (name === 'cruiseControlSpeed') {
+					showHideCruiseSpeed(data);
+				}
 			}
 		}
 	}
@@ -102,6 +105,14 @@ var dashboard = dashboard || {};
 			$('#cruiseControl').slideDown();
 		} else {
 			$('#cruiseControl').slideUp();
+		}
+	}
+
+	function showHideCruiseSpeed(speed) {
+		if (speed && speed > 0) {
+			$('#cruiseInfo').slideDown();
+		} else {
+			$('#cruiseInfo').slideUp();
 		}
 	}
 
