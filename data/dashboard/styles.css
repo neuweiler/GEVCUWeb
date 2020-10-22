@@ -68,6 +68,11 @@ div.ajs-message.ajs-success {
 	width: 29%;
 }
 
+.infoBar img {
+	height: 23px;
+    margin-bottom: -4px;
+}
+
 .infoBarCell#exterior {
 	width: 10%;
 }
@@ -251,6 +256,10 @@ div#cruiseControl {
 div#cruiseControl div {
 	font-size: 2em;
     font-weight: bold;
+}
+
+div#cruiseControl img {
+	height: 55px;
 }
 
 /************* Toggle Switches *************/

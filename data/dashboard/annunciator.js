@@ -78,13 +78,12 @@ var annunciator = annunciator || {};
 
 	var foldTimeout = null;
 	var openedAutomatically = false;
-	var errorMotor = false;
-	var errorBms = false;
+	var errorMotor = warningMotor = false;
+	var errorBms = warningBms = false;
 
 	function update(name, bitfield) {
 		switch (name) {
 		case 'bitfieldMotor':
-			updateField('warning'                       , 'warn', bitfield & Motor.warning);
 			updateField('oscillationLimiter'            , 'ok', bitfield & Motor.oscillationLimiter);
 			updateField('maximumModulationLimiter'      , 'warn', bitfield & Motor.maximumModulationLimiter);
 
@@ -96,7 +95,7 @@ var annunciator = annunciator || {};
 			updateField('hvOvercurrent'                 , 'error', bitfield & Motor.hvOvercurrent);
 			updateField('acOvercurrent'                 , 'error', bitfield & Motor.acOvercurrent);
 
-			updateField('limitationTorque'              , 'warn', bitfield & Motor.limitationTorque);
+			updateField('limitationTorque'              , 'dummy', bitfield & Motor.limitationTorque);
 			updateField('limitationMaxTorque'           , 'warn', bitfield & Motor.limitationMaxTorque);
 			updateField('limitationSpeed'               , 'warn', bitfield & Motor.limitationSpeed);
 			updateField('limitationControllerTemperature', 'warn', bitfield & Motor.limitationControllerTemperature);
@@ -109,6 +108,7 @@ var annunciator = annunciator || {};
 			updateField('limitationDcVoltage'           , 'warn', bitfield & Motor.limitationDcVoltage);
 			updateField('limitationDcCurrent'           , 'warn', bitfield & Motor.limitationDcCurrent);
 
+			warningMotor = bitfield & (Motor.warning | Motor.maximumModulationLimiter);
 			errorMotor = (bitfield & (Motor.overtempController | Motor.overtempMotor | Motor.overspeed |
 					Motor.hvUndervoltage | Motor.hvOvervoltage | Motor.hvOvercurrent | Motor.acOvercurrent)) !== 0;
 			break;
@@ -143,24 +143,31 @@ var annunciator = annunciator || {};
 			updateField('bmsCclChargerLatch'            , 'warn', bitfield & BMS.bmsCclChargerLatch);
 			updateField('bmsCclAlternate'               , 'warn', bitfield & BMS.bmsCclAlternate);
 
-			errorBms = (bitfield & (BMS.bmsVoltageFailsafe | BMS.bmsCurrentFailsafe | BMS.bmsDepleted |
-					BMS.bmsDtcWeakCellFault | BMS.bmsDtcLowCellVolage | BMS.bmsDtcHVIsolationFault |
-					BMS.bmsDtcVoltageRedundancyFault)) !== 0;
+			warningBms = bitfield & (BMS.bmsDclLowSoc | BMS.bmsDclHighCellResistance | BMS.bmsDclTemperature |
+					BMS.bmsDclLowCellVoltage | BMS.bmsDclLowPackVoltage | BMS.bmsDclCclVoltageFailsafe |
+					BMS.bmsDclCclCommunication | BMS.bmsCclHighSoc | BMS.bmsCclHighCellResistance |
+					BMS.bmsCclTemperature | BMS.bmsCclHighCellVoltage | BMS.bmsCclHighCellVoltage |
+					BMS.bmsCclHighPackVoltage | BMS.bmsCclChargerLatch | BMS.bmsCclAlternate);
+			errorBms = (bitfield & (BMS.bmsDtcPresent | BMS.bmsVoltageFailsafe | BMS.bmsCurrentFailsafe |
+					BMS.bmsDepleted | BMS.bmsDtcWeakCellFault | BMS.bmsDtcLowCellVolage |
+					BMS.bmsDtcHVIsolationFault | BMS.bmsDtcVoltageRedundancyFault)) !== 0;
 			break;
 
 		case 'bitfieldIO':
-			updateField('brakeHold'                     , 'ok', bitfield & IO.brakeHold);
+			updateField('brakeHold'                     , 'dummy', bitfield & IO.brakeHold);
 			updateField('preChargeRelay'                , 'ok', bitfield & IO.preChargeRelay);
 			updateField('secondaryContactor'            , 'ok', bitfield & IO.secondaryContactor);
 			updateField('mainContactor'                 , 'ok', bitfield & IO.mainContactor);
 			updateField('enableMotor'                   , 'ok', bitfield & IO.enableMotor);
-			updateField('coolingFan'                    , 'ok', bitfield & IO.coolingFan);
-			updateField('brakeLight'                    , 'ok', bitfield & IO.brakeLight);
-			updateField('reverseLight'                  , 'ok', bitfield & IO.reverseLight);
+			updateField('coolingFan'                    , 'dummy', bitfield & IO.coolingFan);
+			updateField('brakeLight'                    , 'dummy', bitfield & IO.brakeLight);
+			updateField('reverseLight'                  , 'dummy', bitfield & IO.reverseLight);
 			updateField('enableIn'                      , 'ok', bitfield & IO.enableIn);
-			updateField('absActive'                     , 'ok', bitfield & IO.absActive);
+			updateField('absActive'                     , 'dummy', bitfield & IO.absActive);
 			break;
 		}
+		updateField('warning'                   , 'dummy', warningMotor || warningBms);
+		updateField('error'                     , 'dummy', errorMotor || errorBms);
 
 		autoOpenClose(errorMotor || errorBms);
 	}

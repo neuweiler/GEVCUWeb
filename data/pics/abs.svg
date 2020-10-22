@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="50" height="40" viewBox="0 0 50 40">
+<g>
+<path stroke="#ffbb00" stroke-width="4" stroke-linecap="round" fill="none"
+   d="M 10.8,38 A 23,23 0 0 1 10.6,2" />
+<circle cx="25" cy="20" r="16" stroke="#ffbb00" stroke-width="4" fill="none" />
+<path stroke="#ffbb00" stroke-width="4" stroke-linecap="round" fill="none"
+   d="M 39.2,38 A 23,23 0 0 0 39.4,2" />
+
+   <text fill="#ffbb00" font-size="14px" font-family="Arial Narrow" x="13.5" y="25">ABS</text>
+</g>
+</svg>

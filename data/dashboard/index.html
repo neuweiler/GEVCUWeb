@@ -25,7 +25,7 @@
 		<img src="/pics/car.svg" class="background"/>
 		<div data-states="_1_2_3_4_5_6_7_8_9_99_" class="infoBar">
 			<span class="infoBarCell" id="battery">
-				<img alt="Bat:" src="/pics/battery.png" height="15em"/>
+				<img alt="Bat:" src="/pics/battery.svg"/>
 				<span id="temperatureBattery1">-</span>,
 				<span id="temperatureBattery2">-</span>,
 				<span id="temperatureBattery3">-</span>,
@@ -34,18 +34,18 @@
 				<span id="temperatureBattery6">-</span> &#176;C
 			</span>
 			<span class="infoBarCell" id="coolant">
-				<img alt="Coolant:" src="/pics/coolant.png" height="15em"/>
+				<img alt="Coolant:" src="/pics/coolant.svg"/>
 				<span id="temperatureCoolant">-</span> &#176;C,
 				<span id="flowCoolant">-</span> l/min
 			</span>
 			<span class="infoBarCell" id="heater">
-				<img alt="Heater:" src="/pics/heater.png" height="15em"/>
+				<img alt="Heater:" src="/pics/heater.svg"/>
 				<span id="temperatureHeater">-</span> &#176;C,
 				<span id="flowHeater">-</span> l/min,
 				<span id="heaterPower">-</span> W
 			</span>
 			<span class="infoBarCell" id="exterior">
-				<img alt="Ext:" src="/pics/ext.png" height="15em"/>
+				<img alt="Ext:" src="/pics/ext.svg"/>
 				<span id="temperatureExterior">-</span> &#176;C
 			</span>
 			<span class="infoBarCell" id="timeRunning">--:--:--</span>
@@ -58,41 +58,41 @@
 		
 		<div class="header">
 			<div class="systemState">
-				<div data-states="_1_">Initializing System</div>
-				<div data-states="_2_">Precharging System</div>
-				<div data-states="_3_">System Pre-Charged</div>
-				<div data-states="_4_">Battery Heating</div>
-				<div data-states="_5_">Charging</div>
-				<div data-states="_6_">Charged</div>
-				<div data-states="_7_">Ready</div>
-				<div data-states="_8_">Running</div>
-				<div data-states="_9_">Shutdown</div>
-				<div data-states="_99_" class="error">ERROR</div>
+				<div data-states="_1_" style="display: none;">Initializing System</div>
+				<div data-states="_2_" style="display: none;">Precharging System</div>
+				<div data-states="_3_" style="display: none;">System Pre-Charged</div>
+				<div data-states="_4_" style="display: none;">Battery Heating</div>
+				<div data-states="_5_" style="display: none;">Charging</div>
+				<div data-states="_6_" style="display: none;">Charged</div>
+				<div data-states="_7_" style="display: none;">Ready</div>
+				<div data-states="_8_" style="display: none;">Running</div>
+				<div data-states="_9_" style="display: none;">Shutdown</div>
+				<div data-states="_99_" class="error" style="display: none;">ERROR</div>
 			</div>
 			
-			<div class="buttonBar">
-				<div class="buttonBarCell" data-states="_8_">Regen:
+			<div class="buttonBar" >
+				<div class="buttonBarCell" data-states="_8_" style="display: none;">Regen:
 					<label class="switch switch-green">
 						<input id="enableRegen" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('regen=' + checked);"/>
 						<span class="switch-label" data-on="ON" data-off="OFF"></span>
 						<span class="switch-handle"></span>
 				    </label>
 				</div>
-				<div class="buttonBarCell" data-states="_8_">Creep:
+				<div class="buttonBarCell" data-states="_8_" style="display: none;">Creep:
 					<label class="switch">
 						<input id="enableCreep" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('creep=' + checked)"/>
 						<span class="switch-label" data-on="ON" data-off="OFF"></span>
 						<span class="switch-handle"></span>
 					</label>
 				</div>
-				<div class="buttonBarCell" data-states="_7_8_">EHPS:
+				<div class="buttonBarCell" data-states="_7_8_" style="display: none;">EHPS:
 					<label class="switch switch">
 						<input id="powerSteering" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('ehps=' + checked)"/>
 						<span class="switch-label" data-on="ON" data-off="OFF"></span>
 						<span class="switch-handle"></span>
 					</label>
 				</div>
-				<div class="buttonBarCell" data-states="_4_5_6_7_8_">Heater:
+				<div class="buttonBarCell" data-states="_4_5_6_7_8_" style="display: none;">Heater:
 					<label class="switch switch-orange">
 						<input id="enableHeater" type="checkbox" class="switch-input" onchange="dashboard.sendMsg('heater=' + checked)"/>
 						<span class="switch-label" data-on="ON" data-off="OFF"></span>
@@ -102,7 +102,7 @@
 			</div>
 		</div>
 				
-		<div data-states="_7_8_">
+		<div data-states="_7_8_" style="display: none;">
 			<div class="gauges" onclick="dashboard.sendMsg('cruiseToggle')">
 				<span id="dcGauge"></span>
 				<span id="motorGauge"></span>
@@ -112,13 +112,13 @@
 		</div>		
 		
 		<div id="cruiseControl">
-			<div>
-				<img alt="Cruise:" src="/pics/cruise.gif" height="40px"/>
-				<span id="cruiseSpeed"></span> <span class="cruiseSpeedUnit"></span>
+			<div id="cruiseInfo" style="display: none;">
+				<img alt="Cruise:" src="/pics/cruise.svg"/>
+				<span id="cruiseControlSpeed"></span> <span class="cruiseSpeedUnit"></span>
 			</div>
 		</div>
 		
-		<div data-states="_5_">
+		<div data-states="_5_" style="display: none;">
 			<div class="info">
 				<span id="chargeHoursRemain">-</span> hours <span id="chargeMinsRemain">--</span> minutes remaining
 			</div>
@@ -143,7 +143,7 @@
 			</div>
 		</div>
 
-		<div data-states="_4_5_6_7_8_99_">
+		<div data-states="_4_5_6_7_8_99_" style="display: none;">
 			<div class="subinfo">
 				<span class="subInfoCell">DCDC: <span id="dcDcTemperature">--.-</span> &#176;C</span>
 				<span class="subInfoCell">In: <span id="dcDcHvVoltage">---.-</span> V, <span id="dcDcHvCurrent">--.-</span> A</span>
@@ -151,12 +151,12 @@
 			</div>
 		</div>
 		
-		<div data-states="_2_3_4_5_6_7_8_9_99_">
+		<div data-states="_2_3_4_5_6_7_8_9_99_" style="display: none;">
 			<div id="batteries"></div>
 			<div id="annunciator"></div>
 		</div>
 		<div class="settings"><a href="/settings/index.html"><img alt="settings" width="30em" height="30em" src="/pics/settings.png"></a></div>
-		<div id="chargeControl" data-states="_5_"><button id="stopCharge" class="button" onclick="dashboard.sendMsg('stopCharge')">Stop charging</button></div>
+		<div id="chargeControl" data-states="_5_" style="display: none;"><button id="stopCharge" class="button" onclick="dashboard.sendMsg('stopCharge')">Stop charging</button></div>
 
 		<audio id="soundError"><source src="/sound/error.mp3" type="audio/mpeg"></audio>
 		<audio id="soundWarn"><source src="/sound/warn.mp3" type="audio/mpeg"></audio>
