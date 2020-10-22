@@ -62,12 +62,12 @@
   font-weight: 700;
   font-size: 18px;
   margin-bottom: 10px;
-  color: #777;
+  color: #444;
 }
 
 .vanillatoasts-text {
   font-size: 18px;
-  color: #777;
+  color: #444;
 }
 
 .vanillatoasts-icon {
@@ -100,7 +100,7 @@
 }
 
 .vanillatoasts-info {
-  border-bottom: 4px solid #27ABDB;
+  border-bottom: 4px solid #3adb5b;
 }
 
 @keyframes VanillaToasts {
