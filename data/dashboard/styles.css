@@ -69,8 +69,13 @@ div.ajs-message.ajs-success {
 }
 
 .infoBar img {
-	height: 23px;
-    margin-bottom: -4px;
+	height: 21px;
+    margin-bottom: -3px;
+}
+
+.infoBar #battery img {
+	height: 16px;
+    margin-bottom: 0px;
 }
 
 .infoBarCell#exterior {
