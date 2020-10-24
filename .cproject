@@ -43,12 +43,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/core/variant}&quot;"/>
                                     									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoOTA/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPmDNS/src}&quot;"/>
@@ -62,6 +56,12 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/Update/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/WiFi/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -77,12 +77,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/core/variant}&quot;"/>
                                     									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoOTA/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPmDNS/src}&quot;"/>
@@ -96,6 +90,12 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/Update/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/WiFi/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -111,12 +111,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/core/variant}&quot;"/>
                                     									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
-                                    									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoOTA/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPmDNS/src}&quot;"/>
@@ -130,6 +124,12 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/Update/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/WiFi/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ArduinoJson/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/AsyncTCP/src}&quot;"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCU_ESP32Web/libraries/ESPAsyncWebServer/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -181,6 +181,14 @@
     	
     <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
     	
-    <storageModule moduleId="refreshScope"/>
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration configurationName="Release">
+            			
+            <resource resourceType="PROJECT" workspacePath="/GEVCU_ESP32Web"/>
+            		
+        </configuration>
+        	
+    </storageModule>
     
 </cproject>

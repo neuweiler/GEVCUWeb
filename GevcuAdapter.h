@@ -114,8 +114,8 @@ private:
             { 43, 2, true, 100, "chargerBatteryCurrent" }, // uint16_t
             { 44, 2, false, 10, "chargerTemperature" }, // int16_t
             { 45, 2, false, 10, "maximumInputCurrent" }, // int16_t
-            { 46, 2, true, 10, "chargeHoursRemain" }, // uint16_t
-            { 47, 2, true, 10, "chargeMinsRemain" }, // uint16_t
+            { 46, 1, true, 0, "chargeHoursRemain" }, // uint8_t
+            { 47, 1, true, 0, "chargeMinsRemain" }, // uint8_t
             { 48, 2, true, 100, "chargeLevel" }, // uint16_t
 
             { 50, 4, true, 100, "flowCoolant" }, // uint32_t
