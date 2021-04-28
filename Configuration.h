@@ -35,12 +35,15 @@ public:
 	virtual ~Configuration();
 	void load();
 
-	const char *ssid;
-	const char *password;
+	const char *wifiSsid;
+	const char *wifiPassword;
+	const char *wifiAddress;
+	const char *wifiGateway;
+	const char *wifiNetmask;
 
-	const char *ssidRemote;
-	const char *passwordRemote;
-	uint16_t reconnectInterval;
+	const char *wifiSsidRemote;
+	const char *wifiPasswordRemote;
+	uint16_t wifiReconnectInterval;
 
 	uint16_t currentUpdateInterval;
 	const char *currentUpdateHost;

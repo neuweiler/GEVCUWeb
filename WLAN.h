@@ -33,6 +33,7 @@ private:
 	uint32_t timestamp;
 	uint32_t lastConnectionAttempt;
 	bool apConnected, stationConnected;
+	StaticJsonDocument<50> doc;
 };
 
 extern WLAN wlan;

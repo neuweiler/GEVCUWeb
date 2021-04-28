@@ -29,12 +29,15 @@
 Configuration config;
 
 Configuration::Configuration() {
-	ssid = "GEVCU";
-	password = "verysecret";
+	wifiSsid = "GEVCU";
+	wifiPassword = "verysecret";
+	wifiAddress = "192.168.3.10";
+	wifiGateway = "192.168.3.10";
+	wifiNetmask = "255.255.255.0";
 
-	ssidRemote = "solar";
-	passwordRemote = "inverter";
-	reconnectInterval = 15000;
+	wifiSsidRemote = "solar";
+	wifiPasswordRemote = "inverter";
+	wifiReconnectInterval = 15000;
 	currentUpdateInterval = 1000;
 
 	currentUpdateHost = "solar.local";

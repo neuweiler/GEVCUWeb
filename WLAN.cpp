@@ -37,17 +37,21 @@ void WLAN::init() {
 	WiFi.persistent(false); // prevent flash memory wear ! (https://github.com/esp8266/Arduino/issues/1054)
 	WiFi.mode(WIFI_AP_STA); // set as AP and as client
 	WiFi.setAutoReconnect(false); // auto-reconnect tries every 1sec, messes up soft-ap (can't connect)
-	WiFi.begin(config.ssidRemote, config.passwordRemote);
-	logger.info("started WiFi Station for SSID %s", config.ssidRemote);
+	WiFi.begin(config.wifiSsidRemote, config.wifiPasswordRemote);
+	logger.info("started WiFi Station for SSID %s", config.wifiSsidRemote);
 
 	// setup own AccessPoint
-	WiFi.softAP(config.ssid, config.password);
+	WiFi.softAP(config.wifiSsid, config.wifiPassword);
 	delay(100); // wait for SYSTEM_EVENT_AP_START
 
-	IPAddress localIp(192, 168, 3, 10);
-	IPAddress subnet(255, 255, 255, 0);
-	WiFi.softAPConfig(localIp, localIp, subnet);
-	logger.info("started WiFi AP %s on ip %s", config.ssid, WiFi.softAPIP().toString().c_str());
+	IPAddress localIp;
+	localIp.fromString(config.wifiAddress);
+	IPAddress gateway;
+	gateway.fromString(config.wifiGateway);
+	IPAddress subnet;
+	subnet.fromString(config.wifiNetmask);
+	WiFi.softAPConfig(localIp, gateway, subnet);
+	logger.info("started WiFi AP %s on ip %s", config.wifiSsid, WiFi.softAPIP().toString().c_str());
 
 	http.setReuse(true);
 
@@ -80,9 +84,9 @@ void WLAN::checkConnection() {
 	} else {
 		stationConnected = false;
 		// we try to (re)establish connection every 15sec, this allows softAP to work (although it gets blocked for 1-2sec)
-		if (millis() - lastConnectionAttempt > config.reconnectInterval) {
-			logger.info("attempting to (re)connect to %s", config.ssidRemote);
-			WiFi.begin(config.ssidRemote, config.passwordRemote);
+		if (millis() - lastConnectionAttempt > config.wifiReconnectInterval) {
+			logger.info("attempting to (re)connect to %s", config.wifiSsidRemote);
+			WiFi.begin(config.wifiSsidRemote, config.wifiPasswordRemote);
 			lastConnectionAttempt = millis();
 		}
 	}
@@ -93,14 +97,46 @@ void WLAN::checkConnection() {
  * Retrieve the available max current for charging from a remote device, e.g. a solar inverter
  */
 void WLAN::updateMaxCurrent() {
-	http.begin(config.currentUpdateHost, config.currentUpdatePort, config.currentUpdateUri);
+/*	WiFiClient client;
+	if (client.connect(config.currentUpdateHost, config.currentUpdatePort, 2000)) {
+		client.println("GET /maxCurrent HTTP/1.0");
+//		client.println("Host: arduinojson.org"));
+		client.println("Connection: close");
+		client.println();
 
+		char status[32] = { 0 };
+		client.readBytesUntil('\r', status, sizeof(status));
+		if (strcmp(status + 9, "200 OK") == 0) {
+			if (client.find("\r\n\r\n")) {
+				const size_t capacity = JSON_OBJECT_SIZE(1) + 60;
+				DynamicJsonDocument doc(capacity);
+				DeserializationError error = deserializeJson(doc, client);
+				if (error) {
+					logger.error("deserialize: %s", error.f_str());
+				} else {
+					logger.info("max current: %d", doc["maxCurrent"].as<long>());
+				}
+			}
+		}
+		client.stop();
+
+	}
+*/
+	http.begin(config.currentUpdateHost, config.currentUpdatePort, config.currentUpdateUri);
 	int httpCode = http.GET();
 	if (httpCode > 0) {
 		logger.debug("HTTP GET: %d", httpCode);
 		if (httpCode == HTTP_CODE_OK) {
-			String response = http.getString();
-			logger.info("http get: %s", response.c_str());
+			DeserializationError error = deserializeJson(doc, http.getStream());
+			if (error) {
+				logger.error("deserialize: %s", error.f_str());
+			} else {
+				logger.info("max current: %d", doc["maxCurrent"].as<long>());
+				gevcuAdapter.setConfigParameter("overrideInputCurrent", doc["maxCurrent"].as<String>());
+			}
+
+//			String response = http.getString();
+//			logger.info("http get: %s", response.c_str());
 		}
 	} else {
 		logger.error("HTTP GET: %s", http.errorToString(httpCode).c_str());
