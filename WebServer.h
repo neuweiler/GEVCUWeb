@@ -27,8 +27,7 @@
 #ifndef WEBSERVER_H_
 #define WEBSERVER_H_
 
-#include <SD_MMC.h>
-#include <SPIFFS.h>
+#include "FSHandler.h"
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 
@@ -47,13 +46,10 @@ public:
 	String getUploadPath();
 
 private:
-	void setupFilesystem();
-	void setupWebserver();
 	String fileList(String path);
 
 	AsyncWebServer *server;
 	static const char *MIME_TYPE_JSON;
-	static fs::FS *fileSystem;
 	File uploadFile;
 	String uploadPath;
 };

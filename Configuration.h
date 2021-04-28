@@ -28,12 +28,17 @@
 #define CONFIGURATION_H_
 
 #include <Arduino.h>
+#include <ArduinoJson.h>
+
+#include "FSHandler.h"
 
 class Configuration {
 public:
 	Configuration();
 	virtual ~Configuration();
 	void load();
+
+	StaticJsonDocument<1000> doc;
 
 	const char *wifiSsid;
 	const char *wifiPassword;

@@ -38,7 +38,7 @@ Configuration::Configuration() {
 	wifiSsidRemote = "solar";
 	wifiPasswordRemote = "inverter";
 	wifiReconnectInterval = 15000;
-	currentUpdateInterval = 1000;
+	currentUpdateInterval = 5000;
 
 	currentUpdateHost = "solar.local";
 	currentUpdatePort = 80;
@@ -51,5 +51,24 @@ Configuration::~Configuration() {
 }
 
 void Configuration::load() {
-	// TODO Load from file
+	File file = fsHandler.getFS()->open("/config.json");
+	DeserializationError error = deserializeJson(doc, file);
+	if (error) {
+		logger.error("could not parse config: %s", error.f_str());
+	} else {
+	wifiSsid = doc["wifiSsid"];
+	wifiPassword = doc["wifiPassword"];
+	wifiAddress = doc["wifiAddress"];
+	wifiGateway = doc["wifiGateway"];
+	wifiNetmask = doc["wifiNetmask"];
+	wifiSsidRemote = doc["wifiSsidRemote"];
+	wifiPasswordRemote = doc["wifiPasswordRemote"];
+	wifiReconnectInterval = doc["wifiReconnectInterval"];
+	currentUpdateInterval = doc["currentUpdateInterval"];
+	currentUpdateHost = doc["currentUpdateHost"];
+	currentUpdatePort = doc["currentUpdatePort"];
+	currentUpdateUri = doc["currentUpdateUri"];
+	pinWifiLed = doc["pinWifiLed"];
+	}
+	file.close();
 }

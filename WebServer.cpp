@@ -29,7 +29,6 @@
 WebServer webServer;
 
 const char *WebServer::MIME_TYPE_JSON = "application/json";
-fs::FS *WebServer::fileSystem = NULL;
 
 WebServer::WebServer() {
 	uploadPath = "";
@@ -43,98 +42,14 @@ WebServer::~WebServer() {
 	}
 }
 
-void WebServer::init() {
-	setupFilesystem();
-	setupWebserver();
-}
-
-void WebServer::setupFilesystem() {
-	if (SD_MMC.begin()) {
-		uint8_t cardType = SD_MMC.cardType();
-		if (cardType != CARD_NONE) {
-			logger.info("SD card mount successful");
-			logger.debug("SD_MMC Card Type: %s",
-					(cardType == CARD_MMC ?
-							"MMC" : (cardType == CARD_SD ? "SDSC" : (cardType == CARD_SDHC ? "SDHC" : "unknown"))));
-			fileSystem = &SD_MMC;
-			return;
-		}
-		logger.error("No SD_MMC card attached");
-	}
-	// try SPIFFS as fall-back
-	if (!SPIFFS.begin()) {
-		logger.error("SPIFFS Mount failed");
-	} else {
-		logger.info("SPIFFS Mount successful");
-		fileSystem = &SPIFFS;
-	}
-}
-
-void WebServer::handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data,
-		size_t len, bool final) {
-	if (!index) {
-		logger.info("UploadStart: %s/%s", uploadPath.c_str(), filename.c_str());
-		uploadFile = fileSystem->open(uploadPath + "/" + filename, FILE_WRITE);
-	}
-	uploadFile.write(data, len);
-	if (final) {
-		logger.info("UploadEnd: %s/%s (%d)", uploadPath.c_str(), filename.c_str(), index + len);
-		uploadFile.close();
-	}
-}
-
 void handleFileUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len,
 		bool final) {
 	webServer.handleUpload(request, filename, index, data, len, final);
 }
 
-String WebServer::fileList(String path) {
-	uploadPath = path;
-	File root = fileSystem->open(path);
-	String output = "<html><body><table>";
-	if (path.length() > 1) {
-		String parent = uploadPath.substring(0, uploadPath.lastIndexOf('/'));
-		if (parent.length() == 0) {
-			parent = "/";
-		}
-		output += "<tr><td colspan='4'><a href='/list?dir=" + parent + "'>..</a></td></tr>";
-	}
-	if (root.isDirectory()) {
-		File file = root.openNextFile();
-		while (file) {
-			time_t time = file.getLastWrite();
-			String prefix = (file.isDirectory() ? "/list?dir=/" : "");
-			const char *name = file.name() + 1;
-			output += "<tr>";
-			output += "<td><a href='" + prefix + name + "'>" + name + "</a></td>";
-			output += "<td style='text-align: right;'>" + (file.isDirectory() ? "(dir)" : String(file.size()))
-					+ "</td>";
-			output += "<td style='text-align: right;'>" + String(ctime(&time)) + "</td>";
-			output += "<td><a href='/delete?file=/" + (String) name + "'>delete</a></td>";
-			output += "</tr>";
-			file = root.openNextFile();
-		}
-	}
-	output += "</table>";
-	output += "<form action='/upload' method='post' enctype='multipart/form-data'>";
-	output += "Upload File: <input type='file' id='uploadFile' name='filename'>";
-	output += "<input type='submit'>";
-	output += "</form>";
-	output += "</body></html>";
-
-	return output;
-}
-
-void WebServer::deleteFile(String file) {
-	logger.info("delete: %s", file.c_str());
-	if (!fileSystem->remove(file)) {
-		fileSystem->rmdir(file);
-	}
-}
-
-void WebServer::setupWebserver() {
+void WebServer::init() {
 	server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
-		request->send(*fileSystem, "/config", MIME_TYPE_JSON, false, [](const String &key) {
+		request->send(*fsHandler.getFS(), "/config", MIME_TYPE_JSON, false, [](const String &key) {
 			return gevcuAdapter.getConfigParameter(key);
 		});
 	});
@@ -174,10 +89,67 @@ void WebServer::setupWebserver() {
 		request->redirect("/list?dir=" + webServer.getUploadPath());
 	});
 
-	server->serveStatic("/", *fileSystem, "/").setDefaultFile("index.html");
+	server->serveStatic("/", *fsHandler.getFS(), "/").setDefaultFile("index.html");
 	server->begin();
 
 	logger.info("HTTP server started, use http://gevcu.local");
+}
+
+void WebServer::handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data,
+		size_t len, bool final) {
+	if (!index) {
+		logger.info("UploadStart: %s/%s", uploadPath.c_str(), filename.c_str());
+		uploadFile = fsHandler.getFS()->open(uploadPath + "/" + filename, FILE_WRITE);
+	}
+	uploadFile.write(data, len);
+	if (final) {
+		logger.info("UploadEnd: %s/%s (%d)", uploadPath.c_str(), filename.c_str(), index + len);
+		uploadFile.close();
+	}
+}
+
+String WebServer::fileList(String path) {
+	uploadPath = path;
+	File root = fsHandler.getFS()->open(path);
+	String output = "<html><body><table>";
+	if (path.length() > 1) {
+		String parent = uploadPath.substring(0, uploadPath.lastIndexOf('/'));
+		if (parent.length() == 0) {
+			parent = "/";
+		}
+		output += "<tr><td colspan='4'><a href='/list?dir=" + parent + "'>..</a></td></tr>";
+	}
+	if (root.isDirectory()) {
+		File file = root.openNextFile();
+		while (file) {
+			time_t time = file.getLastWrite();
+			String prefix = (file.isDirectory() ? "/list?dir=/" : "");
+			const char *name = file.name() + 1;
+			output += "<tr>";
+			output += "<td><a href='" + prefix + name + "'>" + name + "</a></td>";
+			output += "<td style='text-align: right;'>" + (file.isDirectory() ? "(dir)" : String(file.size()))
+					+ "</td>";
+			output += "<td style='text-align: right;'>" + String(ctime(&time)) + "</td>";
+			output += "<td><a href='/delete?file=/" + (String) name + "'>delete</a></td>";
+			output += "</tr>";
+			file = root.openNextFile();
+		}
+	}
+	output += "</table>";
+	output += "<form action='/upload' method='post' enctype='multipart/form-data'>";
+	output += "Upload File: <input type='file' id='uploadFile' name='filename'>";
+	output += "<input type='submit'>";
+	output += "</form>";
+	output += "</body></html>";
+
+	return output;
+}
+
+void WebServer::deleteFile(String file) {
+	logger.info("delete: %s", file.c_str());
+	if (!fsHandler.getFS()->remove(file)) {
+		fsHandler.getFS()->rmdir(file);
+	}
 }
 
 AsyncWebServer* WebServer::getWebServer() {
