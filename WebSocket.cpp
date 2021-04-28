@@ -24,98 +24,92 @@
 
  */
 
-
 #include "WebSocket.h"
 
 WebSocket webSocket;
 
-WebSocket::WebSocket()
-{
-    connected = false;
-    observer = NULL;
-    webSocketHandler = new AsyncWebSocket("/ws");
+WebSocket::WebSocket() {
+	connected = false;
+	observer = NULL;
+	webSocketHandler = new AsyncWebSocket("/ws");
 }
 
-WebSocket::~WebSocket()
-{
-    if (webSocketHandler) {
-        free(webSocketHandler);
-        webSocketHandler = NULL;
-    }
+WebSocket::~WebSocket() {
+	if (webSocketHandler) {
+		free(webSocketHandler);
+		webSocketHandler = NULL;
+	}
 }
 
-void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
-{
-    webSocket.onWebsocketEvent(server, client, type, arg, data, len);
+void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data,
+		size_t len) {
+	webSocket.onWebsocketEvent(server, client, type, arg, data, len);
 }
 
-void WebSocket::init(AsyncWebServer *server)
-{
-    connected = false;
-    webSocketHandler->onEvent(onEvent);
-    server->addHandler(webSocketHandler);
-    logger.info("WebSocket configured");
+void WebSocket::init(AsyncWebServer *server) {
+	connected = false;
+	webSocketHandler->onEvent(onEvent);
+	server->addHandler(webSocketHandler);
+	logger.info("WebSocket configured");
 }
 
-void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
-{
-    if (type == WS_EVT_CONNECT) {
-        connected = true;
-        logger.info("ws[%s][%u] connect", server->url(), client->id());
-        observer->event("connected");
-    } else if (type == WS_EVT_DISCONNECT) {
-        connected = false;
-        logger.info("ws[%s][%u] disconnect", server->url(), client->id());
-        observer->event("disconnected");
-    } else if (type == WS_EVT_ERROR) {
-        logger.warn("ws[%s][%u] error(%u): %s", server->url(), client->id(), *((uint16_t*) arg), (char*) data);
-    } else if (type == WS_EVT_PONG) {
-        logger.debug("ws[%s][%u] pong[%u]: %s", server->url(), client->id(), len, (len) ? (char*) data : "");
-    } else if (type == WS_EVT_DATA) {
-        AwsFrameInfo *info = (AwsFrameInfo*) arg;
-        String msg = "";
-        if (info->final && info->index == 0 && info->len == len) {
-            //the whole message is in a single frame and we got all of it's data
-            if (logger.isDebug()) {
-                logger.debug("ws[%s][%u] %s-message[%llu]: ", server->url(), client->id(), (info->opcode == WS_TEXT) ? "text" : "binary", info->len);
-            }
+void WebSocket::onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg,
+		uint8_t *data, size_t len) {
+	if (type == WS_EVT_CONNECT) {
+		connected = true;
+		logger.info("ws[%s][%u] connect", server->url(), client->id());
+		observer->event("connected");
+	} else if (type == WS_EVT_DISCONNECT) {
+		connected = false;
+		logger.info("ws[%s][%u] disconnect", server->url(), client->id());
+		observer->event("disconnected");
+	} else if (type == WS_EVT_ERROR) {
+		logger.warn("ws[%s][%u] error(%u): %s", server->url(), client->id(), *((uint16_t*) arg), (char*) data);
+	} else if (type == WS_EVT_PONG) {
+		logger.debug("ws[%s][%u] pong[%u]: %s", server->url(), client->id(), len, (len) ? (char*) data : "");
+	} else if (type == WS_EVT_DATA) {
+		AwsFrameInfo *info = (AwsFrameInfo*) arg;
+		String msg = "";
+		if (info->final && info->index == 0 && info->len == len) {
+			//the whole message is in a single frame and we got all of it's data
+			if (logger.isDebug()) {
+				logger.debug("ws[%s][%u] %s-message[%llu]: ", server->url(), client->id(),
+						(info->opcode == WS_TEXT) ? "text" : "binary", info->len);
+			}
 
-            if (info->opcode == WS_TEXT) {
-                for (size_t i = 0; i < info->len; i++) {
-                    msg += (char) data[i];
-                }
-            } else {
-                char buff[3];
-                for (size_t i = 0; i < info->len; i++) {
-                    sprintf(buff, "%02x ", (uint8_t) data[i]);
-                    msg += buff;
-                }
-            }
+			if (info->opcode == WS_TEXT) {
+				for (size_t i = 0; i < info->len; i++) {
+					msg += (char) data[i];
+				}
+			} else {
+				char buff[3];
+				for (size_t i = 0; i < info->len; i++) {
+					sprintf(buff, "%02x ", (uint8_t) data[i]);
+					msg += buff;
+				}
+			}
 
-            if (msg.equals("ping")) {
-                webSocketHandler->textAll("pong");
-            } else if (observer) {
-                observer->event(msg);
-            }
-        }
-    }
+			if (msg.equals("ping")) {
+				webSocketHandler->textAll("pong");
+			} else if (observer) {
+				observer->event(msg);
+			}
+		}
+	}
 }
 
 bool WebSocket::isConnected() {
-    return connected;
+	return connected;
 }
 
-void WebSocket::subscribe(WebSocketObserver *observer)
-{
-    this->observer = observer;
+void WebSocket::subscribe(WebSocketObserver *observer) {
+	this->observer = observer;
 }
 
-void WebSocket::send(String data)
-{
-    webSocketHandler->textAll(data);
+void WebSocket::send(String data) {
+	webSocketHandler->textAll(data);
 }
 
-void WebSocket::loop()
-{
-    webSocketHandler->cleanupClients();
+void WebSocket::loop() {
+	webSocketHandler->cleanupClients();
 }

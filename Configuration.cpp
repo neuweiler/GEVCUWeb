@@ -24,33 +24,29 @@
 
  */
 
-
 #include "Configuration.h"
 
 Configuration config;
 
-Configuration::Configuration()
-{
-    ssid = "GEVCU";
-    password = "verysecret";
+Configuration::Configuration() {
+	ssid = "GEVCU";
+	password = "verysecret";
 
-    ssidRemote = "solar";
-    passwordRemote = "inverter";
-    reconnectInterval = 15000;
-    currentUpdateInterval = 1000;
+	ssidRemote = "solar";
+	passwordRemote = "inverter";
+	reconnectInterval = 15000;
+	currentUpdateInterval = 1000;
 
 	currentUpdateHost = "solar.local";
 	currentUpdatePort = 80;
 	currentUpdateUri = "/maxCurrent";
 
-    pinWifiLed = 32;
+	pinWifiLed = 32;
 }
 
-Configuration::~Configuration()
-{
+Configuration::~Configuration() {
 }
 
-void Configuration::load()
-{
-    // TODO Load from file
+void Configuration::load() {
+	// TODO Load from file
 }

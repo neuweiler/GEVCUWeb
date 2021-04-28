@@ -24,7 +24,6 @@
 
  */
 
-
 #ifndef HEARTBEAT_H_
 #define HEARTBEAT_H_
 
@@ -32,18 +31,17 @@
 #include "Configuration.h"
 #include "GevcuAdapter.h"
 
-class HeartBeat
-{
+class HeartBeat {
 public:
-    HeartBeat();
-    virtual ~HeartBeat();
-    void init();
-    void loop();
+	HeartBeat();
+	virtual ~HeartBeat();
+	void init();
+	void loop();
 
 private:
-    uint32_t timestamp;
-    uint16_t count;
-    bool led;
+	uint32_t timestamp;
+	uint16_t count;
+	bool led;
 };
 
 extern HeartBeat heartBeat;

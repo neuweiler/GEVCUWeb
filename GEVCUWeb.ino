@@ -26,27 +26,25 @@
 
 #include "GEVCUWeb.h"
 
-void setup()
-{
-    logger.info("setup");
+void setup() {
+	logger.info("setup");
 
-    config.load();
+	config.load();
 
-    wlan.init();
-    webServer.init();
-    webSocket.init(webServer.getWebServer());
+	wlan.init();
+	webServer.init();
+	webSocket.init(webServer.getWebServer());
 
-    gevcuAdapter.init();
+	gevcuAdapter.init();
 
-    heartBeat.init();
+	heartBeat.init();
 }
 
-void loop()
-{
-    delay(100);
+void loop() {
+	delay(100);
 
-    wlan.loop();
-    gevcuAdapter.loop();
-    webSocket.loop();
-    heartBeat.loop();
+	wlan.loop();
+	gevcuAdapter.loop();
+	webSocket.loop();
+	heartBeat.loop();
 }

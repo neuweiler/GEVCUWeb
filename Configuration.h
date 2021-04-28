@@ -24,32 +24,30 @@
 
  */
 
-
 #ifndef CONFIGURATION_H_
 #define CONFIGURATION_H_
 
 #include <Arduino.h>
 
-class Configuration
-{
+class Configuration {
 public:
-    Configuration();
-    virtual ~Configuration();
-    void load();
+	Configuration();
+	virtual ~Configuration();
+	void load();
 
-    const char *ssid;
-    const char *password;
+	const char *ssid;
+	const char *password;
 
-    const char *ssidRemote;
-    const char *passwordRemote;
-    uint16_t reconnectInterval;
+	const char *ssidRemote;
+	const char *passwordRemote;
+	uint16_t reconnectInterval;
 
-    uint16_t currentUpdateInterval;
+	uint16_t currentUpdateInterval;
 	const char *currentUpdateHost;
 	uint16_t currentUpdatePort;
 	const char *currentUpdateUri;
 
-    uint8_t pinWifiLed;
+	uint8_t pinWifiLed;
 };
 
 extern Configuration config;

@@ -24,33 +24,28 @@
 
  */
 
-
 #include "HeartBeat.h"
 
 HeartBeat heartBeat;
 
-HeartBeat::HeartBeat()
-{
-    led = false;
-    timestamp = millis();
-    count = 0;
+HeartBeat::HeartBeat() {
+	led = false;
+	timestamp = millis();
+	count = 0;
 }
 
-HeartBeat::~HeartBeat()
-{
+HeartBeat::~HeartBeat() {
 }
 
-void HeartBeat::init()
-{
-    pinMode(config.pinWifiLed, OUTPUT);
+void HeartBeat::init() {
+	pinMode(config.pinWifiLed, OUTPUT);
 }
 
-void HeartBeat::loop()
-{
-    if (timestamp + 1000 < millis()) {
-        led = !led;
-        digitalWrite(config.pinWifiLed, led | webSocket.isConnected());
-        timestamp = millis();
-        gevcuAdapter.sendHeartBeat(count++);
-    }
+void HeartBeat::loop() {
+	if (timestamp + 1000 < millis()) {
+		led = !led;
+		digitalWrite(config.pinWifiLed, led | webSocket.isConnected());
+		timestamp = millis();
+		gevcuAdapter.sendHeartBeat(count++);
+	}
 }

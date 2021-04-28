@@ -24,7 +24,6 @@
 
  */
 
-
 #ifndef WEBSOCKET_H_
 #define WEBSOCKET_H_
 
@@ -32,28 +31,27 @@
 #include "Configuration.h"
 #include "Logger.h"
 
-class WebSocketObserver
-{
+class WebSocketObserver {
 public:
-    virtual void event(String message);
+	virtual void event(String message);
 };
 
-class WebSocket
-{
+class WebSocket {
 public:
-    WebSocket();
-    virtual ~WebSocket();
-    void init(AsyncWebServer *server);
-    void loop();
-    void send(String data);
-    void onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
-    void subscribe(WebSocketObserver *observer);
-    bool isConnected();
+	WebSocket();
+	virtual ~WebSocket();
+	void init(AsyncWebServer *server);
+	void loop();
+	void send(String data);
+	void onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg,
+			uint8_t *data, size_t len);
+	void subscribe(WebSocketObserver *observer);
+	bool isConnected();
 
 private:
-    AsyncWebSocket *webSocketHandler;
-    WebSocketObserver *observer;
-    bool connected;
+	AsyncWebSocket *webSocketHandler;
+	WebSocketObserver *observer;
+	bool connected;
 };
 
 extern WebSocket webSocket;

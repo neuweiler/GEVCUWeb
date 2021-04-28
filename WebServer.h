@@ -24,7 +24,6 @@
 
  */
 
-
 #ifndef WEBSERVER_H_
 #define WEBSERVER_H_
 
@@ -36,27 +35,27 @@
 #include "Logger.h"
 #include "GevcuAdapter.h"
 
-class WebServer
-{
+class WebServer {
 public:
-    WebServer();
-    virtual ~WebServer();
-    void init();
-    AsyncWebServer* getWebServer();
-    void deleteFile(String file);
-    void handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len, bool final);
-    String getUploadPath();
+	WebServer();
+	virtual ~WebServer();
+	void init();
+	AsyncWebServer* getWebServer();
+	void deleteFile(String file);
+	void handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data, size_t len,
+			bool final);
+	String getUploadPath();
 
 private:
-    void setupFilesystem();
-    void setupWebserver();
-    String fileList(String path);
+	void setupFilesystem();
+	void setupWebserver();
+	String fileList(String path);
 
-    AsyncWebServer *server;
-    static const char *MIME_TYPE_JSON;
-    static fs::FS *fileSystem;
-    File uploadFile;
-    String uploadPath;
+	AsyncWebServer *server;
+	static const char *MIME_TYPE_JSON;
+	static fs::FS *fileSystem;
+	File uploadFile;
+	String uploadPath;
 };
 
 extern WebServer webServer;

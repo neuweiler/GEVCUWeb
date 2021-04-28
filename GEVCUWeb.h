@@ -24,7 +24,6 @@
 
  */
 
-
 #ifndef GEVCU_ESP32WEB_H_
 #define GEVCU_ESP32WEB_H_
 
