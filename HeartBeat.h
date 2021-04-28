@@ -37,11 +37,10 @@ class HeartBeat
 public:
     HeartBeat();
     virtual ~HeartBeat();
-    void start(Configuration *config);
+    void init();
     void loop();
 
 private:
-    Configuration *config;
     uint32_t timestamp;
     uint16_t count;
     bool led;

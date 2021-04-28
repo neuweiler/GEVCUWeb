@@ -32,7 +32,6 @@ GevcuAdapter::GevcuAdapter()
 {
     bufPos = 0;
     binaryDataCount = 0;
-    config = NULL;
     connectedClients = 0;
     timestamp = millis();
 }
@@ -41,9 +40,8 @@ GevcuAdapter::~GevcuAdapter()
 {
 }
 
-void GevcuAdapter::start(Configuration *configuration)
+void GevcuAdapter::init()
 {
-    config = configuration;
     webSocket.subscribe(this);
 
     Serial2.begin(115200);

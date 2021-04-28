@@ -31,7 +31,6 @@ WebSocket webSocket;
 
 WebSocket::WebSocket()
 {
-    config = NULL;
     connected = false;
     observer = NULL;
     webSocketHandler = new AsyncWebSocket("/ws");
@@ -50,9 +49,8 @@ void onEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType 
     webSocket.onWebsocketEvent(server, client, type, arg, data, len);
 }
 
-void WebSocket::start(Configuration *configuration, AsyncWebServer *server)
+void WebSocket::init(AsyncWebServer *server)
 {
-    config = configuration;
     connected = false;
     webSocketHandler->onEvent(onEvent);
     server->addHandler(webSocketHandler);

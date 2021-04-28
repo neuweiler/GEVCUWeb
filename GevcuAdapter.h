@@ -27,7 +27,6 @@
 #ifndef GEVCUADAPTER_H_
 #define GEVCUADAPTER_H_
 
-#include "Configuration.h"
 #include "ArrayMap.h"
 #include "Logger.h"
 #include "WebSocket.h"
@@ -51,7 +50,7 @@ class GevcuAdapter: public WebSocketObserver
 public:
     GevcuAdapter();
     virtual ~GevcuAdapter();
-    void start(Configuration *config);
+    void init();
     void loop();
     void event(String message);
     String getConfigParameter(String key);
@@ -70,7 +69,6 @@ private:
     uint16_t readUInt16(char *data);
     String getTimeRunning();
 
-    Configuration *config;
     ArrayMap<String, String> gevcuConfig;
     StaticJsonDocument<3000> doc;
     char serialBuffer[SERIAL_BUFFER_SIZE];

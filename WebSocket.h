@@ -43,7 +43,7 @@ class WebSocket
 public:
     WebSocket();
     virtual ~WebSocket();
-    void start(Configuration *configuration, AsyncWebServer *server);
+    void init(AsyncWebServer *server);
     void loop();
     void send(String data);
     void onWebsocketEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
@@ -51,7 +51,6 @@ public:
     bool isConnected();
 
 private:
-    Configuration *config;
     AsyncWebSocket *webSocketHandler;
     WebSocketObserver *observer;
     bool connected;
