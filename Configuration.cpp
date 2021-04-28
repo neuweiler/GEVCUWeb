@@ -31,13 +31,19 @@ Configuration config;
 
 Configuration::Configuration()
 {
-    SSID = "GEVCU";
-    PASSWORD = "verysecret";
+    ssid = "GEVCU";
+    password = "verysecret";
 
-    PIN_WIFI_LED = 32;
+    ssidRemote = "solar";
+    passwordRemote = "inverter";
+    reconnectInterval = 15000;
+    currentUpdateInterval = 1000;
 
-    PIN_SERIAL1_RX = 12;
-    PIN_SERIAL1_TX = 13;
+	currentUpdateHost = "solar.local";
+	currentUpdatePort = 80;
+	currentUpdateUri = "/maxCurrent";
+
+    pinWifiLed = 32;
 }
 
 Configuration::~Configuration()

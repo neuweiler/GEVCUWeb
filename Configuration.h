@@ -37,12 +37,19 @@ public:
     virtual ~Configuration();
     void load();
 
-    const char *SSID;
-    const char *PASSWORD;
+    const char *ssid;
+    const char *password;
 
-    uint8_t PIN_WIFI_LED;
-    uint8_t PIN_SERIAL1_RX;
-    uint8_t PIN_SERIAL1_TX;
+    const char *ssidRemote;
+    const char *passwordRemote;
+    uint16_t reconnectInterval;
+
+    uint16_t currentUpdateInterval;
+	const char *currentUpdateHost;
+	uint16_t currentUpdatePort;
+	const char *currentUpdateUri;
+
+    uint8_t pinWifiLed;
 };
 
 extern Configuration config;
