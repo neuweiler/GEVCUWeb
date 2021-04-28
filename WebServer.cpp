@@ -35,7 +35,6 @@ fs::FS *WebServer::fileSystem = NULL;
 WebServer::WebServer()
 {
     uploadPath = "";
-    config = NULL;
     server = new AsyncWebServer(80);
 }
 
@@ -47,35 +46,10 @@ WebServer::~WebServer()
     }
 }
 
-void WebServer::start(Configuration *configuration)
+void WebServer::init()
 {
-    config = configuration;
-
-    setupAP();
-    setupOTA();
     setupFilesystem();
     setupWebserver();
-}
-
-void WebServer::loop()
-{
-    ArduinoOTA.handle();
-}
-
-void WebServer::setupAP()
-{
-    logger.info("Configuring access point: %s", config->SSID);
-
-//    WiFi.persistent(false); // reduce web-server freezes
-    WiFi.mode(WIFI_AP);
-    WiFi.softAP(config->SSID, config->PASSWORD);
-    delay(100); // wait for SYSTEM_EVENT_AP_START
-
-    IPAddress localIp(192, 168, 3, 10);
-    IPAddress subnet(255, 255, 255, 0);
-    WiFi.softAPConfig(localIp, localIp, subnet);
-
-    logger.info("Access point started");
 }
 
 void WebServer::setupFilesystem()
@@ -210,7 +184,6 @@ void WebServer::setupWebserver()
     server->serveStatic("/", *fileSystem, "/").setDefaultFile("index.html");
     server->begin();
 
-    MDNS.begin("gevcu");
     logger.info("HTTP server started, use http://gevcu.local");
 }
 
@@ -222,26 +195,4 @@ AsyncWebServer* WebServer::getWebServer()
 String WebServer::getUploadPath()
 {
     return this->uploadPath;
-}
-
-void WebServer::setupOTA()
-{
-    ArduinoOTA.onStart([]() {
-        logger.info("Start updating %s", (ArduinoOTA.getCommand() == U_FLASH ? "flash" : "filesystem"));
-        gevcuAdapter.stopHeartBeat();
-    })
-    .onEnd([]() {
-        logger.info("Update finished");
-        gevcuAdapter.startHeartBeat();
-    })
-    .onError([](ota_error_t error) {
-        logger.error("Update Error[%u]: ", error);
-        if (error == OTA_AUTH_ERROR) logger.error("Auth Failed");
-        else if (error == OTA_BEGIN_ERROR) logger.error("Begin Failed");
-        else if (error == OTA_CONNECT_ERROR) logger.error("Connect Failed");
-        else if (error == OTA_RECEIVE_ERROR) logger.error("Receive Failed");
-        else if (error == OTA_END_ERROR) logger.error("End Failed");
-    });
-    ArduinoOTA.begin();
-    logger.info("OTA initialized");
 }
