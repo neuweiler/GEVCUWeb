@@ -57,10 +57,9 @@ void WebServer::setupFilesystem() {
 					(cardType == CARD_MMC ?
 							"MMC" : (cardType == CARD_SD ? "SDSC" : (cardType == CARD_SDHC ? "SDHC" : "unknown"))));
 			fileSystem = &SD_MMC;
-		} else {
-			logger.error("No SD_MMC card attached");
+			return;
 		}
-		return;
+		logger.error("No SD_MMC card attached");
 	}
 	// try SPIFFS as fall-back
 	if (!SPIFFS.begin()) {
@@ -135,7 +134,7 @@ void WebServer::deleteFile(String file) {
 
 void WebServer::setupWebserver() {
 	server->on("/config", HTTP_GET, [](AsyncWebServerRequest *request) {
-		request->send(*fileSystem, "/config", "application/json", false, [](const String &key) {
+		request->send(*fileSystem, "/config", MIME_TYPE_JSON, false, [](const String &key) {
 			return gevcuAdapter.getConfigParameter(key);
 		});
 	});
