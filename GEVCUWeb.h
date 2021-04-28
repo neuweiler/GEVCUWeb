@@ -1,5 +1,5 @@
 /*
- * GEVCU-ESP32Web.ino
+ * GEVCU-ESP32Web.h
  *
  Copyright (c) 2020 Michael Neuweiler
 
@@ -24,27 +24,15 @@
 
  */
 
-#include "GEVCU-ESP32Web.h"
 
-void setup()
-{
-    logger.info("setup");
+#ifndef GEVCU_ESP32WEB_H_
+#define GEVCU_ESP32WEB_H_
 
-    config.load();
+#include "Logger.h"
+#include "HeartBeat.h"
+#include "WLAN.h"
+#include "Webserver.h"
+#include "GevcuAdapter.h"
+#include "WebSocket.h"
 
-    webServer.start(&config);
-    webSocket.start(&config, webServer.getWebServer());
-
-    gevcuAdapter.start(&config);
-
-    heartBeat.start(&config);
-}
-
-void loop()
-{
-    delay(100);
-    gevcuAdapter.loop();
-    webSocket.loop();
-    heartBeat.loop();
-    webServer.loop();
-}
+#endif /* GEVCU_ESP32WEB_H_ */
