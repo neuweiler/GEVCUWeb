@@ -50,7 +50,7 @@ Upload Parameters:
 * Port: gevcu at 192.168.3.1 (for over the air update once a working copy has been installed via USB)
 
 The ESP32 must be connected the following way to GEVCU's wifi/iChip socket:
-![Project Schema](docs/Adapter Diagram.png)
+![Schema](docs/AdapterDiagram.png)
 
 With a simple adapter you can plug the esp3 board right into the original socket:
-![Project Adapter](docs/Adapter Breadboard.png)
+![Adapter](docs/AdapterBreadboard.png)
