@@ -30,7 +30,7 @@ void FSHandler::init() {
 		logger.error("No SD_MMC card attached");
 	}
 	// try SPIFFS as fall-back
-	if (!SPIFFS.begin()) {
+	if (!SPIFFS.begin(false, "/spiffs", 20)) {
 		logger.error("SPIFFS Mount failed");
 	} else {
 		logger.info("SPIFFS Mount successful");
