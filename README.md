@@ -34,6 +34,8 @@ Requires the following hardware:
 Upload the contents of the directory "data" to the root of the file system.
 * GEVCU (General Electric Vehicle Control Unit) to connect to via Serial2 interface.
 
+![BoardTop](docs/ESP-WROOM-32-top.jpg) ![BoardBottom](docs/ESP-WROOM-32-bottom.jpg)
+
 Note: To ensure flawless operation, increase the "max_files" config in SD_MMC.cpp from 5 to 20 !
       (in SDMMCFS::begin() , around line 72)
 
@@ -50,7 +52,7 @@ Upload Parameters:
 * Port: gevcu at 192.168.3.1 (for over the air update once a working copy has been installed via USB)
 
 The ESP32 must be connected the following way to GEVCU's wifi/iChip socket:
-![Schema](docs/AdapterDiagram.png)
+![Schema](./docs/AdapterDiagram.png)
 
 With a simple adapter you can plug the esp3 board right into the original socket:
 ![Adapter](docs/AdapterBreadboard.png)
