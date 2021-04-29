@@ -66,8 +66,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/HTTPClient/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/WiFiClientSecure/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/FreeRTOS/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -106,8 +104,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/HTTPClient/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/WiFiClientSecure/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/FreeRTOS/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -146,8 +142,6 @@
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/HTTPClient/src}&quot;"/>
                                     									
                                     <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/WiFiClientSecure/src}&quot;"/>
-                                    									
-                                    <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GEVCUWeb/libraries/FreeRTOS/src}&quot;"/>
                                     								
                                 </option>
                                 								
@@ -197,7 +191,15 @@
     	
     <storageModule moduleId="org.eclipse.cdt.core.LanguageSettingsProviders"/>
     	
-    <storageModule moduleId="refreshScope"/>
+    <storageModule moduleId="refreshScope" versionNumber="2">
+        		
+        <configuration configurationName="Release">
+            			
+            <resource resourceType="PROJECT" workspacePath="/GEVCUWeb"/>
+            		
+        </configuration>
+        	
+    </storageModule>
     	
     <storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
     
