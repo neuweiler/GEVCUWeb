@@ -29,10 +29,12 @@ Requires the following libraries:
 * WifiClientSecure
 
 Requires the following hardware:
-* ESP32 - if possible with SD card reader integrated
+* ESP32 board with GPIO 12-17 exposed - if possible with SD card reader integrated (then only 16,17 are required) - a good choice is https://www.aliexpress.com/item/4000133143167.html
 * SD card with FAT filesystem to store the web site data on (you may also use 1.5MB SPIFFS instead).
 Upload the contents of the directory "data" to the root of the file system.
 * GEVCU (General Electric Vehicle Control Unit) to connect to via Serial2 interface.
+
+![Board top](docs/ESP-WROOM-32 top.jpg) ![Board bottom](docs/ESP-WROOM-32 bottom.jpg)
 
 Note: To ensure flawless operation, increase the "max_files" config in SD_MMC.cpp from 5 to 20 !
       (in SDMMCFS::begin() , around line 72)
