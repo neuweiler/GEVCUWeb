@@ -80,7 +80,10 @@ void WLAN::loop() {
  */
 void WLAN::checkConnection() {
 	if (WiFi.isConnected()) {
-		stationConnected = true;
+		if (!stationConnected) {
+			stationConnected = true;
+			logger.info("connected to %s with ip %s", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());
+		}
 	} else {
 		stationConnected = false;
 		// we try to (re)establish connection every 15sec, this allows softAP to work (although it gets blocked for 1-2sec)
@@ -97,31 +100,6 @@ void WLAN::checkConnection() {
  * Retrieve the available max current for charging from a remote device, e.g. a solar inverter
  */
 void WLAN::updateMaxCurrent() {
-/*	WiFiClient client;
-	if (client.connect(config.currentUpdateHost, config.currentUpdatePort, 2000)) {
-		client.println("GET /maxCurrent HTTP/1.0");
-//		client.println("Host: arduinojson.org"));
-		client.println("Connection: close");
-		client.println();
-
-		char status[32] = { 0 };
-		client.readBytesUntil('\r', status, sizeof(status));
-		if (strcmp(status + 9, "200 OK") == 0) {
-			if (client.find("\r\n\r\n")) {
-				const size_t capacity = JSON_OBJECT_SIZE(1) + 60;
-				DynamicJsonDocument doc(capacity);
-				DeserializationError error = deserializeJson(doc, client);
-				if (error) {
-					logger.error("deserialize: %s", error.f_str());
-				} else {
-					logger.info("max current: %d", doc["maxCurrent"].as<long>());
-				}
-			}
-		}
-		client.stop();
-
-	}
-*/
 	http.begin(config.currentUpdateHost, config.currentUpdatePort, config.currentUpdateUri);
 	int httpCode = http.GET();
 	if (httpCode > 0) {
@@ -131,12 +109,8 @@ void WLAN::updateMaxCurrent() {
 			if (error) {
 				logger.error("deserialize: %s", error.f_str());
 			} else {
-				logger.info("max current: %d", doc["maxCurrent"].as<long>());
 				gevcuAdapter.setConfigParameter("overrideInputCurrent", doc["maxCurrent"].as<String>());
 			}
-
-//			String response = http.getString();
-//			logger.info("http get: %s", response.c_str());
 		}
 	} else {
 		logger.error("HTTP GET: %s", http.errorToString(httpCode).c_str());
