@@ -92,7 +92,7 @@ void WebServer::init() {
 	server->serveStatic("/", *fsHandler.getFS(), "/").setDefaultFile("index.html");
 	server->begin();
 
-	logger.info("HTTP server started, use http://gevcu.local");
+	logger.info("HTTP server started, use http://%s.local", config.wifiHostname);
 }
 
 void WebServer::handleUpload(AsyncWebServerRequest *request, const String &filename, size_t index, uint8_t *data,

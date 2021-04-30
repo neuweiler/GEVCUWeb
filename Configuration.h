@@ -34,28 +34,28 @@
 
 class Configuration {
 public:
-	Configuration();
-	virtual ~Configuration();
 	void load();
 
 	StaticJsonDocument<1000> doc;
 
-	const char *wifiSsid;
-	const char *wifiPassword;
-	const char *wifiAddress;
-	const char *wifiGateway;
-	const char *wifiNetmask;
+	uint8_t wifiPinLed;
+	const char *wifiHostname;
 
-	const char *wifiSsidRemote;
-	const char *wifiPasswordRemote;
-	uint16_t wifiReconnectInterval;
+	const char *wifiStationSsid;
+	const char *wifiStationPassword;
+	uint16_t wifiStationReconnectInterval;
+
+	const char *wifiApSsid;
+	const char *wifiApPassword;
+	uint8_t wifiApChannel;
+	const char *wifiApAddress;
+	const char *wifiApGateway;
+	const char *wifiApNetmask;
 
 	uint16_t currentUpdateInterval;
 	const char *currentUpdateHost;
 	uint16_t currentUpdatePort;
 	const char *currentUpdateUri;
-
-	uint8_t pinWifiLed;
 };
 
 extern Configuration config;

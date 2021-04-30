@@ -1,18 +1,25 @@
 {
-	"wifiSsid": "GEVCU",
-	"wifiPassword": "verysecret",
-	"wifiAddress": "192.168.3.10",
-	"wifiGateway": "192.168.3.10",
-	"wifiNetmask": "255.255.255.0",
-
-	"wifiSsidRemote": "solar",
-	"wifiPasswordRemote": "inverter",
-	"wifiReconnectInterval": 15000,
-	"currentUpdateInterval": 5000,
-
-	"currentUpdateHost": "solar.local",
-	"currentUpdatePort": 80,
-	"currentUpdateUri": "/maxCurrent",
-
-	"pinWifiLed": 32
+	"wifi": {
+		"pinLed": 32,
+		"hostname": "gevcu",
+		"station": {
+			"ssid": "",
+			"password": "",
+			"reconnectInterval": 15000
+		},
+		"ap": {
+			"ssid": "GEVCU",
+			"password": "verysecret",
+			"channel": 7,
+			"address": "192.168.3.10",
+			"gateway": "192.168.3.10",
+			"netmask": "255.255.255.0"
+		}
+	},
+	"currentUpdate": {
+		"interval": 5000,
+		"host": "solar.local",
+		"port": 80,
+		"uri": "/maxCurrent"
+	}
 }

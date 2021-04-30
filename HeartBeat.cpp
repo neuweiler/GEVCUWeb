@@ -38,13 +38,13 @@ HeartBeat::~HeartBeat() {
 }
 
 void HeartBeat::init() {
-	pinMode(config.pinWifiLed, OUTPUT);
+	pinMode(config.wifiPinLed, OUTPUT);
 }
 
 void HeartBeat::loop() {
 	if (timestamp + 1000 < millis()) {
 		led = !led;
-		digitalWrite(config.pinWifiLed, led | webSocket.isConnected());
+		digitalWrite(config.wifiPinLed, led | webSocket.isConnected());
 		timestamp = millis();
 		gevcuAdapter.sendHeartBeat(count++);
 	}

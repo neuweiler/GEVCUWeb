@@ -35,23 +35,29 @@ WLAN::~WLAN() {
  */
 void WLAN::init() {
 	WiFi.persistent(false); // prevent flash memory wear ! (https://github.com/esp8266/Arduino/issues/1054)
-	WiFi.mode(WIFI_AP_STA); // set as AP and as client
-	WiFi.setAutoReconnect(false); // auto-reconnect tries every 1sec, messes up soft-ap (can't connect)
-	WiFi.begin(config.wifiSsidRemote, config.wifiPasswordRemote);
-	logger.info("started WiFi Station for SSID %s", config.wifiSsidRemote);
+	if (config.wifiStationSsid[0]) {
+		WiFi.mode(WIFI_AP_STA); // set as AP and as client
+		WiFi.setAutoReconnect(false); // auto-reconnect tries every 1sec, messes up soft-ap (can't connect)
+		WiFi.begin(config.wifiStationSsid, config.wifiStationPassword);
+		logger.info("started WiFi Station for SSID %s", config.wifiStationSsid);
+	} else {
+		WiFi.mode(WIFI_AP); // set as AP only
+	}
 
 	// setup own AccessPoint
-	WiFi.softAP(config.wifiSsid, config.wifiPassword);
+	WiFi.hostname(config.wifiHostname);
+	WiFi.softAP(config.wifiApSsid, config.wifiApPassword, config.wifiApChannel);
 	delay(100); // wait for SYSTEM_EVENT_AP_START
 
 	IPAddress localIp;
-	localIp.fromString(config.wifiAddress);
+	localIp.fromString(config.wifiApAddress);
 	IPAddress gateway;
-	gateway.fromString(config.wifiGateway);
+	gateway.fromString(config.wifiApGateway);
 	IPAddress subnet;
-	subnet.fromString(config.wifiNetmask);
+	subnet.fromString(config.wifiApNetmask);
 	WiFi.softAPConfig(localIp, gateway, subnet);
-	logger.info("started WiFi AP %s on ip %s", config.wifiSsid, WiFi.softAPIP().toString().c_str());
+	logger.info("started WiFi AP %s on ip %s, channel %d", config.wifiApSsid, WiFi.softAPIP().toString().c_str(),
+			config.wifiApChannel);
 
 	http.setReuse(true);
 
@@ -82,14 +88,15 @@ void WLAN::checkConnection() {
 	if (WiFi.isConnected()) {
 		if (!stationConnected) {
 			stationConnected = true;
-			logger.info("connected to %s with ip %s", WiFi.SSID().c_str(), WiFi.localIP().toString().c_str());
+			logger.info("connected to %s (rssi:%d) with ip %s", WiFi.SSID().c_str(), WiFi.RSSI(),
+					WiFi.localIP().toString().c_str());
 		}
 	} else {
 		stationConnected = false;
 		// we try to (re)establish connection every 15sec, this allows softAP to work (although it gets blocked for 1-2sec)
-		if (millis() - lastConnectionAttempt > config.wifiReconnectInterval) {
-			logger.info("attempting to (re)connect to %s", config.wifiSsidRemote);
-			WiFi.begin(config.wifiSsidRemote, config.wifiPasswordRemote);
+		if (config.wifiStationSsid[0] && millis() - lastConnectionAttempt > config.wifiStationReconnectInterval) {
+			logger.info("attempting to (re)connect to %s", config.wifiStationSsid);
+			WiFi.begin(config.wifiStationSsid, config.wifiStationPassword);
 			lastConnectionAttempt = millis();
 		}
 	}
@@ -119,7 +126,7 @@ void WLAN::updateMaxCurrent() {
 }
 
 void WLAN::setupOTA() {
-	ArduinoOTA.setHostname("gevcu");
+	ArduinoOTA.setHostname(config.wifiHostname);
 
 	ArduinoOTA.onStart([]() {
 		logger.info("Start updating %s", (ArduinoOTA.getCommand() == U_FLASH ? "flash" : "filesystem"));

@@ -28,47 +28,30 @@
 
 Configuration config;
 
-Configuration::Configuration() {
-	wifiSsid = "GEVCU";
-	wifiPassword = "verysecret";
-	wifiAddress = "192.168.3.10";
-	wifiGateway = "192.168.3.10";
-	wifiNetmask = "255.255.255.0";
-
-	wifiSsidRemote = "solar";
-	wifiPasswordRemote = "inverter";
-	wifiReconnectInterval = 15000;
-	currentUpdateInterval = 5000;
-
-	currentUpdateHost = "solar.local";
-	currentUpdatePort = 80;
-	currentUpdateUri = "/maxCurrent";
-
-	pinWifiLed = 32;
-}
-
-Configuration::~Configuration() {
-}
-
 void Configuration::load() {
 	File file = fsHandler.getFS()->open("/config.json");
 	DeserializationError error = deserializeJson(doc, file);
 	if (error) {
 		logger.error("could not parse config: %s", error.f_str());
-	} else {
-	wifiSsid = doc["wifiSsid"];
-	wifiPassword = doc["wifiPassword"];
-	wifiAddress = doc["wifiAddress"];
-	wifiGateway = doc["wifiGateway"];
-	wifiNetmask = doc["wifiNetmask"];
-	wifiSsidRemote = doc["wifiSsidRemote"];
-	wifiPasswordRemote = doc["wifiPasswordRemote"];
-	wifiReconnectInterval = doc["wifiReconnectInterval"];
-	currentUpdateInterval = doc["currentUpdateInterval"];
-	currentUpdateHost = doc["currentUpdateHost"];
-	currentUpdatePort = doc["currentUpdatePort"];
-	currentUpdateUri = doc["currentUpdateUri"];
-	pinWifiLed = doc["pinWifiLed"];
 	}
+	wifiPinLed = doc["wifi"]["pinLed"] | 32;
+	wifiHostname = doc["wifi"]["hostname"] | "gevcu";
+
+	wifiStationSsid = doc["wifi"]["station"]["ssid"] | "";
+	wifiStationPassword = doc["wifi"]["station"]["password"] | "";
+	wifiStationReconnectInterval = doc["wifi"]["station"]["reconnectInterval"] | 15000;
+
+	wifiApSsid = doc["wifi"]["ap"]["ssid"] | "GEVCU";
+	wifiApPassword = doc["wifi"]["ap"]["password"] | "verysecret";
+	wifiApChannel = doc["wifi"]["ap"]["channel"] | 13;
+	wifiApAddress = doc["wifi"]["ap"]["address"] | "192.168.3.10";
+	wifiApGateway = doc["wifi"]["ap"]["gateway"] | "192.168.3.10";
+	wifiApNetmask = doc["wifi"]["ap"]["netmask"] | "255.255.255.0";
+
+	currentUpdateInterval = doc["currentUpdate"]["interval"] | 5000;
+	currentUpdateHost = doc["currentUpdate"]["host"] | "solar.local";
+	currentUpdatePort = doc["currentUpdate"]["port"] | 80;
+	currentUpdateUri = doc["currentUpdate"]["uri"] | "/maxCurrent";
+
 	file.close();
 }
