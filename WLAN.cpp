@@ -108,6 +108,7 @@ void WLAN::checkConnection() {
  */
 void WLAN::updateMaxCurrent() {
 	http.begin(config.currentUpdateHost, config.currentUpdatePort, config.currentUpdateUri);
+	http.setConnectTimeout(2000);
 	int httpCode = http.GET();
 	if (httpCode > 0) {
 		logger.debug("HTTP GET: %d", httpCode);
