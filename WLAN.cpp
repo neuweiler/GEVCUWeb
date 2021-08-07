@@ -117,7 +117,12 @@ void WLAN::updateMaxCurrent() {
 			if (error) {
 				logger.error("deserialize: %s", error.f_str());
 			} else {
-				gevcuAdapter.setConfigParameter("overrideInputCurrent", doc["maxCurrent"].as<String>());
+				uint16_t maxCurrent = doc["maxCurrent"];
+				if (maxCurrent == 0xffff) {
+					logger.debug("ignoring maxCurrent response");
+				} else {
+					gevcuAdapter.event("chargerInputCurrentTarget=" + maxCurrent);
+				}
 			}
 		}
 	} else {

@@ -165,8 +165,8 @@ var dashboard = dashboard || {};
 	}
 	
 	function setChargeLevels(data) {
-		$('#maximumInputCurrentLevel').attr('min', data.chargeInputLevels[0]);
-		$('#maximumInputCurrentLevel').attr('max', data.chargeInputLevels[1]);
+		$('#chargerInputCurrentTargetLevel').attr('min', data.chargeInputLevels[0]);
+		$('#chargerInputCurrentTargetLevel').attr('max', data.chargeInputLevels[1]);
 	}
 	
 	function setCruiseData(data) {

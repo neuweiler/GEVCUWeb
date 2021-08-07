@@ -130,10 +130,10 @@
 			</div>
 			<div id="inputCurrentSelector">
 				<span id="inputCurrentLabel">Max. input current:</span>
-				<input id="maximumInputCurrentLevel" type="range" min="0" max="100" step="0.1"
-					onchange="dashboard.sendMsg('chargeInput=' + value)"
-					oninput="$('#maximumInputCurrent').html(Number(value).toFixed(1))">
-				<span id="maximumInputCurrent">-</span>
+				<input id="chargerInputCurrentTargetLevel" type="range" min="0" max="100" step="0.1"
+					onchange="dashboard.sendMsg('chargerInputCurrentTarget=' + value)"
+					oninput="$('#chargerInputCurrentTarget').html(Number(value).toFixed(1))">
+				<span id="chargerInputCurrentTarget">-</span>
 				<span id=inputCurrentUnit>A</span>
 			</div>
 			<div class="subInfo">
